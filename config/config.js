@@ -1,7 +1,7 @@
 const fs = require('fs');
 dotenv = require('dotenv').config();
 
-module.exports = {
+const sequelize = {
   development: {
     username: process.env.DB_USER,
     password: process.env.DB_MDP,
@@ -18,3 +18,5 @@ module.exports = {
     dialect: 'mysql'
   }
 };
+
+module.exports = sequelize;

@@ -3,17 +3,17 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Author extends Model {
+  class Beta_reader extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Author.hasOne(models.Book, { foreignKey: 'id', allowNull: false})
+      models.Beta_reader.hasMany(models.Book, { foreignKey: 'id', allowNull: true})
     }
   }
-  Author.init({
+  Beta_reader.init({
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -40,10 +40,16 @@ module.exports = (sequelize, DataTypes) => {
     },
     img: {
       type: DataTypes.STRING
+    },
+    experience: {
+      type: DataTypes.STRING
+    },
+    method_working: {
+      type: DataTypes.STRING
     }
   }, {
     sequelize,
-    modelName: 'Author',
+    modelName: 'Beta_reader',
   });
-  return Author;
+  return Beta_reader;
 };

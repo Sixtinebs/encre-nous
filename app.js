@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require("path");
 const sequelize  = require('./config/config');
+const author = require('./routes/author');
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -24,6 +25,8 @@ app.set('views', path.resolve(__dirname, 'views'));
 
 app.get('/', function (req, res) {
    res.send('Hello World');
-})
+});
+
+app.use(author);
 
 module.exports = app;

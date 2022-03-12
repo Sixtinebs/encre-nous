@@ -5,15 +5,14 @@ module.exports = {
   async up (queryInterface, Sequelize) {
   
       await queryInterface.bulkInsert('Authors', [{
-        FIRST_NAME: 'John',
-        LAST_NAME: 'Doe',
-        EMAIL: 'Joe@gmail.com',
-        BIRTHDAY: '1997-06-27',
-        DESCRITPION: 'BLA BLA',
-        IMG: null,
-        CREATED_AT: new Date(),
-        UPDATED_AT: new Date()
-
+        first_name: 'Marie',
+        last_name: 'rose',
+        email: 'marie@rose.com',
+        birthday: '1997-06-27',
+        description: 'BLA BLA',
+        img: null,
+        createdAt: new Date(),
+        updatedAt: new Date()
      }], {});
 
   },
