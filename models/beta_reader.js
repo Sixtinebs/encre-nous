@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      models.Beta_reader.hasMany(models.Book, { foreignKey: 'id', allowNull: true})
+      //models.Beta_reader.hasMany(models.Book, { foreignKey: 'id', allowNull: true})
     }
   }
   Beta_reader.init({
