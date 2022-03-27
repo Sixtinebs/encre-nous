@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       summarize: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('mediumtext') 
       },
       number_word: {
         type: Sequelize.DECIMAL

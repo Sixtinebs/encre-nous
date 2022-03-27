@@ -52,7 +52,6 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function (req, res) {
-    console.log(req.body);
     models.Author.findOne({where : {id: req.params.id}})
     .then(author => {
         author.destroy();

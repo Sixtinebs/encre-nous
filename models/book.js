@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.Author, { foreignKey: 'author_id:' });
+      this.belongsTo(models.Author, { foreignKey: 'author_id' });
       this.belongsToMany(models.Beta_reader, {
         through: 'Service',
         allowNull: true
@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     summarize: {
-      type: DataTypes.STRING
+      type: DataTypes.TEXT('mediumtext') 
     },
     number_word: {
       type: DataTypes.DECIMAL
