@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const sequelize  = require('./config/config');
 const author = require('./routes/author');
+const bl = require('./routes/beta_reader');
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -28,5 +29,6 @@ app.get('/', function (req, res) {
 });
 
 app.use(author);
+app.use(bl);
 
 module.exports = app;
