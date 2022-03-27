@@ -6,7 +6,12 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER.UNSIGNED
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
       first_name: {
         type: Sequelize.STRING
@@ -14,13 +19,13 @@ module.exports = {
       last_name: {
         type: Sequelize.STRING
       },
-      birdthay: {
+      birthday: {
         type: Sequelize.DATE
       },
       img: {
         type: Sequelize.STRING
       },
-      desciption: {
+      description: {
         type: Sequelize.STRING
       },
       experience: {

@@ -10,8 +10,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      //models.Beta_reader.hasMany(models.Book, { foreignKey: 'id', allowNull: true})
+      this.belongsToMany(models.Book, { 
+        through: 'Service',
+        as: 'book',
+        foreignKey: 'beta_reader_id', 
+        allowNull: true });
+        this.belongsToMany(models.Book, { through: 'Service' });
     }
+   
   }
   Beta_reader.init({
     id: {

@@ -1,24 +1,45 @@
 'use strict';
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  async up(queryInterface, Sequelize) {
+    await queryInterface.bulkInsert('Books', [{
+      title: 'Moi',
+      summarize:'bla bla',
+      number_word: 1000,
+      genre: 'fantastique',
+      author_id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      title:'Moi 2',
+      summarize:'bla bla bla bla',
+      number_word: 2000,
+      genre: 'Erotic',
+      author_id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      title: 'La mule',
+      summarize:'bla bla bla blabla bla bla bla',
+      number_word: 1500,
+      genre: 'Policier',
+      author_id: 2,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      title: 'La ligne vert',
+      summarize:'bla bla bla blabla bla bla bla',
+      number_word: 3500,
+      genre: 'Policier',
+      author_id: 3,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }], {});
+
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  async down(queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('Books', null, {});
+     
   }
 };

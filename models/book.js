@@ -10,8 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      //this.belongsTo(models.Author, { foreignKey: 'author' });
-      //models.Beta_reader.hasMany(models.Book, { foreignKey: 'id', allowNull: true})
+      this.belongsTo(models.Author, { foreignKey: 'author_id:' });
+      this.belongsToMany(models.Beta_reader, {
+        through: 'Service',
+        allowNull: true
+      })
     }
   }
   Book.init({
@@ -34,14 +37,14 @@ module.exports = (sequelize, DataTypes) => {
     genre: {
       type: DataTypes.STRING
     },
-    // author_id: {
-    //   type: DataTypes.INTEGER.UNSIGNED,
-    //   allowNull: false,
-    //   references: {
-    //       model: 'Author',
-    //       key: 'id'
-    //   }
-    // }
+    author_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      references: {
+        model: 'Author',
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
     modelName: 'Book',

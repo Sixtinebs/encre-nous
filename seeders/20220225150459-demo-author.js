@@ -13,6 +13,33 @@ module.exports = {
         img: null,
         createdAt: new Date(),
         updatedAt: new Date()
+     },{
+      first_name: 'Haloïse',
+      last_name: 'Bertrand',
+      email: 'bb@rose.com',
+      birthday: '1997-06-27',
+      description: 'BLA BLA',
+      img: null,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },{
+      first_name: 'Lys',
+      last_name: 'Savaëte',
+      email: 'lys@lys.com',
+      birthday: '1997-06-27',
+      description: 'BLA BLA',
+      img: null,
+      createdAt: new Date(),
+      updatedAt: new Date()
+     },{
+      first_name: 'Rose',
+      last_name: 'Savaëte',
+      email: 'rose@lys.com',
+      birthday: '1997-06-27',
+      description: 'BLA BLA',
+      img: null,
+      createdAt: new Date(),
+      updatedAt: new Date()
      }], {});
 
   },
