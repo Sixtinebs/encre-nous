@@ -5,6 +5,7 @@ const sequelize  = require('./config/config');
 const author = require('./routes/author');
 const bl = require('./routes/beta_reader');
 const book = require('./routes/book');
+const service = require('./routes/service');
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -26,11 +27,12 @@ app.use((req, res, next) => {
 app.set('views', path.resolve(__dirname, 'views'));
 
 app.get('/', function (req, res) {
-   res.send('Hello World');
+   res.send('Encre-nous');
 });
 
 app.use(author);
 app.use(bl);
 app.use(book);
+app.use(service);
 
 module.exports = app;

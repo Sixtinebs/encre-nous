@@ -2,3 +2,4 @@
 .env
 .sequelizerc
 .DS_Store
+/controllers/.DS_Store

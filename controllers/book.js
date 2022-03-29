@@ -26,7 +26,7 @@ exports.create = function (req, res, next) {
     });
     book.save()
         .then(() => {
-            res.status(201).json({ message: + book.title + ' à bien été crée ' });
+            res.status(201).json({ message: book.title + ' à bien été crée ' });
         })
         .catch(error => res.status(500).json({ error }))
 }

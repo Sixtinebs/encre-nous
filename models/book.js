@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Author, { foreignKey: 'author_id' });
       this.belongsToMany(models.Beta_reader, {
         through: 'Service',
+        foreignKey: 'book_id', 
         allowNull: true
       })
     }

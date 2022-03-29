@@ -15,7 +15,6 @@ module.exports = (sequelize, DataTypes) => {
         as: 'book',
         foreignKey: 'beta_reader_id', 
         allowNull: true });
-        this.belongsToMany(models.Book, { through: 'Service' });
     }
    
   }
