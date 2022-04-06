@@ -17,18 +17,24 @@ exports.beta_reader = function(req, res, next) {
 };
 
 exports.create = function(req, res, next) {
-    const br = models.Beta_reader.build({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
+    const user = models.User.build({
         email: req.body.email,
-        birthday: req.body.birthday,
-        description: req.body.description,
-        img: req.body.img,
-        experience: req.body.experience,
-        method_working: req.body.method_working
+       password: req.body.password
     });
-    br.save()
-    .then(() => {
+    user.save()
+    .then((user) => {
+
+        const br = models.Beta_reader.build({
+            first_name: req.body.first_name,
+            last_name: req.body.last_name,
+            user_id: user.id,
+            birthday: req.body.birthday,
+            description: req.body.description,
+            img: req.body.img,
+            experience: req.body.experience,
+            method_working: req.body.method_working
+        });
+        br.save()
         res.status(201).json({message: br.first_name + ' à bien été crée '});
     })
     .catch(error => res.status(500).json({error}))
@@ -41,7 +47,6 @@ exports.update = function(req, res) {
             br.update({
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
-                email: req.body.email,
                 birthday: req.body.birthday,
                 description: req.body.description,
                 img: req.body.img,

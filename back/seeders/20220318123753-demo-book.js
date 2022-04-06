@@ -31,7 +31,7 @@ module.exports = {
       summarize:'bla bla bla blabla bla bla bla',
       number_word: 3500,
       genre: 'Policier',
-      author_id: 3,
+      author_id: 2,
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});

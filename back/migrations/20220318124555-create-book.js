@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       summarize: {
-        type: Sequelize.TEXT('mediumtext') 
+        type: Sequelize.TEXT('mediumtext')
       },
       number_word: {
         type: Sequelize.DECIMAL
@@ -21,10 +21,10 @@ module.exports = {
       genre: {
         type: Sequelize.STRING
       },
-    author_id: {
-      type: Sequelize.INTEGER.UNSIGNED,
-      allowNull: false,
-    },
+      author_id: {
+        type: Sequelize.INTEGER.UNSIGNED,
+        allowNull: false,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

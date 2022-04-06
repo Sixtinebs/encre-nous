@@ -6,6 +6,7 @@ const author = require('./routes/author');
 const bl = require('./routes/beta_reader');
 const book = require('./routes/book');
 const service = require('./routes/service');
+const user = require('./routes/user');
 
 app.use(express.urlencoded({ extended: false }));
 
@@ -34,5 +35,6 @@ app.use(author);
 app.use(bl);
 app.use(book);
 app.use(service);
+app.use(user);
 
 module.exports = app;

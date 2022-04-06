@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      this.belongsTo(models.User, {
+         foreignKey: 'user_id' 
+      });
       this.belongsToMany(models.Book, { 
         through: 'Service',
         as: 'book',
@@ -26,17 +29,26 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       type: DataTypes.INTEGER
     },
+    user_id : {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false,
+      unique: true,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
+    },
     first_name: {
       type: DataTypes.STRING
     },
     last_name: {
       type: DataTypes.STRING
     },
-    email: {
-      allowNull: false,
-      unique: true,
-      type: DataTypes.STRING
-    },
+    // email: {
+    //   allowNull: false,
+    //   unique: true,
+    //   type: DataTypes.STRING
+    // },
     birthday: {
       type: DataTypes.DATE
     },
