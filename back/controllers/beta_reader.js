@@ -39,7 +39,7 @@ exports.create = function (req, res, next) {
                     });
                     br.save()
                         .then(() => {
-                            res.status(201).json({ message: br.first_name + ' à bien été crée ' });
+                            res.status(201).json({ message: br.first_name + ' successfully created' });
                         })
                         .catch(error => res.status(500).json({ error }))
                 })
@@ -52,6 +52,7 @@ exports.update = function (req, res) {
 
     models.Beta_reader.findOne({ where: { user_id: req.params.id } })
         .then(br => {
+            console.log(res)
             br.update({
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
@@ -67,7 +68,7 @@ exports.update = function (req, res) {
             .catch(error => res.status(500).json({ error }))
             
         })
-        .catch(error => res.status(404).json({error, error, message: 'Beta-reader not found' }))
+        .catch(error => res.status(404).json({error, error, message: ' Beta-reader not found' }))
 };
 
 exports.delete = function (req, res) {

@@ -37,7 +37,7 @@ exports.create = function (req, res, next) {
                     });
                     author.save()
                         .then(() => {
-                            res.status(201).json({ message: author.first_name + ' à bien été crée ' });
+                            res.status(201).json({ message: author.first_name + ' successfully created' });
                         })
                         .catch(error => res.status(500).json({ error }))
                 })
@@ -56,10 +56,10 @@ exports.update = function (req, res) {
                 description: req.body.description,
                 img: req.body.img,
             })
-            .then(() => {
-                res.status(200).json({ message: author.first_name + ' has been modified' })
-            })
-            .catch(error => res.status(500).json({ error }))
+                .then(() => {
+                    res.status(200).json({ message: author.first_name + ' has been modified' })
+                })
+                .catch(error => res.status(500).json({ error }))
         })
         .catch(error => res.status(404).json({ error: error, message: 'Author not found' }))
 };
@@ -70,5 +70,5 @@ exports.delete = function (req, res) {
             author.destroy();
             res.status(200).json({ message: author.first_name + ' has been successfully deleted!' })
         })
-        .catch(error => res.status(500).json( error ))
+        .catch(error => res.status(500).json(error))
 }

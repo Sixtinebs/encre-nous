@@ -13,10 +13,10 @@ exports.checkJWT = async (req, res, next) => {
                 return res.status(401).json('token_not_valid');
             } else {
                 req.decoded = decoded;
-
+                console.log(res.local);
                 const expiresIn = 24 * 60 * 60;
                 const newToken  = jwt.sign({
-                    user : decoded.user
+                    user: decoded.user
                 },
                 SECRET_KEY,
                 {
