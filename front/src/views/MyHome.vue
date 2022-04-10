@@ -6,6 +6,7 @@
       placeholder="Rechercher un projet de lecture ..."
     >
     <img
+      class="img-background"
       src="../assets/images/books-imagination.jpg"
       alt=""
     >
@@ -13,14 +14,33 @@
   <div id="bloc-home-2">
     <StartRegister />
   </div>
+  <div id="bloc-home-3">
+      <h2>Comment ça marche ?</h2>
+    <div class="bloc-instruction">
+      <h3>Beta lecteur cherche projet</h3>
+      <p>Vous êtes bêta-lecteur et souhaitez être rémunéré pour vos conseils ?</p>
+      <p>Proin posuere diam in diam sagittis luctus. Proin feugiat malesuada purus ac malesuada. Ut eget ligula condimentum, egestas lectus sit amet,</p>
+    </div>
+    <div class="bloc-instruction">
+      <h3>Auteur cherche bêta-lecteur</h3>
+      <p>Vous écrivez un livre et avec besoin de conseil ?</p>
+      <p>Proin posuere diam in diam sagittis luctus. Proin feugiat malesuada purus ac malesuada. Vestibulum eget tristique dui, tincidunt lobortis libero. Ut eget ligula condimentum, egestas lectus sit amet,</p>
+    </div>
+  </div>
+    <div id="bloc-home-4">
+      <ListeLastBl />
+    </div>
+
 </template>
 
 <script>
 import StartRegister from "../components/StartRegister.vue";
+import ListeLastBl from "../components/ListeLastBl.vue";
 export default {
   name: "MyHome",
   components: {
     StartRegister,
+    ListeLastBl
   },
 };
 </script>
@@ -32,11 +52,23 @@ export default {
 }
 #bloc-home-2 {
   position: relative;
-  height: 531px;
-  margin-top: -17px;
+  height: 700px;
 }
+#bloc-home-3 {
+  height: 660px;
+  background-image: url("../assets/images/fond.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 100px 40px 0 40px;
+}
+
 h1 {
   margin-top: 65px;
+  font-size: 40px;
+}
+
+#bloc-home-3 h2 {
+  margin-bottom: 100px;
 }
 input {
   border-radius: 50px;
@@ -52,13 +84,14 @@ input::placeholder {
   font-size: 18px;
 }
 
-img {
+img.img-background {
   width: 100%;
   position: absolute;
-  top: -210px;
+  top: -200px;
   left: 0;
   z-index: -1;
   height: 740px;
   object-fit: cover;
 }
+
 </style>

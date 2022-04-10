@@ -2,16 +2,19 @@
   <div id="container">
     <HeaderMain />
     <router-view />
+    <FooterMain />
   </div>
 </template>
 
 <script>
 import HeaderMain from "./components/HeaderMain.vue";
+import FooterMain from "./components/FooterMain.vue";
 
 export default {
   name: "App",
   components: {
     HeaderMain,
+    FooterMain
   },
 };
 </script>
@@ -65,4 +68,34 @@ body {
 h1 {
   font-weight: normal;
 }
+h2 {
+  color: #ff5e1a;
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 35px;
+}
+.btn-form {
+  background-color: #ff5e1a;
+  border: 1px solid #70707000;
+  border-radius: 45px;
+  padding: 17px 15px;
+  color: #ffffff;
+}
+.btn-form:hover {
+  background-color: #0e0e66;
+  color: #ffffff;
+}
+
+
+.btn-form.btn-1 {
+     background-color: #0e0e66;
+}
+.btn-form.btn-1:hover {
+    background-color: #ff5e1a;
+    border: 0.5px solid #0e0e66;
+}
+.btn-form.btn-2:hover {
+    border: 0.5px solid #ff5e1a;
+}
+
 </style>

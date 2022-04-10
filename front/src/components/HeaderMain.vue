@@ -12,7 +12,7 @@
       <router-link to="/beta-readers"> Pour les auteurs </router-link>
       <router-link to="/livres"> Pour les béta-lecteurs </router-link>
       <router-link to="/"> Je m'inscris </router-link>
-      <router-link to="/connexion"> Se connecter </router-link>
+      <router-link class ="btn-form" to="/connexion"> Se connecter </router-link>
 
     </nav>
   </header>
@@ -49,17 +49,6 @@ a {
 }
 a:hover {
   color:#ff5e1a;
-}
-a:last-child {
-  background-color: #ff5e1a;
-  border: 1px solid #70707000;
-  border-radius: 45px;
-  padding: 17px 15px;
-  color: #ffffff;
-}
-a:last-child:hover {
-  background-color: #0e0e66;
-  color: #ffffff;
 }
 
 a:active,
