@@ -1,130 +1,194 @@
 <template>
-  <div>
-    <p>Votre profil debêta-lecteur</p>
+  <div class="text-register">
+    <h1>Votre profil de bêta-lecteur</h1>
     <p>Ut gravida semper eros, ac mattis ligula bibendum at. Vivamus tempor nec arcu malesuada faucibus.</p>
-    <p> dictum turpis, at elementum magna fermentum sit amet.nec arcu malesuada faucibus. Vestibulum ante ipsum primis in faucibus </p>
-    <p>orci luctus et ultrices posuere cubilia curae; Praesent lacus elit, aliquet et malesuada vel, finibus et nibh. Nunc consectetur massa sem, vitae luctus ante sodales nec. Sed sapien erat, tempus tristique orci sit amet, semper eleifend nibh. </p>
+    <p> dictum turpis, at elementum magna fermentum sit amet.nec arcu malesuada faucibus. Vestibulum ante ipsum primis
+      in faucibus </p>
+    <p>orci luctus et ultrices posuere cubilia curae; Praesent lacus elit, aliquet et malesuada vel, finibus et nibh.
+      Nunc consectetur massa sem, vitae luctus ante sodales nec. Sed sapien erat, tempus tristique orci sit amet, semper
+      eleifend nibh. </p>
 
   </div>
-  <form>
+  <form class="register form">
     <div class="info-user">
-      <label for="last-name">Votre nom</label>
+      <div class="info">
+        <label class="label-register" for="last-name">Votre nom</label>
 
-      <input
-        type="text"
-        id="last-name"
-        name="last-name"
-        required
-        minlength="4"
-        maxlength="50"
-      >
+        <input type="text" id="last-name" name="last-name" required maxlength="50">
 
+      </div>
+      <div class="info">
+        <label class="label-register" for="first-name">Votre Prénom</label>
+
+        <input type="text" id="first-name" name="first-name" required maxlength="50">
+      </div>
     </div>
-    <div class="info-user">
-      <label for="first-name">Votre Prénom</label>
-
-      <input
-        type="text"
-        id="first-name"
-        name="first-name"
-        required
-        minlength="4"
-        maxlength="50"
-      >
-    </div>
-    <div class="info-user">
-      <label for="birthday">Votre date de naissance</label>
-
-      <input
-        type="date"
-        id="birthday"
-        name="birthday"
-      >
-    </div>
-    <div class="info-user">
-      <label for="description">Décrivez-vous </label>
-
-      <input
-        type="text"
-        id="description"
-        name="description"
-      >
-    </div>
-    <div class="info-user">
-      <div id="options-experiences">
-        <div class="option-experience">
-          <input
-            type="radio"
-            id="option-1"
-            name="experience"
-            value="Moins de 6 mois"
-          >
-          <label for="experience">Moins de 6 mois</label>
-        </div>
-        <div class="option-experience">
-          <input
-            type="radio"
-            id="option-2"
-            name="experience"
-            value="6 mois à 2 ans"
-          >
-          <label for="experience">6 mois à 2 ans</label>
-        </div>
-        <div class="option-experience">
-          <input
-            type="radio"
-            id="option-3"
-            name="experience"
-            value="Entre 2 et 5ans"
-          >
-          <label for="experience">Entre 2 et 5ans</label>
-        </div>
-        <div class="option-experience">
-          <input
-            type="radio"
-            id="option-4"
-            name="experience"
-            value="Plus de 5 ans"
-          >
-          <label for="experience">Plus de 5 ans</label>
-        </div>
+    <div class="info-user ">
+      <div class="info">
+        <label class="label-register" for="birthday">Votre date de naissance</label>
+        <input v-model="birthday" type="date" id="birthday" name="birthday" placeholder="Votre date de naissance"
+          required />
+      </div>
+      <div class="info">
+        <label class="label-register label-file" for="img-profil">Ajoutez une photo de profil</label>
+        <p class="custom-file">Importer</p>
+        <input type="file" class="input-file" id="img-profil" name="img-profil">
       </div>
     </div>
 
-     <div class="info-user">
-         <input
-         type="file"
-         id="img-profil"
-         name="img-profil"
-         >
-         <label for="img-profil"></label>
-     </div>
+    <div class="info-user">
+      <div class="info">
+        <label class="label-register" for="description">Décrivez-vous </label>
 
-     <div class="info-user">
-         <input
-         type="text"
-         id="prices"
-         name="prices"
-         >
-         <label for="prices"></label>
-     </div>
-     <input type="submit" />
+        <textarea type="textarea" id="description" name="description"></textarea>
+      </div>
+      <div class="info">
+        <label class="label-register" for="method-working">Décrivez votre méthode de travail</label>
+        <textarea id="method-working" name="method-working"></textarea>
+      </div>
+    </div>
+
+    <div class="info-user">
+      <div>
+        <div id="options-experiences">
+          <p class="label-register">Combien d'années d'expériences avec vous en tant que Bêta-lecteur ?</p>
+          <div class="option-experience">
+            <input type="radio" id="option-1" name="experience" value="Moins de 6 mois">
+            <label class="label-register" for="experience">Moins de 6 mois</label>
+          </div>
+          <div class="option-experience">
+            <input type="radio" id="option-2" name="experience" value="6 mois à 2 ans">
+            <label class="label-register" for="experience">6 mois à 2 ans</label>
+          </div>
+          <div class="option-experience">
+            <input type="radio" id="option-3" name="experience" value="Entre 2 et 5ans">
+            <label class="label-register" for="experience">Entre 2 et 5ans</label>
+          </div>
+          <div class="option-experience">
+            <input type="radio" id="option-4" name="experience" value="Plus de 5 ans">
+            <label class="label-register" for="experience">Plus de 5 ans</label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="info-user">
+      <div class="info">
+        <label class="label-register" for="prices">Tarifs</label>
+        <input type="text" id="prices" name="prices" required>
+
+      </div>
+      <div class="info">
+        <label class="label-register" for="siret">Siret</label>
+        <input type="text" id="Siret" name="" required>
+
+      </div>
+
+    </div>
+
+    <div class="info-user">
+      <div class="info">
+        <label class="label-register" for="email">Votre Email</label>
+        <input type="email" id="email" name="email" required>
+
+      </div>
+      <div class="info">
+        <label class="label-register" for="password">Votre mot de passe</label>
+        <input type="password" id="password" name="password" required>
+
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn-form btn-submit">Créer son profil </button>
 
   </form>
 
 </template>
 
-<script>
-export default {};
+<script >
+import { ref } from 'vue';
+export default {
+  setup() {
+    return {
+      birthday: ref(''),
+    }
+  }
+};
 </script>
 
 <style>
-/* first_name: req.body.first_name,
-                        last_name: req.body.last_name,
-                        user_id: user.id,
-                        birthday: req.body.birthday,
-                        description: req.body.description,
-                        img: req.body.img,
-                        experience: req.body.experience,
-                        method_working: req.body.method_working  */
+.text-register h1 {
+  font-weight: bold;
+}
+
+.text-register p {
+  margin: 0;
+}
+
+.text-register {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.info-user {
+  border: 2px solid #ff5e1a;
+  padding: 50px 80px;
+  margin: 40px 100px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.label-register {
+  text-align: left;
+  font-weight: bold;
+  padding: 0 0 20px 40px;
+  font-size: 20px;
+}
+
+form.form input {
+  height: 40px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file {
+  border: 1px solid black;
+  display: flex;
+  margin-top: 0px;
+  cursor: pointer;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.option-experience {
+  display: flex;
+}
+
+.option-experience label {
+  padding: 0 0 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.btn-submit {
+  font-size: 20px;
+  cursor: pointer;
+
+}
+
+form {
+  margin-bottom: 70px;
+}
 </style>

@@ -7,7 +7,7 @@
     <div class="buttons">
       <a
         class="btn-form btn-1"
-        href="#"
+        href="/enregistrer/auteur"
       >
         <div>Vous êtes auteur</div>
       </a>
