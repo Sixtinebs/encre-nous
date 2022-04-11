@@ -3,6 +3,8 @@ import Home from "@/views/MyHome.vue";
 import ListeBetaReader from "@/views/ListeBetaReader.vue";
 import ListeBook from "@/views/ListeBook.vue";
 import LoginUser from "@/views/LoginUser.vue";
+import RegisterBetaReader from "@/views/RegisterBetaReader.vue";
+import StartRegister from "@/components/StartRegister.vue";
 
 
 const routes = [
@@ -36,6 +38,22 @@ const routes = [
     component: LoginUser,
     meta: {
       title: 'Conncetez-vous sur Encre-nous !'
+    }
+  },
+  {
+    path: "/enregistrer",
+    name: "StartRegister",
+    component: StartRegister,
+    meta: {
+      title: 'Enregistrer-vous sur Encre-nous !'
+    }
+  },
+  {
+    path: "/enregistrer/beta-lecteur",
+    name: "RegisterBetaReader",
+    component: RegisterBetaReader,
+    meta: {
+      title: 'Enregistrer-vous en tant que Bêta-lecteur!'
     }
   }
 ];

@@ -13,7 +13,7 @@
       </a>
       <a
         class="btn-form btn-2"
-        href="#"
+        href="/enregistrer/beta-lecteur"
       >Vous êtes Bêta-lecteur</a>
     </div>
 
@@ -32,7 +32,7 @@ export default {};
 
 <style  scoped >
 #start-register {
-  height: 100%;
+  height: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;

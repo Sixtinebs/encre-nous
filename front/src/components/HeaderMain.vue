@@ -11,7 +11,7 @@
       <router-link to="/"> Accueil </router-link>
       <router-link to="/beta-readers"> Pour les auteurs </router-link>
       <router-link to="/livres"> Pour les béta-lecteurs </router-link>
-      <router-link to="/"> Je m'inscris </router-link>
+      <router-link to="/enregistrer"> Je m'inscris </router-link>
       <router-link class ="btn-form" to="/connexion"> Se connecter </router-link>
 
     </nav>

@@ -28,19 +28,19 @@
     </div>
   </div>
     <div id="bloc-home-4">
-      <ListeLastBl />
+      <ListeLastBetaReader />
     </div>
 
 </template>
 
 <script>
 import StartRegister from "../components/StartRegister.vue";
-import ListeLastBl from "../components/ListeLastBl.vue";
+import ListeLastBetaReader from "../components/ListeLastBetaReader.vue";
 export default {
   name: "MyHome",
   components: {
     StartRegister,
-    ListeLastBl
+    ListeLastBetaReader
   },
 };
 </script>
