@@ -7,15 +7,23 @@ const bl = require('./routes/beta_reader');
 const book = require('./routes/book');
 const service = require('./routes/service');
 const user = require('./routes/user');
+var cors = require('cors');
 
-app.use(express.urlencoded({ extended: false }));
 
-app.use((req, res, next) => {
-   res.setHeader('Access-Control-Allow-Origin', '*');
-   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-   next();
- });
+const corsOptions = {
+   origin: 'http://localhost:8081',
+   optionsSuccessStatus: 200,
+   allowedHeaders: 'Origin,X-Requested-With,Content,Accept,Content-Type,Authorization',
+   methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS'
+ }
+ app.use(cors(corsOptions));
+ app.use(express.urlencoded({ extended: true }));
+// app.use((req, res, next) => {
+//    res.setHeader('Access-Control-Allow-Origin', '*');
+//    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+//    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+//    next();
+//  });
  
 //test connect database
 //  try {
@@ -31,6 +39,7 @@ app.get('/', function (req, res) {
    res.send('Encre-nous');
 });
 
+//Routes
 app.use(author);
 app.use(bl);
 app.use(book);

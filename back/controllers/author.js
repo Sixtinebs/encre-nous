@@ -17,7 +17,8 @@ exports.author = function (req, res, next) {
         })
         .catch(error => res.status(404).json({ error }))
 };
-
+//TODO : ne pas créer le user si author pas créer
+// faire message si email déjà utilisé
 exports.create = function (req, res, next) {
     bcrypt.hash(req.body.password, 10)
         .then(hash => {

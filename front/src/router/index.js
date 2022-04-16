@@ -4,7 +4,7 @@ import ListeBetaReader from "@/views/ListeBetaReader.vue";
 import ListeBook from "@/views/ListeBook.vue";
 import LoginUser from "@/views/LoginUser.vue";
 import StartRegister from "@/components/StartRegister.vue";
-import RegisterBetaReader from "@/views/RegisterAuthor.vue";
+import RegisterBetaReader from "@/views/RegisterBetaReader.vue";
 import RegisterAuthor from "@/views/RegisterAuthor.vue";
 
 
