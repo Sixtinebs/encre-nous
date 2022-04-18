@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 
 exports.user_list = function (req, res, next) {
-    models.User.findAll({}).then(users => {
+    models.User.findAll({hierarchy: true}).then(users => {
         res.status(200).json({ users: users })
     })
         .catch(error => res.status(404).json({ error }))
@@ -14,7 +14,6 @@ exports.user_list = function (req, res, next) {
 exports.user = function (req, res, next) {
     models.User.findOne({ where: { id: req.params.id } })
         .then(user => {
-            console.log(user)
             res.status(200).json({ user: user })
         })
         .catch(error => res.status(404).json({ error }))
@@ -51,18 +50,15 @@ exports.login = function (req, res) {
                         return res.status(401).json({ message: 'Your authantifications are not valid' })
                     }
                     const token = jwt.sign(
-                        {
-                            user_id: user.id
-                        },
+                        { user_id: user.id },
                         process.env.TOKEN,
-                        {
-                            expiresIn: '24h'
-                        }
+                        { expiresIn: '24h' }
                     );
                     res.header('Authorization', 'Bearer ' + token);
                     res.status(200).json({
                         message: 'Your are authentificate !',
                         user_id: user.id,
+                        token: token
                     })
                 })
                 .catch(error => res.status(500).json({ error }))

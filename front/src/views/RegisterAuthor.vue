@@ -80,7 +80,7 @@ export default {
     },
     methods: {
         createAuthor() {
-            console.log('la')
+
             this.$store.dispatch('createAccountAuthor', {
                 last_name: this.lastName,
                 first_name: this.firstName,
@@ -89,7 +89,12 @@ export default {
                 email: this.email,
                 // TODO : confirme mot de passe
                 password: this.password
-            })
+            }).then(function (response) {
+                console.log(response)
+            },
+                function (error) {
+                    console.log(error);
+                })
         }
     }
 };

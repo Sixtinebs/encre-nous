@@ -6,7 +6,22 @@ import LoginUser from "@/views/LoginUser.vue";
 import StartRegister from "@/components/StartRegister.vue";
 import RegisterBetaReader from "@/views/RegisterBetaReader.vue";
 import RegisterAuthor from "@/views/RegisterAuthor.vue";
+import MyProfil from "@/views/MyProfil.vue";
+import store from "@/store";
 
+function guardMyroute(to, from, next) {
+  let isAuthenticated = false;
+  if (store.state.user.id === -1)
+      isAuthenticated = false;
+  else
+      isAuthenticated = true;
+  if (isAuthenticated) {
+      next();
+  }
+  else {
+      next('/');
+  }
+}
 
 const routes = [
   {
@@ -63,6 +78,15 @@ const routes = [
     component: RegisterAuthor,
     meta: {
       title: 'Enregistrer-vous en tant qu\'auteur !'
+    }
+  },
+  {
+    path: "/profil",
+    name: "Profil",
+    beforeEnter: guardMyroute,
+    component: MyProfil,
+    meta: {
+      title: 'Mon Profil !'
     }
   }
 ];

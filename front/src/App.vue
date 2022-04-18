@@ -89,13 +89,16 @@ h2 {
 
 .btn-form.btn-1 {
      background-color: #0e0e66;
+     color: #ffffff;
 }
 .btn-form.btn-1:hover {
     background-color: #ff5e1a;
     border: 0.5px solid #0e0e66;
+    color: #ffffff;
 }
 .btn-form.btn-2:hover {
     border: 0.5px solid #ff5e1a;
+    color: #ffffff;
 }
 
 </style>

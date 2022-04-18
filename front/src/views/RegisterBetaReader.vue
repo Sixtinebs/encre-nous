@@ -132,6 +132,13 @@ export default {
         // TODO : confirme mot de passe
         password: this.password
       })
+        .then(function (response) {
+          console.log(response)
+        },
+          function (error) {
+            console.log(error);
+          })
+
     }
   }
 };

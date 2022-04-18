@@ -1,7 +1,5 @@
 const models = require('../models/index');
 const bcrypt = require('bcrypt');
-const { hash } = require('bcrypt');
-
 
 exports.authors_list = function (req, res, next) {
     models.Author.findAll({}).then(authors => {
@@ -11,7 +9,7 @@ exports.authors_list = function (req, res, next) {
 };
 
 exports.author = function (req, res, next) {
-    models.Author.findOne({ where: { id: req.params.id } })
+    models.Author.findOne({ where: { user_id: req.params.id } })
         .then(author => {
             res.status(200).json({ author: author })
         })

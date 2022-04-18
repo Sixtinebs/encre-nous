@@ -1,21 +1,31 @@
 import axios from 'axios';
 import qs from 'qs';
 
-// mettre en variable global
-// const BASE_URL = 'http://localhost:8080';
-const instance = axios.create({
-    baseURL: 'http://localhost:8080',
-    timeout: 1000,
-    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-  });
-  
+
 export default {
+    instance:  axios.create({
+        baseURL: 'http://localhost:8080',
+        timeout: 1000,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded', 
+    }
+      }),
+    getBetaReader(id){
+        return this.instance.get(`/beta-reader/${id}`)
+    },
+    getAuthor(id){
+        return this.instance.get(`/author/${id}`)
+    },
     registerAuthor(data) {
         data =  qs.stringify(data);
-        return instance.post('/author/register', data );
+        return this.instance.post('/author/register', data );
     },
     registerBetaReader(data){
         data =  qs.stringify(data);
-        return instance.post('/beta-reader/register', data)
+        return this.instance.post('/beta-reader/register', data)
+    },
+    login(data){
+        data =  qs.stringify(data);
+        return this.instance.post('/login', data)
     }
 }

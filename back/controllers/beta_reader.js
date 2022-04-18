@@ -10,7 +10,7 @@ exports.beta_reader_list = function (req, res, next) {
 };
 
 exports.beta_reader = function (req, res, next) {
-    models.Beta_reader.findOne({ where: { id: req.params.id } })
+    models.Beta_reader.findOne({ where: { user_id: req.params.id } })
         .then(br => {
             res.status(200).json({ beta_readers: br })
         })
@@ -53,7 +53,6 @@ exports.update = function (req, res) {
 
     models.Beta_reader.findOne({ where: { user_id: req.params.id } })
         .then(br => {
-            console.log(res)
             br.update({
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
