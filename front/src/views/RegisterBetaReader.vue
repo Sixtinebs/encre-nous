@@ -39,7 +39,6 @@
       <div class="info-user">
         <div class="info">
           <label class="label-register" for="description">Décrivez-vous </label>
-
           <textarea v-model="description" type="textarea" id="description" name="description"></textarea>
         </div>
         <div class="info">
@@ -79,7 +78,7 @@
         </div>
         <div class="info">
           <label class="label-register" for="siret">Siret</label>
-          <input v-model="siret" type="text" id="Siret" name="Siret">
+          <input v-model="siret" type="number" id="Siret" name="Siret" minlength="13" maxlength="13">
         </div>
       </div>
 
@@ -125,10 +124,11 @@ export default {
         birthday: this.birthday,
         description: this.description,
         method_working: this.methodWorking,
-        //tarif: this.tarif,
+        price: this.tarif,
         experience: this.experience,
-        //siret: this.siret,
+        siret: this.siret,
         email: this.email,
+        role: 'BR',
         // TODO : confirme mot de passe
         password: this.password
       })

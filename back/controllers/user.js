@@ -58,7 +58,8 @@ exports.login = function (req, res) {
                     res.status(200).json({
                         message: 'Your are authentificate !',
                         user_id: user.id,
-                        token: token
+                        token: token,
+                        role: user.role
                     })
                 })
                 .catch(error => res.status(500).json({ error }))

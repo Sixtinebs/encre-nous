@@ -91,8 +91,9 @@ img.img-background {
   object-fit: cover;
 }
 
-form button {
+form a {
   display: flex;
+      display: inline-block;
 }
 
 .error-message {

@@ -19,6 +19,14 @@ module.exports = {
       last_name: {
         type: Sequelize.STRING
       },
+      siret: {
+        type: Sequelize.BIGINT.UNSIGNED,
+        allowNull: false
+      },
+      price: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       birthday: {
         type: Sequelize.DATE
       },

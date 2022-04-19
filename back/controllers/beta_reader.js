@@ -24,6 +24,7 @@ exports.create = function (req, res, next) {
         .then(hash => {
             const user = models.User.build({
                 email: req.body.email,
+                role: req.body.role,
                 password: hash
             });
             user.save()
@@ -33,6 +34,8 @@ exports.create = function (req, res, next) {
                         last_name: req.body.last_name,
                         user_id: user.id,
                         birthday: req.body.birthday,
+                        siret: req.body.siret,
+                        price: req.body.price,
                         description: req.body.description,
                         img: req.body.img,
                         experience: req.body.experience,

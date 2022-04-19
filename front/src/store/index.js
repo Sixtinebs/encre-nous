@@ -10,7 +10,8 @@ if (!user) {
     user = {
         id: -1,
         token: '',
-        email: ''
+        email: '',
+        role: ''
     };
     status = '';
 } else {
@@ -22,7 +23,8 @@ if (!user) {
         user = {
             id: -1,
             token: '',
-            email: ''
+            email: '',
+            role: ''
         };
         status = ''
 
@@ -57,9 +59,14 @@ const store = createStore({
             state.user = {
                 userId: -1,
                 token: '',
+                email: '',
+                role: ''
             }
             state.status = '';
+            state.userInfo = '';
             localStorage.removeItem('user');
+            localStorage.removeItem('userInfo');
+            localStorage.removeItem('status');
         }
     },
     actions: {
@@ -125,9 +132,10 @@ const store = createStore({
                         commit('LOG_USER', {
                             id: response.data.user_id,
                             token: response.data.token,
-                            email: email
+                            email: email,
+                            role: response.data.role
                         });
-
+                       console.log(response.data.role);
                         dispatch('getAuthor', id).then((response) => {
 
                             if (!response.author) {

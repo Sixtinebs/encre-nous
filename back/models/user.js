@@ -17,18 +17,21 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
-      primaryKey: true,
-      hierarchy: true
+      primaryKey: true
     },
     email: {
       type: DataTypes.STRING(255),
-      allowNull: false, 
+      allowNull: false,
       unique: true
-  },
+    },
     password: {
       type: DataTypes.INTEGER(225),
       allowNull: false
-    }
+    },
+    role: {
+      type: DataTypes.CHAR(2),
+      allowNull: false
+    },
   }, {
     sequelize,
     modelName: 'User',

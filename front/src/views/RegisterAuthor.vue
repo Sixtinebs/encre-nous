@@ -87,6 +87,7 @@ export default {
                 birthday: this.birthday,
                 description: this.description,
                 email: this.email,
+                role: 'A',
                 // TODO : confirme mot de passe
                 password: this.password
             }).then(function (response) {

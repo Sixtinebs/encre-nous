@@ -44,11 +44,14 @@ module.exports = (sequelize, DataTypes) => {
     last_name: {
       type: DataTypes.STRING
     },
-    // email: {
-    //   allowNull: false,
-    //   unique: true,
-    //   type: DataTypes.STRING
-    // },
+    siret: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    price: {
+      allowNull: true,
+      type: DataTypes.STRING
+    },
     birthday: {
       type: DataTypes.DATE
     },

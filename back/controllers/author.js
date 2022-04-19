@@ -22,6 +22,7 @@ exports.create = function (req, res, next) {
         .then(hash => {
             const user = models.User.build({
                 email: req.body.email,
+                role: req.body.role,
                 password: hash
             });
             user.save()

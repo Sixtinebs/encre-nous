@@ -1,5 +1,4 @@
 'use strict';
-const Sequelize = require('sequelize-hierarchy')();
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Users', {
@@ -7,8 +6,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
-        hierarchy: true
+        type: Sequelize.INTEGER
       },
       email: {
         type: Sequelize.STRING,
@@ -17,6 +15,10 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
+        allowNull: false
+      },
+      role: {
+        type: Sequelize.CHAR(2),
         allowNull: false
       },
       createdAt: {

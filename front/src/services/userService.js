@@ -27,5 +27,17 @@ export default {
     login(data){
         data =  qs.stringify(data);
         return this.instance.post('/login', data)
+    },
+    modifyAuthor(id, data){
+        data = qs.stringify(data);
+        return this.instance.patch(`/author/${id}`, data)
+    },
+    modifyBetaReader(id, data){
+        data = qs.stringify(data);
+        return this.instance.patch(`/beta-reader/${id}`, data)
+    },
+    modifyUser(id, data){
+        data = qs.stringify(data);
+        return this.instance.patch(`/user/${id}`, data)
     }
 }
