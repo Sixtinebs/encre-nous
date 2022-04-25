@@ -7,7 +7,7 @@ const bl = require('./routes/beta_reader');
 const book = require('./routes/book');
 const service = require('./routes/service');
 const user = require('./routes/user');
-var cors = require('cors');
+const cors = require('cors');
 
 
 const corsOptions = {

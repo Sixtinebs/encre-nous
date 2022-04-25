@@ -1,5 +1,6 @@
 const models = require('../models/index');
 const bcrypt = require('bcrypt');
+const { use } = require('bcrypt/promises');
 
 // br = Beta-Reader
 exports.beta_reader_list = function (req, res, next) {
@@ -24,7 +25,7 @@ exports.create = function (req, res, next) {
         .then(hash => {
             const user = models.User.build({
                 email: req.body.email,
-                role: req.body.role,
+                role: 'BR',
                 password: hash
             });
             user.save()
@@ -53,7 +54,6 @@ exports.create = function (req, res, next) {
 }
 
 exports.update = function (req, res) {
-
     models.Beta_reader.findOne({ where: { user_id: req.params.id } })
         .then(br => {
             br.update({
@@ -61,6 +61,8 @@ exports.update = function (req, res) {
                 last_name: req.body.last_name,
                 birthday: req.body.birthday,
                 description: req.body.description,
+                siret: req.body.siret,
+                price: req.body.price,
                 img: req.body.img,
                 experience: req.body.experience,
                 method_working: req.body.method_working
@@ -77,7 +79,11 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
     models.Beta_reader.findOne({ where: { user_id: req.params.id } })
         .then(br => {
-            br.destroy();
+            models.User.findOne({ where: { id: br.user_id }})
+            .then((user) => {
+                br.destroy();
+                user.destroy()
+            }).catch(error => res.status(500).json(error))
             res.status(200).json({ message: br.first_name + ' has been successfully deleted!' })
         })
         .catch(error => res.status(500).json({ error }))

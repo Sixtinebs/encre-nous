@@ -80,7 +80,7 @@ export default {
     },
     methods: {
         createAuthor() {
-
+            const self = this;
             this.$store.dispatch('createAccountAuthor', {
                 last_name: this.lastName,
                 first_name: this.firstName,
@@ -90,8 +90,8 @@ export default {
                 role: 'A',
                 // TODO : confirme mot de passe
                 password: this.password
-            }).then(function (response) {
-                console.log(response)
+            }).then(function () {
+                self.$router.push('/connexion');
             },
                 function (error) {
                     console.log(error);

@@ -2,7 +2,7 @@
   <div id="my-profil">
     <h1>Bonjour {{ userInfo.first_name }}</h1>
 
-    <section id="display-profil"  v-if="display">
+    <section id="display-profil" v-if="display">
       <div class="bloc-1">
         <div class="container-image">
           <img v-if="userInfo.img" :src="infoPost.image" alt="" />
@@ -15,6 +15,7 @@
           <p>{{ userInfo.first_name }} {{ userInfo.last_name }}</p>
           <p>Date de naissance : {{ userInfo.birthday }}</p>
           <p>Date d'inscription{{ userInfo.createdAt }}</p>
+          <p v-if="user.role == 'BR' ">Mon siret{{ userInfo.siret }}</p>
         </div>
       </div>
 
@@ -24,20 +25,21 @@
       </div>
 
       <div class="container-other-info">
-        <div v-if="userInfo.experience" class="container-experience">
+        <div v-if="user.role == 'BR' " class="container-experience">
           <h2>Mon Experience</h2>
           <p>{{ userInfo.experience }}</p>
         </div>
 
         <div>
-          <div v-if="userInfo.method_working" class="container-method-working">
+          <div v-if="user.role == 'BR' " class="container-method-working">
             <h2>Ma méthode de travail</h2>
             <p>{{ userInfo.method_working }}</p>
           </div>
         </div>
       </div>
- <a @click="modify()" class="btn-form btn-submit">Modifier mon profil</a>
+      <a @click="modify()" class="btn-form btn-submit">Modifier mon profil</a>
       <a @click="signOut()" class="btn-form btn-submit">Se déconnecter</a>
+      <a @click="deleteProfil(user.id)" class="btn-delete">Supprimer son compte</a>
     </section>
 
     <section id="modify-profil" v-if="!display">
@@ -46,54 +48,93 @@
           <div class="container-image">
             <img v-if="userInfo.img" :src="infoPost.image" alt="" />
             <img v-else src="../assets/images/image-default.jpeg" alt="" />
+            <label for="img">Votre photo de profil : </label>
+            <input type="file" id="img" name="img" accept="image/png, image/jpeg">
           </div>
 
           <div class="container-info">
             <h2>A propose de moi</h2>
             <div>
+              <p>{{ errorMessage }}</p>
               <label for="email">Votre email : </label>
-              <input type="email" id="email" name="email" :placeholder="user.email" />
+              <input v-model="email" type="email" id="email" name="email" :placeholder="user.email" />
             </div>
 
             <div>
               <label for="password">Votre password : </label>
-              <input type="password" id="password" name="password" :placeholder="user.password" />
+              <input v-model="password" type="password" id="password" name="password" :placeholder="user.password" />
             </div>
 
             <div class="full-name">
               <div>
                 <label for="first-name">Votre prénom : </label>
-                <input type="text" id="first-name" name="first-name" :placeholder="userInfo.first_name" />
+                <input v-model="firstName" type="text" id="first-name" name="first-name"
+                  :placeholder="userInfo.first_name" />
               </div>
               <div>
                 <label for="last-name">Votre nom : </label>
-                <input type="text" id="last-name" name="last-name" :placeholder="userInfo.last_name" />
+                <input v-model="lastName" type="text" id="last-name" name="last-name"
+                  :placeholder="userInfo.last_name" />
               </div>
+            </div>
+
+
+            <div>
+              <label for="birthday">Votre date de naissance : </label>
+              <input v-model="birthday" type="date" id="birthday" name="birthday" />
+            </div>
+
+            <div v-if="user.role == 'BR' ">
+              <label for="siret">Siret</label>
+              <input v-model="siret" type="number" id="Siret" name="Siret" minlength="13" maxlength="13"
+                :placeholder="userInfo.siret">
+            </div>
+            <div>
+              <label for="description">Décrivez-vous : </label>
+              <textarea v-model="description" id="description" name="description"
+                :placeholder="userInfo.description"></textarea>
+            </div>
+
+            <div v-if="user.role == 'BR' " id="options-experiences">
+              <p>Années d'expériences ?</p>
+              <div class="option-experience">
+                <input v-model="experience" type="radio" id="option-1" name="experience" value="Moins de 6 mois"
+                  :checked="'Moins de 6 mois' == userInfo.experience">
+                <label class="label-register" for="experience">Moins de 6 mois</label>
+              </div>
+              <div class="option-experience">
+                <input type="radio" id="option-2" name="experience" value="6 mois à 2 ans"
+                  :checked="'6 mois à 2 ans' == userInfo.experience">
+                <label class="label-register" for="experience">6 mois à 2 ans</label>
+              </div>
+              <div class="option-experience">
+                <input type="radio" id="option-3" name="experience" value="Entre 2 et 5ans"
+                  :checked="'Entre 2 et 5ans' == userInfo.experience">
+                <label class="label-register" for="experience">Entre 2 et 5ans</label>
+              </div>
+              <div class="option-experience">
+                <input type="radio" id="option-4" name="experience" value="Plus de 5 ans"
+                  :checked="'Plus de 5 ans' == userInfo.experience">
+                <label class="label-register" for="experience">Plus de 5 ans</label>
+              </div>
+
+            </div>
+
+            <div v-if="user.role == 'BR' ">
+              <label for="method-working">Dite en plus sur la façon dont vous travaillez : </label>
+              <textarea v-model="methodWorking" id="method-working" name="method-working"
+                :placeholder="userInfo.method_working"></textarea>
+            </div>
+
+            <div v-if="user.role == 'BR' ">
+              <label for="prices">Tarifs</label>
+              <input v-model="tarif" type="text" id="prices" name="prices" :placeholder="userInfo.price">
             </div>
           </div>
 
-          <div>
-            <label for="birthday">Votre date de naissance : </label>
-            <input type="date" id="birthday" name="birthday" :value="userInfo.birthday" />
-          </div>
-
-          <div>
-            <label for="description">Décrivez-vous : </label>
-            <input type="textarea" id="description" name="description" :placeholder="userInfo.description" />
-          </div>
-
-          <div>
-            <label for="experience">Parlez de vos expériences : </label>
-            <input type="textarea" id="experience" name="experience" :placeholder="userInfo.experience" />
-          </div>
-
-          <div>
-            <label for="method-working">Dite en plus sur la façon dont vous travaillez : </label>
-            <input type="textarea" id="method-working" name="method-working" :placeholder="userInfo.method_working" />
-          </div>
 
         </div>
-        <a @click="validate()" class="btn-form btn-submit">Valider mon profil</a>
+        <a @click="validate(user.id)" class="btn-form btn-submit">Valider mon profil</a>
       </form>
     </section>
 
@@ -101,13 +142,25 @@
 </template>
 
 <script>
-//import userService from '../services/userService';
+import userService from '@/services/userService';
+import { ref } from 'vue';
 import { mapState } from 'vuex'
 export default {
   name: "MyLogin",
-  data(){
+  data() {
     return {
-      display: true
+      display: true,
+      lastName: ref(''),
+      firstName: ref(''),
+      birthday: ref(''),
+      description: ref(''),
+      methodWorking: ref(''),
+      tarif: ref(''),
+      experience: ref(''),
+      siret: ref(''),
+      email: ref(''),
+      password: ref(''),
+      errorMessage: '',
     }
   },
   computed: {
@@ -119,12 +172,121 @@ export default {
       this.$store.commit('LOGOUT');
       this.$router.push('/');
     },
+
     modify() {
       this.display = false;
-      
+
     },
-    validate(){
-      this.display = true;
+
+    deleteProfil(id) {
+      if (this.$store.state.user.role == "BR") {
+        if (confirm("Est-vous sur de vouloir supprimer votre profil ?")) {
+          userService.deleteBetaReader(id)
+            .then(() => {
+              this.$store.commit('LOGOUT');
+              this.$router.push('/');
+            }).catch((error) => console.log(error))
+        }
+
+      }
+      if (this.$store.state.user.role == "A") {
+        if (confirm("Est-vous sur de vouloir supprimer votre profil ?")) {
+          userService.deleteAuthor(id)
+            .then(() => {
+              this.$store.commit('LOGOUT');
+              this.$router.push('/');
+            }).catch((error) => console.log(error))
+        }
+      }
+    },
+
+    changeInfo() {
+      console.log('coucou')
+
+    },
+
+    modifyUser(id) {
+      const user = {
+        email: this.email,
+        password: this.password
+      };
+      let dataLog = {}
+      for (const data in user) {
+        if (user[data].length !== 0) {
+          dataLog[data] = user[data]
+        }
+      }
+      if (Object.entries(dataLog).length !== 0) {
+        return new Promise((resolve, reject) => {
+        userService.modifyUser(id, dataLog)
+          .then((response) => {
+            console.log(response);
+            resolve(response)
+          }).catch((error) => {
+            error.response.errorCode == 1062 ? this.errorMessage = "l'email existe déjà, veuillez en choisir un autres" : "";
+            console.log(error);
+            reject(error)
+          })
+        })
+
+      }
+    },
+    modifyUserInfo(id) {
+      const datas = {
+        last_name: this.lastName,
+        first_name: this.firstName,
+        birthday: this.birthday,
+        description: this.description,
+        method_working: this.methodWorking,
+        price: this.tarif,
+        experience: this.experience,
+        siret: this.siret,
+      };
+
+      let dataUser = {};
+      for (const data in datas) {
+        if (datas[data].length !== 0) {
+          dataUser[data] = datas[data]
+        }
+      }
+
+
+      if (this.$store.state.user.role == "BR" && Object.entries(dataUser).length !== 0) {
+        return new Promise((resolve, reject) => {
+       userService.modifyBetaReader(id, dataUser)
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          })
+        })
+ 
+      }
+
+      if (this.$store.state.user.role == "A" && Object.entries(dataUser).length !== 0) {
+        return new Promise((resolve, reject) => {
+          userService.modifyAuthor(id, dataUser)
+            .then((response) => {
+              resolve(response)
+            })
+            .catch((error) => {
+              reject(error);
+            })
+        })
+
+      }
+    },
+
+    async validate(id) {
+      try {
+        await this.modifyUser(id);
+        await this.modifyUserInfo(id);
+        this.display = true;
+        console.log('yes')
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 }
@@ -164,5 +326,26 @@ img {
 
 a.btn-submit {
   float: right;
+}
+
+#modify-profil .container-info div {
+  display: flex;
+  margin-top: 15px;
+}
+
+#modify-profil .container-info div input {
+  height: 40px;
+}
+
+#modify-profil .container-info div label {
+  margin-right: 5px;
+}
+
+input[type="file"] {
+  display: block;
+}
+
+#modify-profil .container-image {
+  max-width: 400px;
 }
 </style>

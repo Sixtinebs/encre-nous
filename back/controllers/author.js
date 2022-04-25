@@ -22,7 +22,7 @@ exports.create = function (req, res, next) {
         .then(hash => {
             const user = models.User.build({
                 email: req.body.email,
-                role: req.body.role,
+                role: 'A',
                 password: hash
             });
             user.save()
@@ -67,7 +67,11 @@ exports.update = function (req, res) {
 exports.delete = function (req, res) {
     models.Author.findOne({ where: { user_id: req.params.id } })
         .then(author => {
-            author.destroy();
+            models.User.findOne({ where: {id: author.user_id}})
+            .then((user) => {
+                author.destroy();
+                user.destroy()
+            } )
             res.status(200).json({ message: author.first_name + ' has been successfully deleted!' })
         })
         .catch(error => res.status(500).json(error))

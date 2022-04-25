@@ -30,7 +30,6 @@ if (!user) {
 
     }
 }
-userService.instance.defaults.headers.common['Authorization'] = user.token;
 
 // Create a new store instance.
 const store = createStore({
@@ -88,6 +87,7 @@ const store = createStore({
         createAccountAuthor: ({ commit }, userDatas) => {
             commit('SET_STATUS', 'loading');
             return new Promise((resolve, reject) => {
+                console.log(userDatas)
                 userService.registerAuthor(userDatas)
                     .then(function (response) {
                         commit('SET_STATUS', 'created');
@@ -99,21 +99,22 @@ const store = createStore({
                     })
             })
         },
-        getAuthor: ({ commit }, id) => {
+        getAuthor: ({ commit }, datas) => {
             commit;
             return new Promise((resolve, reject) => {
-                userService.getAuthor(id)
+                userService.getAuthor(datas)
                     .then((response) => {
+                        console.log(response)
                         resolve(response.data);
                     }).catch(function (error) {
                         reject(error)
                     })
             });
         },
-        getBetaReader: ({ commit }, id) => {
+        getBetaReader: ({ commit }, datas) => {
             commit;
             return new Promise((resolve, reject) => {
-                userService.getBetaReader(id)
+                userService.getBetaReader(datas)
                     .then((response) => {
                         resolve(response.data);
                     }).catch(function (error) {
@@ -127,25 +128,26 @@ const store = createStore({
                 userService.login(userDatas)
                     .then(function (response) {
                         const id = response.data.user_id;
-                        const email = userDatas.email
+                        const email = userDatas.email;
+                        // const token = response.data.token;
                         commit('SET_STATUS', 'login');
                         commit('LOG_USER', {
-                            id: response.data.user_id,
+                            id: id,
                             token: response.data.token,
                             email: email,
                             role: response.data.role
                         });
-                       console.log(response.data.role);
                         dispatch('getAuthor', id).then((response) => {
-
+                            console.log(response.author);
                             if (!response.author) {
                                 dispatch('getBetaReader', id).then((response => {
+                                    console.log(response.beta_readers)
                                     commit('USER_INFO', response.beta_readers)
                                 })).catch((error) => console.log(error))
                             } else {
+                                console.log(response.author)
                                 commit('USER_INFO', response.author)
                             }
-
 
                         }).catch((error) => console.log(error));
                         resolve(response)

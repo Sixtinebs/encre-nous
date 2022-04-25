@@ -118,6 +118,7 @@ export default {
   },
   methods: {
     createBetaReader() {
+      const self = this;
       this.$store.dispatch('createAccountBetaReader', {
         last_name: this.lastName,
         first_name: this.firstName,
@@ -132,8 +133,8 @@ export default {
         // TODO : confirme mot de passe
         password: this.password
       })
-        .then(function (response) {
-          console.log(response)
+        .then(function () {
+            self.$router.push('/connexion');
         },
           function (error) {
             console.log(error);
