@@ -83,7 +83,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .bloc-instruction {
   background-color: #0e0e66;
@@ -132,10 +132,7 @@ h3 {
   color: #ffffff
 }
 .img-user {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: -1;
+  height: 100%;
 }
 .info-1 {
   padding: 10px 7px;

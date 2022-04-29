@@ -141,11 +141,9 @@ const store = createStore({
                             console.log(response.author);
                             if (!response.author) {
                                 dispatch('getBetaReader', id).then((response => {
-                                    console.log(response.beta_readers)
                                     commit('USER_INFO', response.beta_readers)
                                 })).catch((error) => console.log(error))
                             } else {
-                                console.log(response.author)
                                 commit('USER_INFO', response.author)
                             }
 

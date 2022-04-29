@@ -19,15 +19,14 @@
         </div>
         <div class="info">
           <label class="label-register" for="first-name">Votre Prénom</label>
-          <input v-model="firstName" type="text" id="first-name" name="first-name" maxlength="50">
+          <input v-model="firstName" type="text" id="first-name" name="first-name" required maxlength="50">
         </div>
       </div>
 
       <div class="info-user ">
         <div class="info">
           <label class="label-register" for="birthday">Votre date de naissance</label>
-          <input v-model="birthday" type="date" id="birthday" name="birthday" placeholder="Votre date de naissance"
-            required />
+          <input v-model="birthday" type="date" id="birthday" name="birthday" required placeholder="Votre date de naissance" />
         </div>
         <div class="info">
           <label class="label-register label-file" for="img-profil">Ajoutez une photo de profil</label>
@@ -39,11 +38,11 @@
       <div class="info-user">
         <div class="info">
           <label class="label-register" for="description">Décrivez-vous </label>
-          <textarea v-model="description" type="textarea" id="description" name="description"></textarea>
+          <textarea v-model="description" type="textarea" id="description" required name="description"></textarea>
         </div>
         <div class="info">
           <label class="label-register" for="method-working">Décrivez votre méthode de travail</label>
-          <textarea v-model="methodWorking" id="method-working" name="method-working"></textarea>
+          <textarea v-model="methodWorking" id="method-working" required name="method-working"></textarea>
         </div>
       </div>
 
@@ -74,22 +73,22 @@
       <div class="info-user">
         <div class="info">
           <label class="label-register" for="prices">Tarifs</label>
-          <input v-model="tarif" type="text" id="prices" name="prices">
+          <input v-model="tarif" type="text" id="prices" required name="prices">
         </div>
         <div class="info">
           <label class="label-register" for="siret">Siret</label>
-          <input v-model="siret" type="number" id="Siret" name="Siret" minlength="13" maxlength="13">
+          <input v-model="siret" type="number" id="Siret" name="Siret" required  minlength="13" maxlength="13">
         </div>
       </div>
 
       <div class="info-user">
         <div class="info">
           <label class="label-register" for="email">Votre Email</label>
-          <input v-model="email" type="email" id="email" name="email">
+          <input v-model="email" type="email" id="email" required name="email">
         </div>
         <div class="info">
           <label class="label-register" for="password">Votre mot de passe</label>
-          <input v-model="password" type="password" id="password" name="password" autocomplete="on">
+          <input v-model="password" type="password" id="password" required name="password" autocomplete="on">
         </div>
       </div>
 

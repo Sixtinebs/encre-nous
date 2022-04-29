@@ -6,7 +6,7 @@ import LoginUser from "@/views/LoginUser.vue";
 import StartRegister from "@/components/StartRegister.vue";
 import RegisterBetaReader from "@/views/RegisterBetaReader.vue";
 import RegisterAuthor from "@/views/RegisterAuthor.vue";
-import MyProfil from "@/views/MyProfil.vue";
+import MyProfil from "@/views/profils/MyProfil";
 import store from "@/store";
 
 function guardMyroute(to, from, next) {

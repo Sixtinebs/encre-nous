@@ -18,6 +18,10 @@ export default {
     getBetaReader(id){
         return this.instance.get(`/beta-reader/${id}`,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})
     },
+    getAllBetaReader(){
+        console.log('ici')
+        return this.instance.get(`/beta-readers`);
+    },
     getAuthor(id){
         return this.instance.get(`/author/${id}`,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})
     },
@@ -51,6 +55,7 @@ export default {
     },
     deleteAuthor(id){
         return this.instance.delete(`http://localhost:8080/author/${id}`,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})
-    }
+    },
+
 }
 
