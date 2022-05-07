@@ -13,8 +13,8 @@
           <h2>A propose de moi</h2>
           <p>{{ user.email }}</p>
           <p>{{ userInfo.first_name }} {{ userInfo.last_name }}</p>
-          <p>Date de naissance : {{ userInfo.birthday }}</p>
-          <p>Date d'inscription{{ userInfo.createdAt }}</p>
+          <p>Date de naissance : {{ dateTime(userInfo.birthday)  }}</p>
+          <p>Date d'inscription{{  dateTime(userInfo.createdAt)}}</p>
           <p v-if="user.role == 'BR' ">Mon siret{{ userInfo.siret }}</p>
         </div>
       </div>
@@ -37,6 +37,8 @@
           </div>
         </div>
       </div>
+      
+      <a v-if="user.role == 'A'" @click="addBook()" class="btn-form btn-submit">Ajouter un livre</a>
       <a @click="modify()" class="btn-form btn-submit">Modifier mon profil</a>
       <a @click="signOut()" class="btn-form btn-submit">Se déconnecter</a>
       <a @click="deleteProfil(user.id)" class="btn-delete">Supprimer son compte</a>
@@ -46,6 +48,7 @@
       <ModifyProfil @change-display="modify"  @refresh-datas="refreshInfos"/>
     </section>
 
+    
   </div>
 </template>
 
@@ -54,6 +57,7 @@ import userService from '@/services/userService';
 import { ref } from 'vue';
 import { mapState } from 'vuex';
 import ModifyProfil from './ModifyProfil.vue';
+import moment from 'moment';
 
 export default {
   name: "MyLogin",
@@ -118,8 +122,15 @@ export default {
 
     },
 
- 
-   
+    dateTime(value) {
+      return moment(value).format('DD/MM/YYYY');
+    },
+
+    addBook(){
+      console.log('coucou')
+      this.$router.push('/ajouter-livres');
+    }
+
   }
 }
 </script>

@@ -7,8 +7,12 @@ import StartRegister from "@/components/StartRegister.vue";
 import RegisterBetaReader from "@/views/RegisterBetaReader.vue";
 import RegisterAuthor from "@/views/RegisterAuthor.vue";
 import MyProfil from "@/views/profils/MyProfil";
+import Profiluser from "@/views/profils/ProfilUser.vue";
+import FormBook from '@/components/books/FormBook.vue';
+import DisplayBook from '@/views/OneBook.vue'
 import store from "@/store";
 
+// user need to connect 
 function guardMyroute(to, from, next) {
   let isAuthenticated = false;
   if (store.state.user.id === -1)
@@ -20,6 +24,20 @@ function guardMyroute(to, from, next) {
   }
   else {
       next('/');
+  }
+}
+
+// only for author
+function guardAddBook(to, from, next) {
+  let isAuthor = false;
+  if(store.state.user.role !== "A")
+    isAuthor = false
+  else
+    isAuthor = true;
+  if(isAuthor){
+    next()
+  } else {
+    next('/')
   }
 }
 
@@ -88,7 +106,35 @@ const routes = [
     meta: {
       title: 'Mon Profil !'
     }
-  }
+  },
+  {
+    path: "/profil/:role/:id",
+    name: "User",
+    beforeEnter: guardMyroute,
+    component: Profiluser,
+    meta: {
+      title: 'Le Profil'
+    }
+  },
+  {
+    path: "/ajouter-livres",
+    name: "Livres",
+    beforeEnter: guardAddBook,
+    component: FormBook,
+    meta: {
+      title: 'Les livres disponibles'
+    }
+  },
+  {
+    path: "/livre/:id",
+    name: "Livre",
+    beforeEnter: guardAddBook,
+    component: DisplayBook,
+    meta: {
+      title: 'Les détails du livre'
+    }
+  },
+
 ];
 
 const router = createRouter({

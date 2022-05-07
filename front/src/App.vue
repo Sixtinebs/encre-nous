@@ -80,6 +80,7 @@ h2 {
   border-radius: 45px;
   padding: 17px 15px;
   color: #ffffff;
+  cursor: pointer;
 }
 .btn-form:hover {
   background-color: #0e0e66;

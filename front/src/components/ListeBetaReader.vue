@@ -10,9 +10,9 @@
         </div>
         <div class="info-2">
           <p class="bloc">{{beta_reader.experience}}</p>
-          <p>Inscrit depuis <span class="genre bloc">{{moment(beta_reader.createdAt).format('MM/DD/YYYY')}}</span></p>
+          <p>Inscrit depuis <span class="genre bloc">{{dateTime(beta_reader.createdAt)}}</span></p>
           <p class="bloc">Tarifs : <span class="price">{{beta_reader.price}}</span></p>
-          <a class="bloc profil-user" src="#">Découvrire le profil complet</a>
+          <a class="bloc profil-user" :href="'/profil/br/'+beta_reader.user_id">Découvrire le profil complet</a>
         </div>
 
       </div>
@@ -43,10 +43,10 @@ methods: {
      })
      .catch((error) => console.log(error))
   },
-  moment: function () {
-    return moment();
-  }
-
+   dateTime(value) {
+    return moment(value).format('DD/MM/YYYY');
+  },
+  
 },
   mounted() {
     this.getAllBetaReader()
