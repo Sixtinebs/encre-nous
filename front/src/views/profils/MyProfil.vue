@@ -41,7 +41,7 @@
       <a v-if="user.role == 'A'" @click="addBook()" class="btn-form btn-submit">Ajouter un livre</a>
       <a @click="modify()" class="btn-form btn-submit">Modifier mon profil</a>
       <a @click="signOut()" class="btn-form btn-submit">Se déconnecter</a>
-      <a @click="deleteProfil(user.id)" class="btn-delete">Supprimer son compte</a>
+      <a @click="deleteProfil(user.id)" class="btn-delete btn-form btn-submit">Supprimer son compte</a>
     </section>
 
     <section id="modify-profil" v-if="!display" >
@@ -135,7 +135,7 @@ export default {
 }
 </script>
 
-<style >
+<style scoped>
 #my-profil {
   margin: 0 150px 100px 150px;
 }
@@ -168,7 +168,7 @@ export default {
 }
 
 #my-profil a.btn-submit {
-  float: right;
+  float: initial;
 }
 
 #modify-profil .container-info div {
@@ -191,4 +191,9 @@ input[type="file"] {
 #modify-profil .container-image {
   max-width: 400px;
 }
+
+.container-other-info {
+  margin-bottom: 100px;
+}
+
 </style>

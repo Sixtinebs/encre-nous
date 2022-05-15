@@ -41,9 +41,14 @@ exports.create = function (req, res, next) {
                         })
                         .catch(error => res.status(500).json({ error }))
                 })
-                .catch(error => res.status(400).json({ error }))
+                .catch((error) => res.status(400).json({ 
+                    error: error,
+                    success: false,
+                    errorCode: error.original.errno == 1062 ? 1062 : "Unknown error",
+                
+                }))
         })
-        .catch(error => res.status(400).json({ error }));
+        .catch(error => res.status(400).json({ error  }));
 }
 
 exports.update = function (req, res) {
@@ -57,7 +62,7 @@ exports.update = function (req, res) {
                 img: req.body.img,
             })
                 .then(() => {
-                    res.status(200).json({ message: author.first_name + ' has been modified' })
+                    res.status(200).json({ message: author.first_name + ' has been modified', author: author })
                 })
                 .catch(error => res.status(500).json({ error }))
         })

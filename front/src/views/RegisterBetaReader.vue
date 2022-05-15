@@ -1,5 +1,6 @@
 <template>
   <div id="register-beta-lecteur">
+
     <div class="text-register">
       <h1>Votre profil de bêta-lecteur</h1>
       <p>Ut gravida semper eros, ac mattis ligula bibendum at. Vivamus tempor nec arcu malesuada faucibus.</p>
@@ -9,24 +10,25 @@
         Nunc consectetur massa sem, vitae luctus ante sodales nec. Sed sapien erat, tempus tristique orci sit amet,
         semper
         eleifend nibh. </p>
-
+      <div class="not-succes-msg" v-if="message" v-html="message"></div>
     </div>
     <div class="register form">
       <div class="info-user">
         <div class="info">
-          <label class="label-register" for="last-name">Votre nom</label>
+          <label class="label-register" for="last-name">Votre nom <span class="required">*</span></label>
           <input v-model="lastName" type="text" id="last-name" name="last-name" required maxlength="50">
         </div>
         <div class="info">
-          <label class="label-register" for="first-name">Votre Prénom</label>
+          <label class="label-register" for="first-name">Votre Prénom <span class="required">*</span></label>
           <input v-model="firstName" type="text" id="first-name" name="first-name" required maxlength="50">
         </div>
       </div>
 
       <div class="info-user ">
         <div class="info">
-          <label class="label-register" for="birthday">Votre date de naissance</label>
-          <input v-model="birthday" type="date" id="birthday" name="birthday" required placeholder="Votre date de naissance" />
+          <label class="label-register" for="birthday">Votre date de naissance <span class="required">*</span></label>
+          <input v-model="birthday" type="date" id="birthday" name="birthday" required
+            placeholder="Votre date de naissance" />
         </div>
         <div class="info">
           <label class="label-register label-file" for="img-profil">Ajoutez une photo de profil</label>
@@ -37,11 +39,12 @@
 
       <div class="info-user">
         <div class="info">
-          <label class="label-register" for="description">Décrivez-vous </label>
+          <label class="label-register" for="description">Décrivez-vous <span class="required">*</span></label>
           <textarea v-model="description" type="textarea" id="description" required name="description"></textarea>
         </div>
         <div class="info">
-          <label class="label-register" for="method-working">Décrivez votre méthode de travail</label>
+          <label class="label-register" for="method-working">Décrivez votre méthode de travail <span
+              class="required">*</span></label>
           <textarea v-model="methodWorking" id="method-working" required name="method-working"></textarea>
         </div>
       </div>
@@ -49,7 +52,8 @@
       <div class="info-user">
         <div>
           <div id="options-experiences">
-            <p class="label-register">Combien d'années d'expériences avec vous en tant que Bêta-lecteur ?</p>
+            <p class="label-register">Combien d'années d'expériences avec vous en tant que Bêta-lecteur ? <span
+                class="required">*</span></p>
             <div class="option-experience">
               <input v-model="experience" type="radio" id="option-1" name="experience" value="Moins de 6 mois">
               <label class="label-register" for="experience">Moins de 6 mois</label>
@@ -72,26 +76,29 @@
 
       <div class="info-user">
         <div class="info">
-          <label class="label-register" for="prices">Tarifs</label>
-          <input v-model="tarif" type="text" id="prices" required name="prices">
+          <label class="label-register" for="prices">Tarifs <span class="required">*</span></label>
+          <input v-model="tarif" type="text" id="prices"  name="prices">
         </div>
         <div class="info">
-          <label class="label-register" for="siret">Siret</label>
-          <input v-model="siret" type="number" id="Siret" name="Siret" required  minlength="13" maxlength="13">
+          <label class="label-register" for="siret">Siret <span class="required">*</span></label>
+          <input v-model="siret" type="number" id="Siret" name="Siret"  minlength="13" maxlength="13">
         </div>
       </div>
 
       <div class="info-user">
         <div class="info">
-          <label class="label-register" for="email">Votre Email</label>
+          <label class="label-register" for="email">Votre Email <span class="required">*</span></label>
           <input v-model="email" type="email" id="email" required name="email">
         </div>
         <div class="info">
-          <label class="label-register" for="password">Votre mot de passe</label>
-          <input v-model="password" type="password" id="password" required name="password" autocomplete="on">
+          <label class="label-register" for="password">Votre mot de passe <span class="required">*</span></label>
+          <input v-model="password" type="password" id="password"  name="password" required autocomplete="on">
+          <label class="label-register" for="confirm-password">Confirmer votre mot de passe <span
+              class="required">*</span></label>
+          <input v-model="confirmPassword" type="password" id="confirm-password" required name="confirm-password">
         </div>
       </div>
-
+      <p class="field-required"><span class="required">*</span> Champ obligatoire</p>
       <button @click="createBetaReader" class="btn-form btn-submit">Créer son profil </button>
 
     </div>
@@ -99,48 +106,118 @@
 </template>
 
 <script >
-import { ref } from 'vue';
+import { ref } from "vue";
 export default {
   setup() {
     return {
-      lastName: ref(''),
-      firstName: ref(''),
-      birthday: ref(''),
-      description: ref(''),
-      methodWorking: ref(''),
-      tarif: ref(''),
-      experience: ref(''),
-      siret: ref(''),
-      email: ref(''),
-      password: ref('')
-    }
+      lastName: ref(""),
+      firstName: ref(""),
+      birthday: ref(""),
+      description: ref(""),
+      methodWorking: ref(""),
+      tarif: ref(""),
+      experience: ref(""),
+      siret: ref(""),
+      email: ref(""),
+      password: ref(""),
+      confirmPassword: ref(""),
+      message: ref("")
+    };
   },
   methods: {
     createBetaReader() {
-      const self = this;
-      this.$store.dispatch('createAccountBetaReader', {
-        last_name: this.lastName,
-        first_name: this.firstName,
-        birthday: this.birthday,
-        description: this.description,
-        method_working: this.methodWorking,
-        price: this.tarif,
-        experience: this.experience,
-        siret: this.siret,
-        email: this.email,
-        role: 'BR',
-        // TODO : confirme mot de passe
-        password: this.password
-      })
-        .then(function () {
-            self.$router.push('/connexion');
-        },
-          function (error) {
-            console.log(error);
-          })
+      this.message = "";
+      const fielIsEmpty = this.fieldEmptyMessage();
+      const isCorrectPassword = this.verifyPassword(this.password, this.confirmPassword);
+      console.log(fielIsEmpty)
+      if (!isCorrectPassword || fielIsEmpty) {
+        console.log('ici')
+        return;
+      }
 
+      const self = this;
+      this.$store
+        .dispatch("createAccountBetaReader", {
+          last_name: this.lastName,
+          first_name: this.firstName,
+          birthday: this.birthday,
+          description: this.description,
+          method_working: this.methodWorking,
+          price: this.tarif,
+          experience: this.experience,
+          siret: this.siret,
+          email: this.email,
+          role: "BR",
+          password: this.password,
+        })
+        .then(() => {
+            self.$router.push("/connexion");
+          }
+        )
+        .catch((error) => {
+            if(error.response.data.errorCode == 1062) { 
+              this.message += `<p>L'email existe déjà</p>`;
+              this.scrollTop();
+            } 
+            console.log(error);
+        })
+    },
+    verifyPassword(password, password2) {
+      if (password == password2) {
+        return true;
+      } else {
+        this.scrollTop();
+        this.message += `<p>Les mots de passe ne corresponde pas</p>`;
+        return false;
+      }
+    },
+    fieldEmptyMessage() {
+      let isEmpty = false;
+      if (!this.lastName) {
+        this.message += `<p>Le champ nom est vide</p>`;
+        isEmpty = true;
+      }
+      if (!this.firstName) {
+        this.message += `<p>Le champ prénom est vide</p>`;
+        isEmpty = true;
+      }
+      if (!this.birthday) {
+        this.message += `<p>Le champ anniversaire est vide</p>`;
+        isEmpty = true;
+      }
+      if (!this.description) {
+        this.message += `<p>Le champ description est vide</p>`;
+        isEmpty = true;
+      }
+      if (!this.methodWorking) {
+        this.message += `<p>Le champ méthode de travail est vide</p>`;
+        isEmpty = true;
+      }
+      if (!this.siret) {
+        this.message += `<p>Le champ siret est vide</p>`;
+      }
+      if (!this.email) {
+        this.message += `<p>Le champ email est vide</p>`;
+        isEmpty = true;
+      }
+
+      console.log(isEmpty)
+      if(isEmpty){
+        this.scrollTop();
+        return true;
+      } else {
+        return false;
+      }
+    },
+    scrollTop() {
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
     }
-  }
+
+  },
 };
 </script>
 
@@ -211,10 +288,18 @@ input[type="file"] {
 .btn-submit {
   font-size: 20px;
   cursor: pointer;
-
 }
 
 .form {
   margin-bottom: 70px;
+}
+
+.required {
+  color: red;
+}
+
+.field-required {
+  text-align: left;
+  margin-left: 140px;
 }
 </style>

@@ -102,4 +102,14 @@ h2 {
     color: #ffffff;
 }
 
+.not-succes-msg {
+  width: 500px;
+  background-color: #efc5bd;
+  padding: 20px;
+  margin: auto;
+  border-radius: 20px;
+  border: 1px solid #efc5bd;
+  margin: 20px auto;
+}
+
 </style>

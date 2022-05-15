@@ -48,7 +48,11 @@ exports.create = function (req, res, next) {
                         })
                         .catch(error => res.status(500).json({ error }))
                 })
-                .catch(error => res.status(400).json({ error }))
+                .catch(error => res.status(400).json({ 
+                    error: error,
+                    success: false,
+                    errorCode: error.original.errno == 1062 ? 1062 : "Unknown error",
+                }))
         })
         .catch(error => res.status(400).json({ error }))
 }
@@ -68,7 +72,7 @@ exports.update = function (req, res) {
                 method_working: req.body.method_working
             })
             .then(() => {
-                res.status(200).json({ message: br.first_name + ' has been modified' })
+                res.status(200).json({ message: br.first_name + ' has been modified', beta_reader:br })
             })
             .catch(error => res.status(500).json({ error }))
             

@@ -79,7 +79,6 @@ exports.update = function (req, res) {
             res.status(200).json({ user: user.id + " has been modified" })
           )
           .catch((error) => {
-            console.log("Error while creating new entry", error);
             return res.status(500).json({
               success: false,
               message:

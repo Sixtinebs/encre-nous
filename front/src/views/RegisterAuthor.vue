@@ -12,7 +12,7 @@
                 amet,
                 semper
                 eleifend nibh. </p>
-
+            <div class="not-succes-msg" v-if="message" v-html="message"></div>
         </div>
         <div class="register form">
             <div class="info-user">
@@ -54,7 +54,10 @@
                 <div class="info">
                     <label class="label-register" for="password">Votre mot de passe</label>
                     <input v-model="password" type="password" id="password" name="password" required>
-
+                    <label class="label-register" for="confirm-password">Confirmer votre mot de passe <span
+                            class="required">*</span></label>
+                    <input v-model="confirmPassword" type="password" id="confirm-password" required
+                        name="confirm-password">
                 </div>
 
             </div>
@@ -75,11 +78,21 @@ export default {
             birthday: ref(''),
             description: ref(''),
             email: ref(''),
-            password: ref('')
+            password: ref(''),
+            message: ref('')
         };
     },
     methods: {
         createAuthor() {
+            this.message = "";
+            const fielIsEmpty = this.fieldEmptyMessage();
+            const isCorrectPassword = this.verifyPassword(this.password, this.confirmPassword);
+            console.log(fielIsEmpty)
+            if (!isCorrectPassword || fielIsEmpty) {
+                console.log('ici')
+                return;
+            }
+
             const self = this;
             this.$store.dispatch('createAccountAuthor', {
                 last_name: this.lastName,
@@ -88,14 +101,64 @@ export default {
                 description: this.description,
                 email: this.email,
                 role: 'A',
-                // TODO : confirme mot de passe
                 password: this.password
-            }).then(function () {
+            }).then(() => {
                 self.$router.push('/connexion');
-            },
-                function (error) {
+            })
+                .catch((error) => {
+                    if (error.response.data.errorCode == 1062) {
+                        this.message += `<p>L'email existe déjà</p>`;
+                        this.scrollTop();
+                    }
                     console.log(error);
                 })
+        },
+        verifyPassword(password, password2) {
+            if (password == password2) {
+                return true;
+            } else {
+                this.scrollTop();
+                this.message += `<p>Les mots de passe ne corresponde pas</p>`;
+                return false;
+            }
+        },
+        fieldEmptyMessage() {
+            let isEmpty = false;
+            if (!this.lastName) {
+                this.message += `<p>Le champ nom est vide</p>`;
+                isEmpty = true;
+            }
+            if (!this.firstName) {
+                this.message += `<p>Le champ prénom est vide</p>`;
+                isEmpty = true;
+            }
+            if (!this.birthday) {
+                this.message += `<p>Le champ anniversaire est vide</p>`;
+                isEmpty = true;
+            }
+            if (!this.description) {
+                this.message += `<p>Le champ description est vide</p>`;
+                isEmpty = true;
+            }
+            if (!this.email) {
+                this.message += `<p>Le champ email est vide</p>`;
+                isEmpty = true;
+            }
+
+            console.log(isEmpty)
+            if (isEmpty) {
+                this.scrollTop();
+                return true;
+            } else {
+                return false;
+            }
+        },
+        scrollTop() {
+            window.scroll({
+                top: 0,
+                left: 0,
+                behavior: "smooth",
+            });
         }
     }
 };

@@ -175,6 +175,7 @@ export default {
                     userService.modifyBetaReader(id, dataUser)
                         .then((response) => {
                             resolve(response);
+                            this.$store.commit('USER_INFO', response.data.beta_reader)
                         })
                         .catch((error) => {
                             reject(error);
@@ -187,7 +188,9 @@ export default {
                 return new Promise((resolve, reject) => {
                     userService.modifyAuthor(id, dataUser)
                         .then((response) => {
-                            resolve(response)
+                            resolve(response);
+                            
+                            this.$store.commit('USER_INFO', response.data.author)
                         })
                         .catch((error) => {
                             reject(error);
@@ -201,9 +204,10 @@ export default {
             console.log(id)
             try {
                 await this.modifyUser(id);
-                await this.modifyUserInfo(id);
+                await this.modifyUserInfo(id)
                 this.$emit('changeDisplay');
-                this.$emit('refreshDatas')
+                this.$emit('refreshDatas');
+                
             } catch (error) {
                 console.log(error);
             }
@@ -215,6 +219,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.full-name {
+    flex-direction: column;
+}
 
 </style>

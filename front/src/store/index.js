@@ -26,6 +26,7 @@ if (!user) {
             email: '',
             role: ''
         };
+        userInfo = {};
         status = ''
 
     }
@@ -51,6 +52,7 @@ const store = createStore({
             localStorage.setItem('user', JSON.stringify(user));
         },
         USER_INFO: function (state, userInfo) {
+            console.log(userInfo)
             state.userInfo = userInfo;
             localStorage.setItem('userInfo', JSON.stringify(userInfo));
         },
