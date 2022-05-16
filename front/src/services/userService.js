@@ -19,7 +19,10 @@ export default {
         return this.instance.get(`/beta-reader/${id}`,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})
     },
     getAllBetaReader(){
-        return this.instance.get(`/beta-readers`);
+        return this.instance.get('/beta-readers');
+    },
+    getLastBetaReader(){
+        return this.instance.get('/last-beta-readers');
     },
     getAuthor(id){
         return this.instance.get(`/author/${id}`,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})

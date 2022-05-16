@@ -2,75 +2,16 @@
     <h2>Ils Viennent de nous rejoindre</h2>
     <p class="under-text">Les derniers beta lecteur à rejoindre l'aventure</p>
     <div class="list-user">
-      <div class="user">
-        <img
-          class="img-user"
-          src="../assets/images/user-1.jpg"
-          alt=""
-        />
+      <div class="user"  v-for="beta_reader in beta_readers" :key="beta_reader.id" >
+        <img class="img-user" v-if="beta_reader.img" :src="infoPost.image" alt="" />
+          <img class="img-user" v-else src="../assets/images/image-default.jpeg" alt="" />
         <div class="info-1">
-          <p class="blod">Jérome d'Atant</p>
-          <p>Grenoble</p>
+          <p class="bloc ">{{beta_reader.first_name}}</p>
         </div>
         <div class="info-2">
-          <p class="blod">Beta lecteur depuis 5 ans</p>
-          <p>Spécialiste dans le genre <span class="genre blod">Fantastique</span></p>
-          <p class="blod">Tarifs : <span class="price">X euros par mots</span></p>
-          <a class="blod profil-user" src="#">Décrouvrire le profil complet</a>
-        </div>
-
-      </div>
-      <div class="user">
-        <img
-          class="img-user"
-          src="../assets/images/user-2.jpg"
-          alt=""
-        />
-        <div class="info-1">
-          <p class="blod">Jérome d'Atant</p>
-          <p>Grenoble</p>
-        </div>
-        <div class="info-2">
-          <p class="blod">Beta lecteur depuis 5 ans</p>
-          <p>Spécialiste dans le genre <span class="genre blod">Fantastique</span></p>
-          <p class="blod">Tarifs : <span class="price">X euros par mots</span></p>
-          <a class="blod profil-user" src="#">Décrouvrire le profil complet</a>
-        </div>
-
-      </div>
-      <div class="user">
-        <img
-          class="img-user"
-          src="../assets/images/user-3.jpg"
-          alt=""
-        />
-        <div class="info-1">
-          <p class="blod">Jérome d'Atant</p>
-          <p>Grenoble</p>
-        </div>
-        <div class="info-2">
-          <p class="blod">Beta lecteur depuis 5 ans</p>
-          <p>Spécialiste dans le genre <span class="genre blod">Fantastique</span></p>
-          <p class="blod">Tarifs : <span class="price">X euros par mots</span></p>
-          <a class="blod profil-user" src="#">Décrouvrire le profil complet</a>
-        </div>
-
-      </div>
-      <div class="user">
-        <img
-          class="img-user"
-          src="../assets/images/user-4.jpg"
-          alt=""
-        />
-        <div class="info-1">
-          <p class="blod">Jérome d'Atant</p>
-          <p>Grenoble</p>
-        </div>
-        <div class="info-2">
-          <p class="blod">Beta lecteur depuis 5 ans</p>
-          <p>Spécialiste dans le genre <span class="genre blod">Fantastique</span></p>
-          <p class="blod">Tarifs : <span class="price">X euros par mots</span></p>
-          <a class="blod profil-user" src="#">Décrouvrire le profil complet</a>
+          <p class="bloc">Beta lecteur depuis {{beta_reader.experience}}</p>
+          <p class="bloc">Tarifs : <span class="price">{{beta_reader.price}}</span></p>
+          <a class="bloc profil-user" :href="'/profil/br/'+beta_reader.user_id">Décrouvrire le profil complet</a>
         </div>
 
       </div>
@@ -78,7 +19,27 @@
 </template>
 
 <script>
+import userService from '../services/userService';
 export default {
+  name:'listeLastbetareader',
+  data(){
+    return {
+        beta_readers: null,
+    }
+  },
+  methods: {
+    getLastBetaReader(){
+      userService.getLastBetaReader()
+      .then((response) => {
+        this.beta_readers = response.data.beta_readers;
+      })
+      .catch((error) => {console.log(error)})
+    }
+  },
+  mounted() {
+    this.getLastBetaReader()
+  }
+  
 
 }
 </script>

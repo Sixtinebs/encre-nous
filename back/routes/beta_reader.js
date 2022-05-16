@@ -5,6 +5,7 @@ const auth = require('../middleware/auth');
 
 
 router.get('/beta-readers', controller.beta_reader_list);
+router.get('/last-beta-readers', controller.last_beta_reader_list);
 router.get('/beta-reader/:id',auth.checkJWT, controller.beta_reader);
 router.post('/beta-reader/register', controller.create);
 router.patch('/beta-reader/:id', auth.checkJWT, controller.update);

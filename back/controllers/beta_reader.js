@@ -18,6 +18,20 @@ exports.beta_reader = function (req, res, next) {
         .catch(error => res.status(404).json({ error }))
 };
 
+// find the last four BR
+exports.last_beta_reader_list = function (req, res, next) {
+    models.Beta_reader.findAll({
+        limit: 4,
+        order: [
+            ['id', 'DESC'],
+        ],
+    }).then(br => {
+        res.status(200).json({ beta_readers: br })
+    })
+        .catch(error => res.status(404).json({ error }))
+};
+
+
 //TODO : ne pas créer le user si BR pas créer
 // faire message si email déjà utilisé
 exports.create = function (req, res, next) {
