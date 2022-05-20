@@ -5,17 +5,23 @@
     <section id="display-profil" v-if="display">
       <div class="bloc-1">
         <div class="container-image">
-          <img v-if="userInfo.img" :src="infoPost.image" alt="" />
+          <img v-if="userInfo.img && !url" :src="userInfo.img" alt="" />
+          <img v-else-if="url" :src="url" alt="" />
           <img v-else src="../../assets/images/image-default.jpeg" alt="" />
+          <div class="info info-img">
+          <input  @change="onFileChange" type="file" class="input-file" id="img-profil" name="img-profil" ref="file" accept="image/png, image/jpeg, image/jpg">
+           <p class="custom-file" @click="updateImage(user.id, $refs.file.files[0])">Valider</p>
         </div>
+        </div>
+
 
         <div class="container-info">
           <h2>A propose de moi</h2>
           <p>{{ user.email }}</p>
           <p>{{ userInfo.first_name }} {{ userInfo.last_name }}</p>
           <p>Date de naissance : {{ dateTime(userInfo.birthday)  }}</p>
-          <p>Date d'inscription{{  dateTime(userInfo.createdAt)}}</p>
-          <p v-if="user.role == 'BR' ">Mon siret{{ userInfo.siret }}</p>
+          <p>Date d'inscription : {{  dateTime(userInfo.createdAt)}}</p>
+          <p v-if="user.role == 'BR' ">Mon siret {{ userInfo.siret }}</p>
         </div>
       </div>
 
@@ -75,6 +81,8 @@ export default {
       email: ref(''),
       password: ref(''),
       errorMessage: '',
+      url: null,
+      file: null
     }
   },
   components: {
@@ -85,11 +93,32 @@ export default {
 
   },
   methods: {
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.url = URL.createObjectURL(file);
+      console.log(this.url)
+    },
     signOut() {
       this.$store.commit('LOGOUT');
       this.$router.push('/');
     },
-
+    updateImage(id, file){
+      console.log(file)
+      if (!file) return;
+      let formData = new FormData();
+      formData.append("file", file);
+      console.log(this.user.id)
+      if(this.user.role == "A"){
+        userService.modifyAuthor(id, formData)
+        .then((resp) => console.log(resp))
+        .catch((error) => console.log(error))
+      }
+      if(this.user.role == "BR"){
+        userService.modifyBetaReader(id, formData)
+        .then((resp) => console.log(resp))
+        .catch((error) => console.log(error))
+      }
+    },
     modify() {
       console.log(this.display)
       this.display = !this.display ;
@@ -195,5 +224,7 @@ input[type="file"] {
 .container-other-info {
   margin-bottom: 100px;
 }
-
+.info-img {
+  width: 100%;
+}
 </style>

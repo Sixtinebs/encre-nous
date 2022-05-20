@@ -1,6 +1,7 @@
 const models = require('../models/index');
 const bcrypt = require('bcrypt');
-const { use } = require('bcrypt/promises');
+
+const fs = require('fs');
 
 // br = Beta-Reader
 exports.beta_reader_list = function (req, res, next) {
@@ -52,7 +53,6 @@ exports.create = function (req, res, next) {
                         siret: req.body.siret,
                         price: req.body.price,
                         description: req.body.description,
-                        img: req.body.img,
                         experience: req.body.experience,
                         method_working: req.body.method_working
                     });
@@ -72,8 +72,13 @@ exports.create = function (req, res, next) {
 }
 
 exports.update = function (req, res) {
+    console.log(req.params.id, '<---PARAMS')
     models.Beta_reader.findOne({ where: { user_id: req.params.id } })
         .then(br => {
+            if (br.img) {
+                const image = br.img.split('/images/')[1];
+                fs.unlinkSync(`images/${image}`);
+            }
             br.update({
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
@@ -81,9 +86,9 @@ exports.update = function (req, res) {
                 description: req.body.description,
                 siret: req.body.siret,
                 price: req.body.price,
-                img: req.body.img,
                 experience: req.body.experience,
-                method_working: req.body.method_working
+                method_working: req.body.method_working,
+                img: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null),
             })
             .then(() => {
                 res.status(200).json({ message: br.first_name + ' has been modified', beta_reader:br })
@@ -99,6 +104,10 @@ exports.delete = function (req, res) {
         .then(br => {
             models.User.findOne({ where: { id: br.user_id }})
             .then((user) => {
+                if (br.img) {
+                    const image = author.img.split('/images/')[1];
+                    fs.unlinkSync(`images/${image}`);
+                }
                 br.destroy();
                 user.destroy()
             }).catch(error => res.status(500).json(error))

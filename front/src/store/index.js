@@ -71,10 +71,11 @@ const store = createStore({
         }
     },
     actions: {
-        createAccountBetaReader: ({ commit }, userDatas) => {
+        createAccountBetaReader: ({ commit }, userDatas, img) => {
+            console.log(img)
             commit('SET_STATUS', 'loading');
             return new Promise((resolve, reject) => {
-                userService.registerBetaReader(userDatas)
+                userService.registerBetaReader(userDatas, img)
                     .then(function (response) {
                         commit('SET_STATUS', 'created');
                         resolve(response)
@@ -89,7 +90,6 @@ const store = createStore({
         createAccountAuthor: ({ commit }, userDatas) => {
             commit('SET_STATUS', 'loading');
             return new Promise((resolve, reject) => {
-                console.log(userDatas)
                 userService.registerAuthor(userDatas)
                     .then(function (response) {
                         commit('SET_STATUS', 'created');

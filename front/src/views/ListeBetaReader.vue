@@ -2,7 +2,7 @@
   <div>
     <h1>Recherche des bêta-lecteurs</h1>
     
-    <ComponentListBetaReader />
+    <component-list-beta-reader />
   </div>
 </template>
 

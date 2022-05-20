@@ -3,7 +3,7 @@
   <p>Nous avons trouvez {{br_length}} Béta lecteur</p>
     <div class="list-user">
       <div v-for="beta_reader in beta_readers" :key="beta_reader.id" class="user">
-        <img class="img-user" v-if="beta_reader.img" :src="infoPost.image" alt="" />
+        <img class="img-user" v-if="beta_reader.img" :src="beta_reader.img" alt="" />
           <img class="img-user" v-else src="../assets/images/image-default.jpeg" alt="" />
         <div class="info-1">
           <p class="bloc">{{beta_reader.first_name}} {{beta_reader.last_name}}</p>
@@ -39,6 +39,7 @@ methods: {
      userService.getAllBetaReader()
      .then((response) => {
        this.beta_readers = response.data.beta_readers;
+       console.log(this.beta_readers, '<--BR')
        this.br_length = response.data.beta_readers.length
      })
      .catch((error) => console.log(error))
@@ -91,9 +92,10 @@ h3 {
 }
 .list-user {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
   padding: 0 130px;
   margin-top: 80px;
+  flex-flow: wrap;
 }
 .user {
   position: relative;
@@ -102,7 +104,9 @@ h3 {
   justify-content: flex-end;
   font-size: 15px;
   height: 300px;
-  color: #ffffff
+  color: #ffffff;
+  margin: 10px;
+
 }
 .img-user {
   height: 100%;

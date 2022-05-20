@@ -1,4 +1,3 @@
-const fs = require('fs');
 dotenv = require('dotenv').config();
 
 const sequelize = {

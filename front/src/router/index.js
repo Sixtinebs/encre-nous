@@ -34,7 +34,7 @@ function guardAddBook(to, from, next) {
   if (isAuthor) {
     next();
   } else {
-    next("/");
+    next("/connexion");
   }
 }
 
@@ -141,7 +141,7 @@ const routes = [
   {
     path: "/livre/:id",
     name: "Livre",
-    beforeEnter: guardAddBook,
+    beforeEnter: guardMyroute,
     component: DisplayBook,
     meta: {
       title: "Les détails du livre",

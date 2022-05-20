@@ -1,12 +1,12 @@
 <template>
-    <form >
+    <form id="form-my-profil">
         <div class="bloc-1">
-            <div class="container-image">
+            <!-- <div class="container-image">
                 <img v-if="userInfo.img" :src="infoPost.image" alt="" />
                 <img v-else src="../../assets/images/image-default.jpeg" alt="" />
                 <label for="img">Votre photo de profil : </label>
                 <input type="file" id="img" name="img" accept="image/png, image/jpeg">
-            </div>
+            </div> -->
 
             <div class="container-info">
                 <h2>A propose de moi</h2>
@@ -53,24 +53,24 @@
                 </div>
 
                 <div v-if="user.role == 'BR'" id="options-experiences">
-                    <p>Années d'expériences ?</p>
+                    <label>Années d'expériences ?</label>
                     <div class="option-experience">
                         <input v-model="experience" type="radio" id="option-1" name="experience" value="Moins de 6 mois"
                             :checked="'Moins de 6 mois' == userInfo.experience">
                         <label class="label-register" for="experience">Moins de 6 mois</label>
                     </div>
                     <div class="option-experience">
-                        <input type="radio" id="option-2" name="experience" value="6 mois à 2 ans"
+                        <input v-model="experience" type="radio" id="option-2" name="experience" value="6 mois à 2 ans"
                             :checked="'6 mois à 2 ans' == userInfo.experience">
                         <label class="label-register" for="experience">6 mois à 2 ans</label>
                     </div>
                     <div class="option-experience">
-                        <input type="radio" id="option-3" name="experience" value="Entre 2 et 5ans"
+                        <input v-model="experience" type="radio" id="option-3" name="experience" value="Entre 2 et 5ans"
                             :checked="'Entre 2 et 5ans' == userInfo.experience">
                         <label class="label-register" for="experience">Entre 2 et 5ans</label>
                     </div>
                     <div class="option-experience">
-                        <input type="radio" id="option-4" name="experience" value="Plus de 5 ans"
+                        <input v-model="experience" type="radio" id="option-4" name="experience" value="Plus de 5 ans"
                             :checked="'Plus de 5 ans' == userInfo.experience">
                         <label class="label-register" for="experience">Plus de 5 ans</label>
                     </div>
@@ -123,34 +123,37 @@ export default {
     },
     methods: {
         modifyUser(id) {
-            const user = {
-                email: this.email,
-                password: this.password
-            };
-            let dataLog = {}
-            for (const data in user) {
-                if (user[data].length !== 0) {
-                    dataLog[data] = user[data]
-                }
+            console.log('AVANT')
+            console.log(this.email)
+            if (this.email == '' && this.password == '') return;
+            console.log('APRES')
+            let formData = new FormData();
+            if (this.email !== '') {
+                console.log('EMAIL')
+                formData.append('email', this.email);
             }
-            if (Object.entries(dataLog).length !== 0) {
-                return new Promise((resolve, reject) => {
-                    userService.modifyUser(id, dataLog)
-                        .then((response) => {
-                            console.log(response);
-                            //store.commit('LOG_USER', { email: this.email });
-                            resolve(response)
-                        }).catch((error) => {
-                            error.response.data.errorCode == 1062 ? this.errorMessage = "l'email existe déjà, veuillez en choisir un autres" : "";
-                            console.log(error)
-                            reject(error)
-                        })
-                })
+            if (this.password !== '') {
+                console.log('MDP')
+                formData.append('password', this.password);
+            }
 
-            }
+            return new Promise((resolve, reject) => {
+                userService.modifyUser(id, formData)
+                    .then((response) => {
+                        console.log(response)
+                        resolve(response)
+                    }).catch((error) => {
+                        error.response.data.errorCode == 1062 ? this.errorMessage = "l'email existe déjà, veuillez en choisir un autres" : "";
+                        console.log(error)
+                        reject(error)
+                    })
+            })
+
         },
 
         modifyUserInfo(id) {
+            let formData = new FormData();
+            let hasDatas = false;
             const datas = {
                 last_name: this.lastName,
                 first_name: this.firstName,
@@ -161,18 +164,17 @@ export default {
                 experience: this.experience,
                 siret: this.siret,
             };
-
-            let dataUser = {};
             for (const data in datas) {
-                if (datas[data].length !== 0) {
-                    dataUser[data] = datas[data]
+                if (datas[data] !== '') {
+                    formData.append(`${data}`, datas[data]);
+                    hasDatas = true;
                 }
             }
+            if (!hasDatas) return;
 
-
-            if (this.$store.state.user.role == "BR" && Object.entries(dataUser).length !== 0) {
+            if (this.$store.state.user.role == "BR") {
                 return new Promise((resolve, reject) => {
-                    userService.modifyBetaReader(id, dataUser)
+                    userService.modifyBetaReader(id, formData)
                         .then((response) => {
                             resolve(response);
                             this.$store.commit('USER_INFO', response.data.beta_reader)
@@ -184,12 +186,11 @@ export default {
 
             }
 
-            if (this.$store.state.user.role == "A" && Object.entries(dataUser).length !== 0) {
+            if (this.$store.state.user.role == "A") {
                 return new Promise((resolve, reject) => {
-                    userService.modifyAuthor(id, dataUser)
+                    userService.modifyAuthor(id, formData)
                         .then((response) => {
                             resolve(response);
-                            
                             this.$store.commit('USER_INFO', response.data.author)
                         })
                         .catch((error) => {
@@ -201,13 +202,12 @@ export default {
         },
 
         async validate(id) {
-            console.log(id)
             try {
                 await this.modifyUser(id);
-                await this.modifyUserInfo(id)
+                await this.modifyUserInfo(id);
                 this.$emit('changeDisplay');
                 this.$emit('refreshDatas');
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -224,4 +224,23 @@ export default {
     flex-direction: column;
 }
 
+#form-my-profil .bloc-1 {
+    display: initial;
+}
+
+#form-my-profil .container-info div {
+    flex-direction: column;
+}
+
+#form-my-profil .option-experience {
+    flex-direction: initial !important;
+}
+
+#form-my-profil label {
+    width: 100%;
+}
+
+#form-my-profil .btn-submit {
+    margin: 30px 0;
+}
 </style>

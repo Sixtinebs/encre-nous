@@ -1,6 +1,8 @@
 const models = require('../models/index');
 const bcrypt = require('bcrypt');
 
+const fs = require('fs');
+
 exports.authors_list = function (req, res, next) {
     models.Author.findAll({}).then(authors => {
         res.status(200).json({ authors: authors })
@@ -33,7 +35,7 @@ exports.create = function (req, res, next) {
                         birthday: req.body.birthday,
                         user_id: user.id,
                         description: req.body.description,
-                        img: req.body.img,
+                        //img: req.body.img,
                     });
                     author.save()
                         .then(() => {
@@ -54,12 +56,16 @@ exports.create = function (req, res, next) {
 exports.update = function (req, res) {
     models.Author.findOne({ where: { user_id: req.params.id } })
         .then(author => {
+            if (author.img) {
+                const image = author.img.split('/images/')[1];
+                fs.unlinkSync(`images/${image}`);
+            }
             author.update({
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
                 birthday: req.body.birthday,
                 description: req.body.description,
-                img: req.body.img,
+                img: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null),
             })
                 .then(() => {
                     res.status(200).json({ message: author.first_name + ' has been modified', author: author })
@@ -74,6 +80,10 @@ exports.delete = function (req, res) {
         .then(author => {
             models.User.findOne({ where: {id: author.user_id}})
             .then((user) => {
+                if (author.img) {
+                    const image = author.img.split('/images/')[1];
+                    fs.unlinkSync(`images/${image}`);
+                }
                 author.destroy();
                 user.destroy()
             } )

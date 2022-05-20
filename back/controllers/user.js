@@ -41,6 +41,9 @@ exports.user = function (req, res, next) {
 };
 
 exports.update = function (req, res) {
+  console.log(req.body.email, '<-- EMAIL')
+  console.log(req
+    , '<-- BODY')
   models.User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       if (req.body.password) {

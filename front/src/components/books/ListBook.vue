@@ -2,17 +2,17 @@
     <div id="bloc-liste-book">
         <div class="book" v-for="book in books" :key="book.id">
             <div class="info-book">
-                <p class="title">{{ book.title }}</p>
-                <p>{{book.Author.last_name }} {{book.Author.first_name }}</p>
-                <p>Nombre de page : <span>{{ book.number_word }}</span></p>
-                <p>Genre : <span>{{ book.genre }}</span></p>
+                <p class="title">{{ book?.title }}</p>
+                <p>{{book.Author?.last_name }} {{book.Author?.first_name }}</p>
+                <p>Nombre de page : <span>{{ book?.number_word }}</span></p>
+                <p>Genre : <span>{{ book?.genre }}</span></p>
                
             </div>
             <div class="boutons">
-                <a class="btn-form" :href="'/profil/a/'+book.Author.user_id">Contact</a>
+                <a class="btn-form" :href="'/profil/a/'+book.Author?.user_id">Contact</a>
                 <a class="btn-form btn-1" :href="'/livre/'+book.id">En savoir +</a>
             </div>
-            <p class="pitch">Pitch: <span>{{ book.summarize }}</span></p>
+            <p class="pitch">Pitch: <span>{{ book?.summarize }}</span></p>
         </div>
 
     </div>

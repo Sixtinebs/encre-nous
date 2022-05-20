@@ -12,7 +12,7 @@
         eleifend nibh. </p>
       <div class="not-succes-msg" v-if="message" v-html="message"></div>
     </div>
-    <div class="register form">
+    <div enctype="multipart/form-data" class="register form">
       <div class="info-user">
         <div class="info">
           <label class="label-register" for="last-name">Votre nom <span class="required">*</span></label>
@@ -27,25 +27,25 @@
       <div class="info-user ">
         <div class="info">
           <label class="label-register" for="birthday">Votre date de naissance <span class="required">*</span></label>
-          <input v-model="birthday" type="date" id="birthday" name="birthday" required
+          <input v-model="birthday" type="date" id="birthday" name="birthday" 
             placeholder="Votre date de naissance" />
         </div>
         <div class="info">
           <label class="label-register label-file" for="img-profil">Ajoutez une photo de profil</label>
           <p class="custom-file">Importer</p>
-          <input type="file" class="input-file" id="img-profil" name="img-profil">
+          <input  @change="selectFile" type="file" class="input-file" id="img-profil" name="img-profil" ref="file" accept="image/png, image/jpeg, image/jpg">
         </div>
       </div>
 
       <div class="info-user">
         <div class="info">
           <label class="label-register" for="description">Décrivez-vous <span class="required">*</span></label>
-          <textarea v-model="description" type="textarea" id="description" required name="description"></textarea>
+          <textarea v-model="description" type="textarea" id="description"  name="description"></textarea>
         </div>
         <div class="info">
           <label class="label-register" for="method-working">Décrivez votre méthode de travail <span
               class="required">*</span></label>
-          <textarea v-model="methodWorking" id="method-working" required name="method-working"></textarea>
+          <textarea v-model="methodWorking" id="method-working"  name="method-working"></textarea>
         </div>
       </div>
 
@@ -92,10 +92,10 @@
         </div>
         <div class="info">
           <label class="label-register" for="password">Votre mot de passe <span class="required">*</span></label>
-          <input v-model="password" type="password" id="password"  name="password" required autocomplete="on">
+          <input v-model="password" type="password" id="password"  name="password"  autocomplete="on">
           <label class="label-register" for="confirm-password">Confirmer votre mot de passe <span
               class="required">*</span></label>
-          <input v-model="confirmPassword" type="password" id="confirm-password" required name="confirm-password">
+          <input v-model="confirmPassword" type="password" id="confirm-password"  name="confirm-password">
         </div>
       </div>
       <p class="field-required"><span class="required">*</span> Champ obligatoire</p>
@@ -121,37 +121,64 @@ export default {
       email: ref(""),
       password: ref(""),
       confirmPassword: ref(""),
-      message: ref("")
+      message: ref(""),
+      file: null
     };
   },
   methods: {
-    createBetaReader() {
+    selectFile() {
+      console.log('coucou')
+      //const files = this.$refs.file.files[0];
+      //if (!files.length) return;
+      this.file = this.$refs.file.files[0];
+      console.log(this.file)
+    },
+    async createBetaReader() {
       this.message = "";
       const fielIsEmpty = this.fieldEmptyMessage();
       const isCorrectPassword = this.verifyPassword(this.password, this.confirmPassword);
-      console.log(fielIsEmpty)
       if (!isCorrectPassword || fielIsEmpty) {
         console.log('ici')
         return;
       }
+      console.log(this.file)
+      let formData = new FormData();
+      formData.append("file", this.file);
+      formData.append("role", "br");
+      formData.append("last_name", this.lastName);
+      formData.append("first_name", this.firstName);
+      formData.append("birthday", this.birthday);
+      formData.append("description", this.description);
+      formData.append("price", this.price);
+      formData.append("siret", this.siret);
+      formData.append("password", this.password);
+      formData.append("experience", this.experience);
+      formData.append("method_working", this.method_working);
+      formData.append("email", this.email);
 
-      const self = this;
-      this.$store
-        .dispatch("createAccountBetaReader", {
-          last_name: this.lastName,
-          first_name: this.firstName,
-          birthday: this.birthday,
-          description: this.description,
-          method_working: this.methodWorking,
-          price: this.tarif,
-          experience: this.experience,
-          siret: this.siret,
-          email: this.email,
-          role: "BR",
-          password: this.password,
-        })
-        .then(() => {
-            self.$router.push("/connexion");
+
+      //console.log("FORMDATA : "+ formData)
+      //const self = this;
+      try {
+      await this.$store
+        .dispatch("createAccountBetaReader", 
+          // last_name: this.lastName,
+          // first_name: this.firstName,
+          // birthday: this.birthday,
+          // description: this.description,
+          // method_working: this.methodWorking,
+          // price: this.tarif,
+          // experience: this.experience,
+          // siret: this.siret,
+          // email: this.email,
+          // role: "BR",
+          // password: this.password,
+          formData
+          
+        )
+         .then((response) => {
+          console.log(response)
+            //self.$router.push("/connexion");
           }
         )
         .catch((error) => {
@@ -161,6 +188,11 @@ export default {
             } 
             console.log(error);
         })
+      }catch(err) {
+        console.log(err)
+      }
+
+       
     },
     verifyPassword(password, password2) {
       if (password == password2) {

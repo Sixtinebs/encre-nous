@@ -10,6 +10,7 @@ export default {
         timeout: 1000,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded', 
+            'enctype': "multipart/form-data"
             // 'Authorization': 'Bearer ' + token, 
             //'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,PATCH OPTIONS',
             // 'Access-Control-Allow-Origin' : '*'
@@ -46,16 +47,18 @@ export default {
         return this.instance.post('/login', data)
     },
     modifyAuthor(id, data){
-        data = qs.stringify(data);
+        //data = qs.stringify(data);
+        console.log(data, '<----modifyAuthor')
         return this.instance.patch(`/author/${id}`, data,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})
     },
     modifyBetaReader(id, data){
-        data = qs.stringify(data);
+        //data = qs.stringify(data);
+        console.log(data, '<----modifyBetaReader')
         return this.instance.patch(`/beta-reader/${id}`, data,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})
     },
     modifyUser(id, data){
-       data = qs.stringify(data);
-        console.log(data)
+       //data = qs.stringify(data);
+        console.log(data, '<---modifyUser')
         return this.instance.patch(`/user/${id}`, data,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})
     },
     deleteBetaReader(id){

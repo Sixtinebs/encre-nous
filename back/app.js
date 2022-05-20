@@ -39,6 +39,8 @@ app.get('/', function (req, res) {
    res.send('Encre-nous');
 });
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
 //Routes
 app.use(author);
 app.use(bl);
