@@ -38,7 +38,7 @@
 
                 <div>
                     <label for="birthday">Votre date de naissance : </label>
-                    <input v-model="birthday" type="date" id="birthday" name="birthday" />
+                    <input v-model="birthday" type="date" id="birthday" name="birthday"  max="2004-01-01" />
                 </div>
 
                 <div v-if="user.role == 'BR'">
@@ -123,25 +123,20 @@ export default {
     },
     methods: {
         modifyUser(id) {
-            console.log('AVANT')
-            console.log(this.email)
             if (this.email == '' && this.password == '') return;
-            console.log('APRES')
-            let formData = new FormData();
+            let userdatas = {}
             if (this.email !== '') {
-                console.log('EMAIL')
-                formData.append('email', this.email);
+                userdatas['email'] = this.email
             }
             if (this.password !== '') {
-                console.log('MDP')
-                formData.append('password', this.password);
+                userdatas['password'] = this.password
             }
-
             return new Promise((resolve, reject) => {
-                userService.modifyUser(id, formData)
+                userService.modifyUser(id, userdatas)
                     .then((response) => {
-                        console.log(response)
+                        console.log(response.data.user.email)
                         resolve(response)
+                        this.$store.commit('SET_USER_CONNEXION', response.data.user)
                     }).catch((error) => {
                         error.response.data.errorCode == 1062 ? this.errorMessage = "l'email existe déjà, veuillez en choisir un autres" : "";
                         console.log(error)
@@ -206,7 +201,7 @@ export default {
                 await this.modifyUser(id);
                 await this.modifyUserInfo(id);
                 this.$emit('changeDisplay');
-                this.$emit('refreshDatas');
+                // this.$emit('refreshDatas');
 
             } catch (error) {
                 console.log(error);
@@ -243,4 +238,5 @@ export default {
 #form-my-profil .btn-submit {
     margin: 30px 0;
 }
+
 </style>

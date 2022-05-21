@@ -3,7 +3,9 @@
     <h1>Bonjour {{ userInfo.first_name }}</h1>
 
     <section id="display-profil" v-if="display">
+    
       <div class="bloc-1">
+
         <div class="container-image">
           <img v-if="userInfo.img && !url" :src="userInfo.img" alt="" />
           <img v-else-if="url" :src="url" alt="" />
@@ -11,6 +13,7 @@
           <div class="info info-img">
           <input  @change="onFileChange" type="file" class="input-file" id="img-profil" name="img-profil" ref="file" accept="image/png, image/jpeg, image/jpg">
            <p class="custom-file" @click="updateImage(user.id, $refs.file.files[0])">Valider</p>
+            <p class="succes-msg-img" v-if="message">{{ message }}</p>
         </div>
         </div>
 
@@ -36,12 +39,16 @@
           <p>{{ userInfo.experience }}</p>
         </div>
 
-        <div>
           <div v-if="user.role == 'BR' " class="container-method-working">
             <h2>Ma méthode de travail</h2>
             <p>{{ userInfo.method_working }}</p>
           </div>
-        </div>
+
+          <div v-if="user.role == 'A' " class="container-my-books">
+            <h2>Mes livres </h2>
+            <list-book-author v-bind:author-id="userInfo.id" />
+          </div>
+
       </div>
       
       <a v-if="user.role == 'A'" @click="addBook()" class="btn-form btn-submit">Ajouter un livre</a>
@@ -51,7 +58,7 @@
     </section>
 
     <section id="modify-profil" v-if="!display" >
-      <ModifyProfil @change-display="modify"  @refresh-datas="refreshInfos"/>
+      <modify-profil @change-display="modify"  @refresh-datas="refreshInfos"/>
     </section>
 
     
@@ -60,10 +67,13 @@
 
 <script>
 import userService from '@/services/userService';
+import bookService from '@/services/bookService';
 import { ref } from 'vue';
 import { mapState } from 'vuex';
 import ModifyProfil from './ModifyProfil.vue';
 import moment from 'moment';
+import ListBookAuthor from '../../components/books/ListBookAuthor.vue';
+
 
 export default {
   name: "MyLogin",
@@ -82,45 +92,65 @@ export default {
       password: ref(''),
       errorMessage: '',
       url: null,
-      file: null
+      file: null,
+      message:  null,
+      //books: null,
     }
   },
   components: {
-    ModifyProfil
-  },
+    ModifyProfil,
+    ListBookAuthor
+},
   computed: {
     ...mapState(['userInfo', 'user']),
-
   },
+  // mounted(){
+  //   if(this.user.role == "A") {
+  //     this.getBooksByAuthor(this.userInfo.id)
+  //   }
+  // },
   methods: {
+    getBooksByAuthor(id){
+      bookService.getByAuthor(id)
+      .then((response) => {
+        this.books = response.data.books
+        console.log(response.data.books)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
     onFileChange(e) {
       const file = e.target.files[0];
       this.url = URL.createObjectURL(file);
-      console.log(this.url)
     },
     signOut() {
       this.$store.commit('LOGOUT');
       this.$router.push('/');
     },
     updateImage(id, file){
-      console.log(file)
       if (!file) return;
       let formData = new FormData();
       formData.append("file", file);
-      console.log(this.user.id)
       if(this.user.role == "A"){
         userService.modifyAuthor(id, formData)
-        .then((resp) => console.log(resp))
+        .then((resp) => {
+          this.message = `Votre photo à été ajouté.`;
+          this.$store.commit('USER_INFO', resp.data.author)
+          
+          })
         .catch((error) => console.log(error))
       }
       if(this.user.role == "BR"){
         userService.modifyBetaReader(id, formData)
-        .then((resp) => console.log(resp))
+        .then((resp) => {
+          this.message = `Votre photo à été ajouté.`;
+          this.$store.commit('USER_INFO', resp.data.beta_reader)
+          })
         .catch((error) => console.log(error))
       }
     },
     modify() {
-      console.log(this.display)
       this.display = !this.display ;
     },
 
@@ -227,4 +257,21 @@ input[type="file"] {
 .info-img {
   width: 100%;
 }
+
+.succes-msg-img {
+  color: #99a71b;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.custom-file {
+  margin-top: 15px;
+  border: 1px solid black;
+  display: flex;
+  cursor: pointer;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
 </style>

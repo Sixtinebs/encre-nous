@@ -5,12 +5,12 @@
     <section id="display-profil">
       <div class="bloc-1">
         <div class="container-image">
-          <img v-if="userDatas.img" :src="infoPost.image" alt="" />
+          <img v-if="userDatas.img" :src="userDatas.img" alt="" />
           <img v-else src="../../assets/images/image-default.jpeg" alt="" />
         </div>
         <div class="container-info">
           <p>{{ userDatas.first_name }} {{ userDatas.last_name }}</p>
-          <p>Date d'inscription : {{ dateTime(userDatas.createdAt)}}</p>
+          <p>Date d'inscription : {{ dateTime(userDatas.createdAt) }}</p>
           <p v-if="role == 'br'">Mon siret {{ userDatas.siret }}</p>
           <div class="container-description">
             <h2>A propose de {{ userDatas.first_name }} </h2>
@@ -20,15 +20,17 @@
       </div>
       <div class="container-other-info">
         <div v-if="role == 'br'" class="container-experience">
-          <h2>Mon Experience</h2>
+          <h2>Son Experience</h2>
           <p>{{ userDatas.experience }}</p>
         </div>
 
-        <div>
-          <div v-if="role == 'br'" class="container-method-working">
-            <h2>Ma méthode de travail</h2>
-            <p>{{ userDatas.method_working }}</p>
-          </div>
+        <div v-if="role == 'br'" class="container-method-working">
+          <h2>Sa méthode de travail</h2>
+          <p>{{ userDatas.method_working }}</p>
+        </div>
+        <div v-if="role == 'a'" class="container-books">
+          <h2>Ses livres</h2>
+          <list-book-author v-bind:author-id="userDatas.id" />
         </div>
       </div>
     </section>
@@ -38,54 +40,56 @@
 <script>
 import userService from '@/services/userService';
 import moment from 'moment';
+import ListBookAuthor from '../../components/books/ListBookAuthor.vue';
+
 
 export default {
   name: "ProfilUser",
+  components: {
+    ListBookAuthor
+  },
   data() {
     return {
       id: this.$route.params.id,
       userDatas: [],
       role: this.$route.params.role
-
-    }
+    };
   },
   mounted() {
-    this.findCorrectRequest(this.id)
+    this.findCorrectRequest(this.id);
   },
   methods: {
     getBetaReader(id) {
       userService.getBetaReader(id)
         .then((response) => {
           this.userDatas = response.data.beta_readers;
-          console.log( this.userDatas)
-
-        }).catch((error) => console.log(error))
+          console.log(this.userDatas);
+        }).catch((error) => console.log(error));
     },
-
     getAuthor(id) {
       userService.getAuthor(id)
         .then((response) => {
-          console.log(response.data)
+          console.log(response.data);
           this.userDatas = response.data.author;
-
-        }).catch((error) => console.log(error))
+        }).catch((error) => console.log(error));
     },
-
     findCorrectRequest(id) {
-      if (this.role == 'a') {
-        this.getAuthor(id)
-      } else if (this.role == 'br') {
-        this.getBetaReader(id)
-      } else {
+      if (this.role == "a") {
+        this.getAuthor(id);
+      }
+      else if (this.role == "br") {
+        this.getBetaReader(id);
+      }
+      else {
         //TODO Faire page 404
-        console.log('404')
+        console.log("404");
       }
     },
-
     dateTime(value) {
-      return moment(value).format('DD/MM/YYYY');
+      return moment(value).format("DD/MM/YYYY");
     },
-  }
+  },
+
 }
 </script>
 

@@ -51,9 +51,12 @@ const store = createStore({
             userService.instance.defaults.headers.common['Authorization'] = user.token;
             localStorage.setItem('user', JSON.stringify(user));
         },
+        SET_USER_CONNEXION: function (state, user) {
+            state.user['email'] = user?.email
+        },
         USER_INFO: function (state, userInfo) {
-            console.log(userInfo)
             state.userInfo = userInfo;
+            state.userInfo['img'] = userInfo?.img
             localStorage.setItem('userInfo', JSON.stringify(userInfo));
         },
         LOGOUT: function (state) {
@@ -71,11 +74,10 @@ const store = createStore({
         }
     },
     actions: {
-        createAccountBetaReader: ({ commit }, userDatas, img) => {
-            console.log(img)
+        createAccountBetaReader: ({ commit }, userDatas) => {
             commit('SET_STATUS', 'loading');
             return new Promise((resolve, reject) => {
-                userService.registerBetaReader(userDatas, img)
+                userService.registerBetaReader(userDatas)
                     .then(function (response) {
                         commit('SET_STATUS', 'created');
                         resolve(response)
@@ -131,7 +133,6 @@ const store = createStore({
                     .then(function (response) {
                         const id = response.data.user_id;
                         const email = userDatas.email;
-                        // const token = response.data.token;
                         commit('SET_STATUS', 'login');
                         commit('LOG_USER', {
                             id: id,

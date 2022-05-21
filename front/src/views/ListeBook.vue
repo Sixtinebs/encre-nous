@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Recherche des projets d'auteurs</h1>
-    <ComponentListBook />
+    <component-list-book />
     
   </div>
 </template>

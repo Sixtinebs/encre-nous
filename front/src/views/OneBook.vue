@@ -8,7 +8,7 @@
                     <a class="btn-form btn-1" :href="'/profil/a/' + authorDatas.user_id">En savoir plus sur l'auteur</a>
                 </div>
                 <div class="container-image">
-                    <img v-if="authorDatas.img" :src="infoPost.image" alt="" />
+                    <img v-if="authorDatas.img" :src="authorDatas.img" alt="" />
                     <img v-else src="../assets/images/image-default.jpeg" alt="" />
                 </div>
             </div>

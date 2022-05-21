@@ -27,23 +27,23 @@
       <div class="info-user ">
         <div class="info">
           <label class="label-register" for="birthday">Votre date de naissance <span class="required">*</span></label>
-          <input v-model="birthday" type="date" id="birthday" name="birthday" 
+          <input v-model="birthday" type="date" id="birthday" name="birthday"  max="2004-01-01"
             placeholder="Votre date de naissance" />
         </div>
-        <div class="info">
+        <!-- <div class="info">
           <label class="label-register label-file" for="img-profil">Ajoutez une photo de profil</label>
           <p class="custom-file">Importer</p>
           <input  @change="selectFile" type="file" class="input-file" id="img-profil" name="img-profil" ref="file" accept="image/png, image/jpeg, image/jpg">
-        </div>
+        </div> -->
       </div>
 
       <div class="info-user">
-        <div class="info">
+        <div class="info textarea">
           <label class="label-register" for="description">Décrivez-vous <span class="required">*</span></label>
           <textarea v-model="description" type="textarea" id="description"  name="description"></textarea>
         </div>
-        <div class="info">
-          <label class="label-register" for="method-working">Décrivez votre méthode de travail <span
+        <div class="info textarea">
+          <label class="label-register textarea" for="method-working">Décrivez votre méthode de travail <span
               class="required">*</span></label>
           <textarea v-model="methodWorking" id="method-working"  name="method-working"></textarea>
         </div>
@@ -141,44 +141,42 @@ export default {
         console.log('ici')
         return;
       }
-      console.log(this.file)
-      let formData = new FormData();
-      formData.append("file", this.file);
-      formData.append("role", "br");
-      formData.append("last_name", this.lastName);
-      formData.append("first_name", this.firstName);
-      formData.append("birthday", this.birthday);
-      formData.append("description", this.description);
-      formData.append("price", this.price);
-      formData.append("siret", this.siret);
-      formData.append("password", this.password);
-      formData.append("experience", this.experience);
-      formData.append("method_working", this.method_working);
-      formData.append("email", this.email);
+      // console.log(this.file)
+      // let formData = new FormData();
+      // formData.append("file", this.file);
+      // formData.append("role", "br");
+      // formData.append("last_name", this.lastName);
+      // formData.append("first_name", this.firstName);
+      // formData.append("birthday", this.birthday);
+      // formData.append("description", this.description);
+      // formData.append("price", this.price);
+      // formData.append("siret", this.siret);
+      // formData.append("password", this.password);
+      // formData.append("experience", this.experience);
+      // formData.append("method_working", this.method_working);
+      // formData.append("email", this.email);
 
 
       //console.log("FORMDATA : "+ formData)
-      //const self = this;
+      const self = this;
       try {
       await this.$store
-        .dispatch("createAccountBetaReader", 
-          // last_name: this.lastName,
-          // first_name: this.firstName,
-          // birthday: this.birthday,
-          // description: this.description,
-          // method_working: this.methodWorking,
-          // price: this.tarif,
-          // experience: this.experience,
-          // siret: this.siret,
-          // email: this.email,
-          // role: "BR",
-          // password: this.password,
-          formData
-          
-        )
+        .dispatch("createAccountBetaReader", { 
+          last_name: this.lastName,
+          first_name: this.firstName,
+          birthday: this.birthday,
+          description: this.description,
+          method_working: this.methodWorking,
+          price: this.tarif,
+          experience: this.experience,
+          siret: this.siret,
+          email: this.email,
+          role: "BR",
+          password: this.password 
+          })
          .then((response) => {
           console.log(response)
-            //self.$router.push("/connexion");
+          self.$router.push("/connexion");
           }
         )
         .catch((error) => {
@@ -297,7 +295,7 @@ input[type="file"] {
   display: none;
 }
 
-.custom-file {
+/* .custom-file {
   border: 1px solid black;
   display: flex;
   margin-top: 0px;
@@ -305,7 +303,7 @@ input[type="file"] {
   height: 40px;
   justify-content: center;
   align-items: center;
-}
+} */
 
 .option-experience {
   display: flex;
@@ -333,5 +331,9 @@ input[type="file"] {
 .field-required {
   text-align: left;
   margin-left: 140px;
+}
+
+.textarea textarea{
+  height: 300px;
 }
 </style>

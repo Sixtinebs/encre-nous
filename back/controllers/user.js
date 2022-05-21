@@ -41,9 +41,7 @@ exports.user = function (req, res, next) {
 };
 
 exports.update = function (req, res) {
-  console.log(req.body.email, '<-- EMAIL')
-  console.log(req
-    , '<-- BODY')
+  console.log(req.body)
   models.User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       if (req.body.password) {
@@ -56,7 +54,7 @@ exports.update = function (req, res) {
                 password: hash,
               })
               .then(() =>
-                res.status(200).json({ user: user.id + " has been modified" })
+                res.status(200).json({ message : user.id + " has been modified", user: {'email': user.email}  })
               )
               .catch((error) => {
                 console.log("Error while creating new entry", error);
@@ -66,11 +64,10 @@ exports.update = function (req, res) {
                     error.original.code == "ER_DUP_ENTRY" ||
                     error.original.errno == 1062
                       ? "Username already exists!"
-                      : "Unknown error",
+                      : "Unknown error"
                 });
               });
-            // user.save();
-            //res.status(200).json({ user: user.id + ' has been modified' })
+
           })
           .catch((error) => console.log(error));
       } else {
@@ -79,7 +76,7 @@ exports.update = function (req, res) {
             email: req.body.email,
           })
           .then(() =>
-            res.status(200).json({ user: user.id + " has been modified" })
+            res.status(200).json({ message: user.id + " has been modified", user: {'email': user.email} })
           )
           .catch((error) => {
             return res.status(500).json({
@@ -92,8 +89,6 @@ exports.update = function (req, res) {
               errorCode: 1062,
             });
           });
-        // user.save();
-        // res.status(200).json({ user: user.id + '  has been modified' })
       }
     })
     .catch((error) =>

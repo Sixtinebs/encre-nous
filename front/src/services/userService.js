@@ -48,17 +48,14 @@ export default {
     },
     modifyAuthor(id, data){
         //data = qs.stringify(data);
-        console.log(data, '<----modifyAuthor')
         return this.instance.patch(`/author/${id}`, data,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})
     },
     modifyBetaReader(id, data){
         //data = qs.stringify(data);
-        console.log(data, '<----modifyBetaReader')
         return this.instance.patch(`/beta-reader/${id}`, data,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})
     },
     modifyUser(id, data){
-       //data = qs.stringify(data);
-        console.log(data, '<---modifyUser')
+        data = qs.stringify(data);
         return this.instance.patch(`/user/${id}`, data,  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }})
     },
     deleteBetaReader(id){

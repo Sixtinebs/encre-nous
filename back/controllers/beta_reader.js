@@ -72,12 +72,17 @@ exports.create = function (req, res, next) {
 }
 
 exports.update = function (req, res) {
-    console.log(req.params.id, '<---PARAMS')
     models.Beta_reader.findOne({ where: { user_id: req.params.id } })
         .then(br => {
-            if (br.img) {
+            let img;
+            if (br.img && req.file) {
                 const image = br.img.split('/images/')[1];
                 fs.unlinkSync(`images/${image}`);
+                img = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            } else if (req.file){
+                img = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            } else {
+                img = undefined;
             }
             br.update({
                 first_name: req.body.first_name,
@@ -88,7 +93,7 @@ exports.update = function (req, res) {
                 price: req.body.price,
                 experience: req.body.experience,
                 method_working: req.body.method_working,
-                img: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null),
+                img: img,
             })
             .then(() => {
                 res.status(200).json({ message: br.first_name + ' has been modified', beta_reader:br })

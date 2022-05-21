@@ -28,14 +28,14 @@
             <div class="info-user ">
                 <div class="info">
                     <label class="label-register" for="birthday">Votre date de naissance</label>
-                    <input v-model="birthday" type="date" id="birthday" name="birthday"
+                    <input v-model="birthday" type="date" id="birthday" name="birthday"  max="2004-01-01"
                         placeholder="Votre date de naissance" required />
                 </div>
-                <div class="info">
+                <!-- <div class="info">
                     <label class="label-register label-file" for="img-profil">Ajoutez une photo de profil</label>
                     <p class="custom-file">Importer</p>
                     <input type="file" class="input-file" id="img-profil" name="img-profil">
-                </div>
+                </div> -->
             </div>
 
             <div class="info-user">
@@ -208,7 +208,7 @@ input[type="file"] {
     display: none;
 }
 
-.custom-file {
+/* .custom-file {
     border: 1px solid black;
     display: flex;
     margin-top: 0px;
@@ -216,7 +216,7 @@ input[type="file"] {
     height: 40px;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .option-experience {
     display: flex;

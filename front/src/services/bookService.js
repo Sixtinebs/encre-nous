@@ -12,6 +12,7 @@ export default {
     },
   }),
   createBook(datas){
+    console.log(store.state.user.token)
     datas =  qs.stringify(datas);
     return this.instance.post('/book/new', datas);
   },
@@ -20,5 +21,11 @@ export default {
   },
   getOneBook(id){
     return this.instance.get(`/book/${id}`)
+  },
+  getByAuthor(id){
+    return this.instance.get(`books/${id}`)
+  },
+  deleteBook(id){
+    return this.instance.delete(`book/${id}`)
   }
 };

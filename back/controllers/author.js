@@ -18,7 +18,7 @@ exports.author = function (req, res, next) {
         .catch(error => res.status(404).json({ error }))
 };
 //TODO : ne pas créer le user si author pas créer
-// faire message si email déjà utilisé
+
 exports.create = function (req, res, next) {
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -56,16 +56,22 @@ exports.create = function (req, res, next) {
 exports.update = function (req, res) {
     models.Author.findOne({ where: { user_id: req.params.id } })
         .then(author => {
-            if (author.img) {
+            let img;
+            if (author.img && req.file) {
                 const image = author.img.split('/images/')[1];
                 fs.unlinkSync(`images/${image}`);
+                img =  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            }else if (req.file) {
+                img =  `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            }else {
+                img = undefined;
             }
             author.update({
                 first_name: req.body.first_name,
                 last_name: req.body.last_name,
                 birthday: req.body.birthday,
                 description: req.body.description,
-                img: (req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null),
+                img: img
             })
                 .then(() => {
                     res.status(200).json({ message: author.first_name + ' has been modified', author: author })

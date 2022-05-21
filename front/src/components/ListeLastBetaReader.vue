@@ -3,7 +3,7 @@
     <p class="under-text">Les derniers beta lecteur à rejoindre l'aventure</p>
     <div class="list-user">
       <div class="user"  v-for="beta_reader in beta_readers" :key="beta_reader.id" >
-        <img class="img-user" v-if="beta_reader.img" :src="infoPost.image" alt="" />
+        <img class="img-user" v-if="beta_reader.img" :src="beta_reader.img" alt="" />
           <img class="img-user" v-else src="../assets/images/image-default.jpeg" alt="" />
         <div class="info-1">
           <p class="bloc ">{{beta_reader.first_name}}</p>

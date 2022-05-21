@@ -9,11 +9,23 @@ exports.book_list = function (req, res, next) {
         attributes: ["first_name", "last_name", "user_id"],
       },
     ],
+    order: [
+      ['id','DESC'],
+  ],
   })
     .then((books) => {
       res.status(200).json({ books: books });
     })
     .catch((error) => res.status(404).json({ error }));
+};
+
+exports.book_list_by_author = function (req, res, next) {
+  models.Book.findAll({ where: { author_id: req.params.id } })
+  .then((books) => {
+    console.log(books);
+    res.status(200).json({books: books})
+  })
+  .catch((error) => res.status(404).json({error}))
 };
 
 exports.book = function (req, res) {
@@ -22,7 +34,7 @@ exports.book = function (req, res) {
     include: [
       {
         model: models.Author,
-        attributes: ["first_name", "last_name", "user_id"],
+        attributes: ["first_name", "last_name", "user_id", "img"],
       },
     ],
   })
