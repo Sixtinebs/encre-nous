@@ -8,7 +8,6 @@
       <router-link v-if="status!=='login'" to="/enregistrer"> Je m'inscris </router-link>
       <router-link v-if="status=='login'" class="btn-form" to="/profil"> Mon profil </router-link>
       <router-link v-if="status!=='login'" class="btn-form" to="/connexion"> Se connecter </router-link>
-
     </nav>
   </header>
 </template>

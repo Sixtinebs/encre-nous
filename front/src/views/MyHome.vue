@@ -12,7 +12,7 @@
     >
   </div>
   <div id="bloc-home-2">
-    <StartRegister />
+    <start-register />
   </div>
   <div id="bloc-home-3">
       <h2>Comment ça marche ?</h2>
@@ -28,7 +28,7 @@
     </div>
   </div>
     <div id="bloc-home-4">
-      <ListeLastBetaReader />
+      <liste-last-beta-reader />
     </div>
 
 </template>
@@ -61,7 +61,9 @@ export default {
   background-size: cover;
   padding: 100px 40px 0 40px;
 }
-
+#bloc-home-4 {
+  padding-bottom: 40px;
+}
 h1 {
   margin-top: 65px;
   font-size: 40px;

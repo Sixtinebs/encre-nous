@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('mediumtext')
       },
       img: {
         type: Sequelize.STRING

@@ -12,25 +12,31 @@ exports.user_list = function (req, res, next) {
 
 exports.user_list_A = function (req, res, next) {
   models.User.findAll({
-    include: [{
+    include: [
+      {
         model: models.Author,
-      }],
-  }).then((users) => {
+      },
+    ],
+  })
+    .then((users) => {
       res.status(200).json({ users: users });
     })
     .catch((error) => res.status(404).json({ error }));
 };
 
 exports.user_list_Br = function (req, res, next) {
-    models.User.findAll({
-      include: [{
-          model: models.Beta_reader,
-        }],
-    }).then((users) => {
-        res.status(200).json({ users: users });
-      })
-      .catch((error) => res.status(404).json({ error }));
-  };
+  models.User.findAll({
+    include: [
+      {
+        model: models.Beta_reader,
+      },
+    ],
+  })
+    .then((users) => {
+      res.status(200).json({ users: users });
+    })
+    .catch((error) => res.status(404).json({ error }));
+};
 
 exports.user = function (req, res, next) {
   models.User.findOne({ where: { id: req.params.id } })
@@ -41,7 +47,7 @@ exports.user = function (req, res, next) {
 };
 
 exports.update = function (req, res) {
-  console.log(req.body)
+  console.log(req.body);
   models.User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       if (req.body.password) {
@@ -54,7 +60,12 @@ exports.update = function (req, res) {
                 password: hash,
               })
               .then(() =>
-                res.status(200).json({ message : user.id + " has been modified", user: {'email': user.email}  })
+                res
+                  .status(200)
+                  .json({
+                    message: user.id + " has been modified",
+                    user: { email: user.email },
+                  })
               )
               .catch((error) => {
                 console.log("Error while creating new entry", error);
@@ -64,10 +75,9 @@ exports.update = function (req, res) {
                     error.original.code == "ER_DUP_ENTRY" ||
                     error.original.errno == 1062
                       ? "Username already exists!"
-                      : "Unknown error"
+                      : "Unknown error",
                 });
               });
-
           })
           .catch((error) => console.log(error));
       } else {
@@ -76,7 +86,12 @@ exports.update = function (req, res) {
             email: req.body.email,
           })
           .then(() =>
-            res.status(200).json({ message: user.id + " has been modified", user: {'email': user.email} })
+            res
+              .status(200)
+              .json({
+                message: user.id + " has been modified",
+                user: { email: user.email },
+              })
           )
           .catch((error) => {
             return res.status(500).json({

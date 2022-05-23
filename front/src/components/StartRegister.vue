@@ -1,27 +1,12 @@
 <template>
   <div id="start-register">
     <div class="text">
-      <p>Pellentesque ac risus vitae sapien hendrerit </p>
-      <p>consequat et vitae diam.</p>
+      <p>Êtes-vous auteur ou béta-lecteur ? </p>
     </div>
     <div class="buttons">
-      <a
-        class="btn-form btn-1"
-        href="/enregistrer/auteur"
-      >
-        <div>Vous êtes auteur</div>
-      </a>
-      <a
-        class="btn-form btn-2"
-        href="/enregistrer/beta-lecteur"
-      >Vous êtes Bêta-lecteur</a>
+      <a class="btn-form btn-1" href="/enregistrer/auteur" >Je suis auteur</a>
+      <a class="btn-form btn-2" href="/enregistrer/beta-lecteur" >Je suis Bêta-lecteur</a>
     </div>
-
-    <!-- <img
-      class="img-background"
-      src="../assets/images/books-start-register.jpg"
-      alt=""
-    /> -->
   </div>
 
 </template>

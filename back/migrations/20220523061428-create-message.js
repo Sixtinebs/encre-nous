@@ -1,25 +1,24 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Messages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER.UNSIGNED
       },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false, 
-        unique: true
+      message: {
+        allowNull: false,
+        type: Sequelize.TEXT('mediumtext')
       },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false
+      recipient_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
       },
-      role: {
-        type: Sequelize.CHAR(2),
-        allowNull: false
+      originator_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -32,6 +31,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+    await queryInterface.dropTable('Messages');
   }
 };

@@ -65,6 +65,7 @@ export default {
                 number_word: this.number_word,
                 author_id: this.id
             }
+            console.log(data)
             bookService.createBook(data)
                 .then(() => {
                     this.message = `Votre livre " ${self.title} " à été ajouté.`;

@@ -20,7 +20,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       siret: {
-        type: Sequelize.BIGINT.UNSIGNED,
+        type: Sequelize.STRING,
         allowNull: false
       },
       price: {
@@ -34,13 +34,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('mediumtext')
       },
       experience: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('mediumtext')
       },
       method_working: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('mediumtext')
       },
       createdAt: {
         allowNull: false,

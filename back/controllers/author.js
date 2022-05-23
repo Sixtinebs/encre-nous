@@ -41,7 +41,10 @@ exports.create = function (req, res, next) {
                         .then(() => {
                             res.status(201).json({ message: author.first_name + ' successfully created' });
                         })
-                        .catch(error => res.status(500).json({ error }))
+                        .catch(error => {
+                            res.status(500).json({ error });
+                            user.destroy()
+                        })
                 })
                 .catch((error) => res.status(400).json({ 
                     error: error,
