@@ -14,7 +14,7 @@ export default {
   createBook(datas){
     console.log(store.state.user.token)
     datas =  qs.stringify(datas);
-    return this.instance.post('/book/new', datas);
+    return this.instance.post('/book/new', datas, { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }});
   },
   getAllBooks(){
     return this.instance.get('/books');

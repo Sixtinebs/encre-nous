@@ -32,12 +32,8 @@ export default {
     computed: {
         ...mapState(['userInfo']),
     },
-    beforeUpdate() {
-     this.getBooksByAuthor(this.authorId);
-     console.log(this.authorId)
-
-    },
     mounted(){
+        console.log(this.authorId)
         this.getBooksByAuthor(this.authorId);
     },
     methods: {

@@ -2,13 +2,13 @@ const models = require("../models/index");
 const { Op } = require("sequelize");
 
 exports.discussion = function (req, res, next) {
-    if(req.body.my_id == res.locals.user.user_id){
+    if(req.query.my_id == res.locals.user.user_id){
         models.Message.findAll({
             where: {
                 [Op.or]: [{
-                    originator_id: req.body.my_id, recipient_id: req.body.user_id
+                    originator_id: req.query.my_id, recipient_id: req.query.user_id
                 }, {
-                    originator_id: req.body.user_id, recipient_id: req.body.my_id
+                    originator_id: req.query.user_id, recipient_id: req.query.my_id
                 }]
               }
     
@@ -37,5 +37,4 @@ exports.create = function (req, res, next) {
     } else {
         res.status(403).json({message :'You are not authorized to access this resource'})
     }
-
   };

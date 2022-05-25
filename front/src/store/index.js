@@ -126,33 +126,20 @@ const store = createStore({
                     })
             });
         },
-        loginUser: ({ dispatch, commit }, userDatas) => {
+        loginUser: ({ commit }, userDatas) => {
             commit('SET_STATUS', 'loading');
             return new Promise((resolve, reject) => {
                 userService.login(userDatas)
                     .then(function (response) {
-                        const id = response.data.user_id;
-                        const email = userDatas.email;
                         commit('SET_STATUS', 'login');
                         commit('LOG_USER', {
-                            id: id,
+                            id: response.data.user_id,
                             token: response.data.token,
-                            email: email,
+                            email: userDatas.email,
                             role: response.data.role
                         });
-                        dispatch('getAuthor', id).then((response) => {
-                            console.log(response.author);
-                            if (!response.author) {
-                                dispatch('getBetaReader', id).then((response => {
-                                    commit('USER_INFO', response.beta_readers)
-                                })).catch((error) => console.log(error))
-                            } else {
-                                commit('USER_INFO', response.author)
-                            }
-
-                        }).catch((error) => console.log(error));
+                        commit('USER_INFO', response.data.userInfo)
                         resolve(response)
-
                     }).catch(function (error) {
                         commit('SET_STATUS', 'error_login');
                         reject(error)

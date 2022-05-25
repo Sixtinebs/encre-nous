@@ -30,8 +30,10 @@
         </div>
         <div v-if="role == 'a'" class="container-books">
           <h2>Ses livres</h2>
-          <list-book-author v-bind:author-id="userDatas.id" />
+          <list-book-author v-if="userDatas.id" v-bind:author-id="userDatas.id" />
         </div>
+        {{userDatas}}
+        <a class="btn-form" :href="'/messaging/'+userDatas.user_id">Contact</a>
       </div>
     </section>
   </div>
@@ -75,6 +77,7 @@ export default {
     },
     findCorrectRequest(id) {
       if (this.role == "a") {
+        console.log('ici')
         this.getAuthor(id);
       }
       else if (this.role == "br") {

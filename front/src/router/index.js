@@ -10,6 +10,7 @@ import MyProfil from "@/views/profils/MyProfil";
 import Profiluser from "@/views/profils/ProfilUser.vue";
 import FormBook from "@/components/books/FormBook.vue";
 import DisplayBook from "@/views/OneBook.vue";
+import Messaging from "@/views/MessagingView";
 import store from "@/store";
 
 // user need to connect
@@ -147,6 +148,13 @@ const routes = [
       title: "Les détails du livre",
     },
   },
+  {
+      name: 'Messaging',
+      path: '/messaging/:id',
+      beforeEnter: guardMyroute,
+      component: Messaging,
+  }
+
 ];
 
 const router = createRouter({

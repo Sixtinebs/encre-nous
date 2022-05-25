@@ -29,6 +29,7 @@ footer {
   display: flex;
   flex-flow: wrap;
   justify-content: space-around;
+  width: 100%;
 }
 
 footer a {

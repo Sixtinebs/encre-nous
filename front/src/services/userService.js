@@ -11,9 +11,6 @@ export default {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded', 
             'enctype': "multipart/form-data"
-            // 'Authorization': 'Bearer ' + token, 
-            //'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,PATCH OPTIONS',
-            // 'Access-Control-Allow-Origin' : '*'
     }
       }),
     getBetaReader(id){
@@ -33,6 +30,9 @@ export default {
     },
     getAllUserAuthor(){
         return this.instance.get(`/users/a`)
+    },
+    getUser(id){
+        return this.instance.get(`/user/${id}`, { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }});
     },
     registerAuthor(data) {
         data =  qs.stringify(data);

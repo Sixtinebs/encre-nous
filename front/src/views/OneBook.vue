@@ -17,7 +17,7 @@
             <p>Genre : <span>{{ bookDatas.genre }}</span></p>
             <p>Ajouté le : <span>{{ dateTime(bookDatas.createdAt) }}</span></p>
             <p class="pitch">Pitch: <span>{{ bookDatas.summarize }}</span></p>
-            <a class="btn-form" :href="'#'">Contact</a>
+            <a class="btn-form" :href="'/messaging/'+authorDatas.user_id">Contactez-le</a>
         </div>
     </div>
 </template>

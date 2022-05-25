@@ -28,7 +28,7 @@
             <div class="info-user ">
                 <div class="info">
                     <label class="label-register" for="birthday">Votre date de naissance</label>
-                    <input v-model="birthday" type="date" id="birthday" name="birthday"  max="2004-01-01"
+                    <input v-model="birthday" type="date" id="birthday" name="birthday" max="2004-01-01"
                         placeholder="Votre date de naissance" required />
                 </div>
                 <!-- <div class="info">
@@ -87,12 +87,9 @@ export default {
             this.message = "";
             const fielIsEmpty = this.fieldEmptyMessage();
             const isCorrectPassword = this.verifyPassword(this.password, this.confirmPassword);
-            console.log(fielIsEmpty)
             if (!isCorrectPassword || fielIsEmpty) {
-                console.log('ici')
                 return;
             }
-
             const self = this;
             this.$store.dispatch('createAccountAuthor', {
                 last_name: this.lastName,
@@ -104,14 +101,13 @@ export default {
                 password: this.password
             }).then(() => {
                 self.$router.push('/connexion');
+            }).catch((error) => {
+                if (error.response.data.errorCode == 1062) {
+                    this.message += `<p>L'email existe déjà</p>`;
+                    this.scrollTop();
+                }
+                console.log(error);
             })
-                .catch((error) => {
-                    if (error.response.data.errorCode == 1062) {
-                        this.message += `<p>L'email existe déjà</p>`;
-                        this.scrollTop();
-                    }
-                    console.log(error);
-                })
         },
         verifyPassword(password, password2) {
             if (password == password2) {

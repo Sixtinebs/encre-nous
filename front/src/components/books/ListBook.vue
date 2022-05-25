@@ -9,8 +9,8 @@
                
             </div>
             <div class="boutons">
-                <a class="btn-form" :href="'/profil/a/'+book.Author?.user_id">Contact</a>
-                <a class="btn-form btn-1" :href="'/livre/'+book.id">En savoir +</a>
+                <a class="btn-form" :href="'/messaging/'+book.Author?.user_id">Contact</a>
+                <a class="btn-form btn-1" :href="'/livre/'+book?.id">En savoir +</a>
             </div>
             <p class="pitch">Pitch: <span>{{ book?.summarize }}</span></p>
         </div>
