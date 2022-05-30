@@ -17,7 +17,7 @@ export default {
     return this.instance.post('/book/new', datas, { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }});
   },
   getAllBooks(){
-    return this.instance.get('/books');
+    return this.instance.get('/books',  { 'headers': { 'Authorization': 'Bearer ' + store.state.user.token }});
   },
   getOneBook(id){
     return this.instance.get(`/book/${id}`)

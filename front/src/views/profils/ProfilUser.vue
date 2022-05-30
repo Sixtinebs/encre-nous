@@ -32,8 +32,7 @@
           <h2>Ses livres</h2>
           <list-book-author v-if="userDatas.id" v-bind:author-id="userDatas.id" />
         </div>
-        {{userDatas}}
-        <a class="btn-form" :href="'/messaging/'+userDatas.user_id">Contact</a>
+        <a class="btn-form contact" :href="'/messaging/'+userDatas.user_id">Contactez-le</a>
       </div>
     </section>
   </div>
@@ -151,5 +150,10 @@ input[type="file"] {
 
 #modify-profil .container-image {
   max-width: 400px;
+}
+.btn-form.contact {
+    margin: 10px;
+    float: right;
+
 }
 </style>

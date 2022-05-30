@@ -60,7 +60,6 @@ exports.user = function (req, res, next) {
 };
 
 exports.update = function (req, res) {
-  console.log(req.body);
   models.User.findOne({ where: { id: req.params.id } })
     .then((user) => {
       if (req.body.password) {
@@ -128,7 +127,7 @@ exports.delete = function (req, res) {
         .status(200)
         .json({ message: user.id + " has been successfully deleted!" });
     })
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => res.status(404).json({ error: error, message: 'user not found'}));
 };
 
 exports.login = function (req, res) {
@@ -164,12 +163,10 @@ exports.login = function (req, res) {
             user_id: user.id,
             token: token,
             role: user.role,
-            userInfo:
-              user.dataValues.Author.dataValues ||
-              user.dataValues.Beta_reader.dataValues,
+            userInfo: user.dataValues.Author || user.dataValues.Beta_reader
           });
         })
         .catch((error) => res.status(500).json({ error }));
     })
-    .catch(() => res.status(404).json({ error: new Error("ID invalide") }));
+    .catch(() => res.status(401).json({ error: new Error("ID invalide") }));
 };

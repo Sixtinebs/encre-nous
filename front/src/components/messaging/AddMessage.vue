@@ -6,8 +6,6 @@
         <p @click="sendMsg(dataUser, message)" class="btn-send"> <img class="icone-send" src="../../assets/images/send.svg" /></p>
     </div>
     </div>
-
-
 </template>
 
 <script>
@@ -22,8 +20,6 @@ export default {
             },
             message: ref(''),
             isEmpty: null
-
-
         }
     },
     methods: {
@@ -34,10 +30,8 @@ export default {
                 return;
             }
             data['message'] = message;
-            console.log(data, 'DATA ICI')
             messageService.sendMessage(data)
-                .then((response) => {
-                    console.log(response);
+                .then(() => {
                     this.$emit('newMessage');
                     this.message = '';
                 })

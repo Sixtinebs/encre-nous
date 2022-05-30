@@ -3,7 +3,7 @@
     <h1>Bonjour {{ userInfo.first_name }}</h1>
 
     <section id="display-profil" v-if="display">
-    
+
       <div class="bloc-1">
 
         <div class="container-image">
@@ -11,10 +11,11 @@
           <img v-else-if="url" :src="url" alt="" />
           <img v-else src="../../assets/images/image-default.jpeg" alt="" />
           <div class="info info-img">
-          <input  @change="onFileChange" type="file" class="input-file" id="img-profil" name="img-profil" ref="file" accept="image/png, image/jpeg, image/jpg">
-           <p class="custom-file" @click="updateImage(user.id, $refs.file.files[0])">Valider</p>
+            <input @change="onFileChange" type="file" class="input-file" id="img-profil" name="img-profil" ref="file"
+              accept="image/png, image/jpeg, image/jpg">
+            <p class="custom-file" @click="updateImage(user.id, $refs.file.files[0])">Valider</p>
             <p class="succes-msg-img" v-if="message">{{ message }}</p>
-        </div>
+          </div>
         </div>
 
 
@@ -22,9 +23,9 @@
           <h2>A propose de moi</h2>
           <p>{{ user.email }}</p>
           <p>{{ userInfo.first_name }} {{ userInfo.last_name }}</p>
-          <p>Date de naissance : {{ dateTime(userInfo.birthday)  }}</p>
-          <p>Date d'inscription : {{  dateTime(userInfo.createdAt)}}</p>
-          <p v-if="user.role == 'BR' ">Mon siret {{ userInfo.siret }}</p>
+          <p>Date de naissance : {{ dateTime(userInfo.birthday) }}</p>
+          <p>Date d'inscription : {{ dateTime(userInfo.createdAt) }}</p>
+          <p v-if="user.role == 'BR'">Mon siret {{ userInfo.siret }}</p>
         </div>
       </div>
 
@@ -34,34 +35,38 @@
       </div>
 
       <div class="container-other-info">
-        <div v-if="user.role == 'BR' " class="container-experience">
+        <div v-if="user.role == 'BR'" class="container-experience">
           <h2>Mon Experience</h2>
           <p>{{ userInfo.experience }}</p>
         </div>
 
-          <div v-if="user.role == 'BR' " class="container-method-working">
-            <h2>Ma méthode de travail</h2>
-            <p>{{ userInfo.method_working }}</p>
-          </div>
+        <div v-if="user.role == 'BR'" class="container-method-working">
+          <h2>Ma méthode de travail</h2>
+          <p>{{ userInfo.method_working }}</p>
+        </div>
+        <div v-if="user.role == 'BR'" class="container-method-working">
+          <h2>Mon prix</h2>
+          <p>{{ userInfo.price }}</p>
+        </div>
 
-          <div v-if="user.role == 'A' " class="container-my-books">
-            <h2>Mes livres </h2>
-            <list-book-author v-bind:author-id="userInfo.id" />
-          </div>
+        <div v-if="user.role == 'A'" class="container-my-books">
+          <h2>Mes livres </h2>
+          <list-book-author v-bind:author-id="userInfo.id" />
+        </div>
 
       </div>
-      
+
       <a v-if="user.role == 'A'" @click="addBook()" class="btn-form btn-submit">Ajouter un livre</a>
       <a @click="modify()" class="btn-form btn-submit">Modifier mon profil</a>
       <a @click="signOut()" class="btn-form btn-submit">Se déconnecter</a>
       <a @click="deleteProfil(user.id)" class="btn-delete btn-form btn-submit">Supprimer son compte</a>
     </section>
 
-    <section id="modify-profil" v-if="!display" >
-      <modify-profil @change-display="modify"  @refresh-datas="refreshInfos"/>
+    <section id="modify-profil" v-if="!display">
+      <modify-profil @change-display="modify"  />
     </section>
 
-    
+
   </div>
 </template>
 
@@ -93,32 +98,27 @@ export default {
       errorMessage: '',
       url: null,
       file: null,
-      message:  null,
+      message: null,
       //books: null,
     }
   },
   components: {
     ModifyProfil,
     ListBookAuthor
-},
+  },
   computed: {
     ...mapState(['userInfo', 'user']),
   },
-  // mounted(){
-  //   if(this.user.role == "A") {
-  //     this.getBooksByAuthor(this.userInfo.id)
-  //   }
-  // },
   methods: {
-    getBooksByAuthor(id){
+    getBooksByAuthor(id) {
       bookService.getByAuthor(id)
-      .then((response) => {
-        this.books = response.data.books
-        console.log(response.data.books)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+        .then((response) => {
+          this.books = response.data.books
+          console.log(response.data.books)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
     onFileChange(e) {
       const file = e.target.files[0];
@@ -128,30 +128,30 @@ export default {
       this.$store.commit('LOGOUT');
       this.$router.push('/');
     },
-    updateImage(id, file){
+    updateImage(id, file) {
       if (!file) return;
       let formData = new FormData();
       formData.append("file", file);
-      if(this.user.role == "A"){
+      if (this.user.role == "A") {
         userService.modifyAuthor(id, formData)
-        .then((resp) => {
-          this.message = `Votre photo à été ajouté.`;
-          this.$store.commit('USER_INFO', resp.data.author)
-          
+          .then((resp) => {
+            this.message = `Votre photo à été ajouté.`;
+            this.$store.commit('USER_INFO', resp.data.author)
+
           })
-        .catch((error) => console.log(error))
+          .catch((error) => console.log(error))
       }
-      if(this.user.role == "BR"){
+      if (this.user.role == "BR") {
         userService.modifyBetaReader(id, formData)
-        .then((resp) => {
-          this.message = `Votre photo à été ajouté.`;
-          this.$store.commit('USER_INFO', resp.data.beta_reader)
+          .then((resp) => {
+            this.message = `Votre photo à été ajouté.`;
+            this.$store.commit('USER_INFO', resp.data.beta_reader)
           })
-        .catch((error) => console.log(error))
+          .catch((error) => console.log(error))
       }
     },
     modify() {
-      this.display = !this.display ;
+      this.display = !this.display;
     },
 
     deleteProfil(id) {
@@ -175,18 +175,11 @@ export default {
         }
       }
     },
-
-    refreshInfos() {
-      console.log('coucou')
-
-    },
-
     dateTime(value) {
       return moment(value).format('DD/MM/YYYY');
     },
 
-    addBook(){
-      console.log('coucou')
+    addBook() {
       this.$router.push('/ajouter-livres');
     }
 
@@ -254,14 +247,15 @@ input[type="file"] {
 .container-other-info {
   margin-bottom: 100px;
 }
+
 .info-img {
   width: 100%;
 }
 
 .succes-msg-img {
   color: #99a71b;
-    font-weight: bold;
-    margin-top: 0;
+  font-weight: bold;
+  margin-top: 0;
 }
 
 .custom-file {
@@ -273,5 +267,4 @@ input[type="file"] {
   justify-content: center;
   align-items: center;
 }
-
 </style>

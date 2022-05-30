@@ -11,7 +11,6 @@ exports.discussion = function (req, res, next) {
                     originator_id: req.query.user_id, recipient_id: req.query.my_id
                 }]
               }
-    
         })
           .then((discussion) => {
             res.status(200).json({ discussion });

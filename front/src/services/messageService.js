@@ -14,10 +14,8 @@ export default {
   getDiscussion(data){
     return this.instance.get(`/messages/${data.user_id}` , { 'params': data});
   },
-  sendMessage(data){
-   
+  sendMessage(data){   
     data =  qs.stringify(data); 
-    console.log(data, '<--- SERVICE')
     return this.instance.post('message', data)
   }
 

@@ -27,7 +27,6 @@
                 <label for="summarize">Résumé / synopsis </label>
                 <textarea v-model="summarize" type="text" id="summarize" name="summarize"></textarea>
             </div>
-
             <a @click="validateForm()" class="btn-form btn-submit">Ajouter le livre</a>
         </form>
     </div>
@@ -42,7 +41,6 @@ export default {
     name: 'formBook',
     computed: {
         ...mapState(['user']),
-
     },
     data() {
         return {
@@ -65,7 +63,6 @@ export default {
                 number_word: this.number_word,
                 author_id: this.id
             }
-            console.log(data)
             bookService.createBook(data)
                 .then(() => {
                     this.message = `Votre livre " ${self.title} " à été ajouté.`;
@@ -80,10 +77,8 @@ export default {
                     });
                 })
                 .catch((error) => console.log(error))
-
         }
     }
-
 }
 </script>
 

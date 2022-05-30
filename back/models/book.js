@@ -11,14 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.Author, { 
-        // allowNull: false, 
         foreignKey: 'author_id' 
       });
-      this.belongsToMany(models.Beta_reader, {
-        through: 'Service',
-        foreignKey: 'book_id', 
-        allowNull: true
-      })
     }
   }
   Book.init({

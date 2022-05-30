@@ -126,9 +126,6 @@ const routes = [
     name: "User",
     beforeEnter: guardMyroute,
     component: Profiluser,
-    meta: {
-      title: "Le Profil",
-    },
   },
   {
     path: "/ajouter-livres",

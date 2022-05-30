@@ -1,25 +1,23 @@
 <template>
-<div id="bloc-liste-br">
-  <p>Nous avons trouvez {{br_length}} Béta lecteur</p>
+  <div id="bloc-liste-br">
+    <p>Nous avons trouvez {{ br_length }} Béta lecteur</p>
     <div class="list-user">
       <div v-for="beta_reader in beta_readers" :key="beta_reader.id" class="user">
         <img class="img-user" v-if="beta_reader.img" :src="beta_reader.img" alt="" />
-          <img class="img-user" v-else src="../assets/images/image-default.jpeg" alt="" />
+        <img class="img-user" v-else src="../assets/images/image-default.jpeg" alt="" />
         <div class="info-1">
-          <p class="bloc">{{beta_reader.first_name}} {{beta_reader.last_name}}</p>
+          <p class="bloc">{{ beta_reader.first_name }} {{ beta_reader.last_name }}</p>
         </div>
         <div class="info-2">
-          <p class="bloc">{{beta_reader.experience}}</p>
-          <p>Inscrit depuis <span class="genre bloc">{{dateTime(beta_reader.createdAt)}}</span></p>
-          <p class="bloc">Tarifs : <span class="price">{{beta_reader.price}}</span></p>
-          <a class="bloc profil-user" :href="'/profil/br/'+beta_reader.user_id">Découvrire le profil complet</a>
+          <p class="bloc">{{ beta_reader.experience }}</p>
+          <p>Inscrit depuis <span class="genre bloc">{{ dateTime(beta_reader.createdAt) }}</span></p>
+          <p class="bloc">Tarifs : <span class="price">{{ beta_reader.price }}</span></p>
+          <a class="bloc profil-user" :href="'/profil/br/' + beta_reader.user_id">Découvrire le profil complet</a>
         </div>
 
       </div>
     </div>
-
-</div>
-
+  </div>
 </template>
 
 <script>
@@ -28,37 +26,32 @@ import moment from 'moment';
 
 export default {
   name: 'ListeBetaReader',
-  data(){
+  data() {
     return {
-        beta_readers: null,
-        br_length: 0
+      beta_readers: null,
+      br_length: 0
     }
   },
-methods: {
-  getAllBetaReader(){
-     userService.getAllBetaReader()
-     .then((response) => {
-       this.beta_readers = response.data.beta_readers;
-       console.log(this.beta_readers, '<--BR')
-       this.br_length = response.data.beta_readers.length
-     })
-     .catch((error) => console.log(error))
+  methods: {
+    getAllBetaReader() {
+      userService.getAllBetaReader()
+        .then((response) => {
+          this.beta_readers = response.data.beta_readers;
+          this.br_length = response.data.beta_readers.length
+        })
+        .catch((error) => console.log(error))
+    },
+    dateTime(value) {
+      return moment(value).format('DD/MM/YYYY');
+    },
   },
-   dateTime(value) {
-    return moment(value).format('DD/MM/YYYY');
-  },
-  
-},
   mounted() {
     this.getAllBetaReader()
   }
-   
-
 }
 </script>
 
 <style>
-
 .bloc-instruction {
   background-color: #0e0e66;
   color: #ffffff;
@@ -69,6 +62,7 @@ methods: {
   padding: 10px;
   height: 260px;
 }
+
 .bloc-instruction p {
   font-size: 20px;
   margin: initial;
@@ -90,6 +84,7 @@ h3 {
   top: 0;
   z-index: -1;
 }
+
 .list-user {
   display: flex;
   justify-content: start;
@@ -97,6 +92,7 @@ h3 {
   margin-top: 80px;
   flex-flow: wrap;
 }
+
 .user {
   position: relative;
   display: flex;
@@ -108,16 +104,18 @@ h3 {
   margin: 10px;
 
 }
+
 .img-user {
   height: 100%;
 }
+
 .info-1 {
   padding: 10px 7px;
   background-color: #0E0E6663;
 }
 
 .info-2 {
-    padding: 10px 7px;
+  padding: 10px 7px;
   background-color: #F948088A;
 }
 
@@ -126,18 +124,22 @@ h3 {
   text-align: left;
 
 }
+
 .user a {
   color: #ffffff;
   text-align: left;
   display: block;
   margin: initial;
 }
+
 .bloc {
   font-weight: bold;
 }
-.info-2 p:nth-child(2){
+
+.info-2 p:nth-child(2) {
   margin-bottom: 7px;
 }
+
 .price {
   font-weight: 100;
 }
@@ -145,6 +147,4 @@ h3 {
 #bloc-liste-br {
   margin-bottom: 100px;
 }
-
-
 </style>

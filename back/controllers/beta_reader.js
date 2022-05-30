@@ -126,11 +126,11 @@ exports.delete = function (req, res) {
       models.User.findOne({ where: { id: br.user_id } })
         .then((user) => {
           if (br.img) {
-            const image = author.img.split("/images/")[1];
+            const image = br.img.split("/images/")[1];
             fs.unlinkSync(`images/${image}`);
           }
-          br.destroy();
-          user.destroy();
+          br.destroy()
+          user.destroy()
         })
         .catch((error) => res.status(500).json(error));
       res

@@ -23,7 +23,6 @@ export default {
     data() {
         return {
             books: null
-
         }
     },
     props: {
@@ -33,7 +32,6 @@ export default {
         ...mapState(['userInfo']),
     },
     mounted(){
-        console.log(this.authorId)
         this.getBooksByAuthor(this.authorId);
     },
     methods: {
@@ -41,18 +39,15 @@ export default {
             bookService.getByAuthor(id)
                 .then((response) => {
                     this.books = response.data.books
-                    console.log(response.data.books)
                 })
                 .catch((error) => {
                     console.log(error)
                 })
         },
         deleteBook(id, authorId) {
-            console.log(authorId)
             if (confirm("Est-vous sur de vouloir supprimer votre oeuvre ?")) {
                 bookService.deleteBook(id)
-                    .then((response) => {
-                        console.log(response);
+                    .then(() => {
                         this.getBooksByAuthor(authorId)
                     })
                     .catch((error) => {

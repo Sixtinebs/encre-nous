@@ -119,7 +119,6 @@ export default {
     },
     computed: {
         ...mapState(['userInfo', 'user']),
-
     },
     methods: {
         modifyUser(id) {
@@ -134,7 +133,6 @@ export default {
             return new Promise((resolve, reject) => {
                 userService.modifyUser(id, userdatas)
                     .then((response) => {
-                        console.log(response.data.user.email)
                         resolve(response)
                         this.$store.commit('SET_USER_CONNEXION', response.data.user)
                     }).catch((error) => {
@@ -143,7 +141,6 @@ export default {
                         reject(error)
                     })
             })
-
         },
 
         modifyUserInfo(id) {
@@ -192,7 +189,6 @@ export default {
                             reject(error);
                         })
                 })
-
             }
         },
 
@@ -201,7 +197,6 @@ export default {
                 await this.modifyUser(id);
                 await this.modifyUserInfo(id);
                 this.$emit('changeDisplay');
-                // this.$emit('refreshDatas');
 
             } catch (error) {
                 console.log(error);
