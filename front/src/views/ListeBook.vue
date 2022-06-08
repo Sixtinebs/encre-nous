@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Recherche des projets d'auteurs</h1>
+    <h1>Rechercher des projets d'auteurs</h1>
     <component-list-book />
     
   </div>

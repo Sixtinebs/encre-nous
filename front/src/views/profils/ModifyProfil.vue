@@ -213,7 +213,9 @@ export default {
 .full-name {
     flex-direction: column;
 }
-
+.container-info{
+    margin-left: 0px
+}
 #form-my-profil .bloc-1 {
     display: initial;
 }
@@ -232,6 +234,19 @@ export default {
 
 #form-my-profil .btn-submit {
     margin: 30px 0;
+    display: inline-block;
+}
+@media screen and (max-width: 850px) {
+
+    .btn-submit {
+        font-size: 15px;
+        margin: 3px auto;
+    }
+
+    .btn-form {
+        padding: 5px;
+    }
+
 }
 
 </style>

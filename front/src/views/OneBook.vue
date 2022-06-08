@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="info-book">
         <div class="infos">
             <div class="info-author">
                 <div>
@@ -105,5 +105,31 @@ img {
 .btn-1 {
     float: left !important;
     margin: initial !important
+}
+@media screen and (max-width: 1000px){
+    #info-book .infos {
+        margin: 40px 10px;
+    }    
+}
+@media screen and (max-width: 700px){
+    #info-book .infos {
+        padding: 30px;
+        padding-bottom: 100px;
+    }  
+        img {
+    max-width: 150px;
+    border-radius: 50px
+    }  
+}
+@media screen and (max-width: 500px){
+    img {
+    max-width: 80px;
+    border-radius: 25px
+    }  
+}
+@media screen and (max-width: 400px){
+    img {
+    display: none;
+    }  
 }
 </style>

@@ -1,11 +1,11 @@
 <template>
   <div id="start-register">
     <div class="text">
-      <p>Êtes-vous auteur ou béta-lecteur ? </p>
+      <p>Êtes-vous auteur ou bêta-lecteur ? </p>
     </div>
     <div class="buttons">
-      <a class="btn-form btn-1" href="/enregistrer/auteur" >Je suis auteur</a>
-      <a class="btn-form btn-2" href="/enregistrer/beta-lecteur" >Je suis Bêta-lecteur</a>
+      <a class="btn-form btn-1" href="/enregistrer/auteur">Je suis auteur</a>
+      <a class="btn-form btn-2" href="/enregistrer/beta-lecteur">Je suis Bêta-lecteur</a>
     </div>
   </div>
 
@@ -26,6 +26,7 @@ export default {};
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 img.img-background {
   width: 100%;
   position: absolute;
@@ -35,29 +36,51 @@ img.img-background {
   height: 700px;
   object-fit: cover;
 }
+
 .text {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
+
 p {
   font-size: 35px;
   color: #ff5e1a;
   margin: initial;
 }
+
 .buttons {
-    margin-top: 40px;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+
+}
+.btn-1 {
+  margin-bottom: 35px;
 }
 .btn-1,
 .btn-2 {
-    display: inline-block;
-    width: 390px;
-    font-size: 35px;
-    height: 60px;
-    line-height: 60px;
+  display: inline-block;
+  width: 390px;
+  font-size: 35px;
+  height: 60px;
+  line-height: 60px;
 }
+
 .btn-1:hover,
 .btn-2:hover {
   transition-duration: 500ms;
   transform-origin: top center;
   transform: scaleY(1.15);
 }
+@media screen and (max-width: 600px){
+  .btn-1,
+  .btn-2 {
+    width: 80%;
+    font-size: 25px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
+
+
 </style>

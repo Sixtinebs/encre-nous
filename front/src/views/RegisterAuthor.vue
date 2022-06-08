@@ -15,7 +15,7 @@
             <div class="not-succes-msg" v-if="message" v-html="message"></div>
         </div>
         <div class="register form">
-            <div class="info-user">
+            <div class="info-user wrap">
                 <div class="info">
                     <label class="label-register" for="last-name">Votre nom</label>
                     <input v-model="lastName" type="text" id="last-name" name="last-name" required maxlength="50">
@@ -39,14 +39,14 @@
             </div>
 
             <div class="info-user">
-                <div class="info">
+                <div class="info textarea">
                     <label class="label-register" for="description">Décrivez-vous </label>
                     <textarea v-model="description" type="textarea" id="description" name="description"></textarea>
                 </div>
             </div>
 
-            <div class="info-user">
-                <div class="info">
+            <div class="info-user wrap">
+                <div class="info ">
                     <label class="label-register" for="email">Votre Email</label>
                     <input v-model="email" type="email" id="email" name="email" required>
 
@@ -161,75 +161,5 @@ export default {
 </script>
 
 <style>
-.text-register h1 {
-    font-weight: bold;
-}
-
-.text-register p {
-    margin: 0;
-}
-
-.text-register {
-    max-width: 1000px;
-    margin: auto;
-}
-
-.info-user {
-    border: 2px solid #ff5e1a;
-    padding: 50px 80px;
-    margin: 40px 100px;
-    border-radius: 25px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.info {
-    display: flex;
-    flex-direction: column;
-    width: 40%;
-}
-
-.label-register {
-    text-align: left;
-    font-weight: bold;
-    padding: 0 0 20px 40px;
-    font-size: 20px;
-}
-
-.form input {
-    height: 40px;
-}
-
-input[type="file"] {
-    display: none;
-}
-
-/* .custom-file {
-    border: 1px solid black;
-    display: flex;
-    margin-top: 0px;
-    cursor: pointer;
-    height: 40px;
-    justify-content: center;
-    align-items: center;
-} */
-
-.option-experience {
-    display: flex;
-}
-
-.option-experience label {
-    padding: 0 0 0 10px;
-    display: flex;
-    align-items: center;
-}
-
-.btn-submit {
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.form {
-    margin-bottom: 70px;
-}
+/** CSS : views/RegisterBetaReader.vue */
 </style>

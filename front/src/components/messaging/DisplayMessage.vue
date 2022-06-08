@@ -1,23 +1,17 @@
 <template>
     <div id="container-discussion">
-        <p> Messagerie </p>
+        <p> Discutez avec {{ full_name.first_name }} {{ full_name.last_name }} </p>
         <section>
-
             <div v-for="msg in discussion" :key="msg.id" class="bulle"
                 v-bind:class="[msg.originator_id == my_id ? 'right' : 'left']">
                 <p>{{ msg.message }}</p>
                 <div class="my-profil" v-if="msg.originator_id == my_id">
-                    <img class="img-profil" v-if="userInfo.img" :src="userInfo.img"
-                        alt=""  />
-                    <img class="img-profil" v-else
-                        src="../../assets/images/image-default.jpeg"
-                         />
+                    <img class="img-profil" v-if="userInfo.img" :src="userInfo.img" alt="" />
+                    <img class="img-profil" v-else src="../../assets/images/image-default.jpeg" />
                 </div>
                 <div class="your-profil" v-if="msg.originator_id !== my_id">
-                    <img class="img-profil" v-if="user_img" :src="user_img" alt=""
-                        />
-                    <img class="img-profil" v-else
-                        src="../../assets/images/image-default.jpeg" />
+                    <img class="img-profil" v-if="user_img" :src="user_img" alt="" />
+                    <img class="img-profil" v-else src="../../assets/images/image-default.jpeg" />
                 </div>
             </div>
         </section>
@@ -39,7 +33,8 @@ export default {
             user_id: this.$route.params.id,
             discussion: null,
             my_id: this.$store.state.user.id,
-            user_img: null
+            user_img: null,
+            full_name: {}
         }
     },
     computed: {
@@ -55,13 +50,18 @@ export default {
                 .catch((error) => console.log(error))
         },
         collectInfo(info) {
-
+            console.log(info)
             if (info.Beta_reader) {
-                this.user_img = info.Beta_reader.img
+                this.user_img = info.Beta_reader.img;
+                this.full_name['first_name'] = info.Beta_reader.first_name;
+                this.full_name['last_name'] = info.Beta_reader.last_name;
             } else if (info.Author) {
                 this.user_img = info.Author.img
+                this.full_name['first_name'] = info.Author.first_name;
+                this.full_name['last_name'] = info.Author.last_name;
             } else {
-                this.user_img = undefined
+                this.user_img = undefined;
+                this.full_name = undefined
             }
             console.log(this.user_img)
         }
@@ -75,7 +75,6 @@ export default {
 
 <style scoped>
 .bulle.right {
-
     justify-content: flex-end;
     flex-direction: row;
 }
@@ -111,7 +110,20 @@ section {
     object-fit: cover;
 }
 
-/* .no_profil {
-    display: none
-} */
+@media screen and (max-width: 750px) {
+    #container-discussion {
+        padding: 0 20px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .img-profil {
+        height: 50px;
+        width: 50px;
+    }
+.bulle {
+    flex-wrap: wrap;
+    padding: 10px;
+}
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
     <h2>Ils Viennent de nous rejoindre</h2>
-    <p class="under-text">Les derniers beta lecteur à rejoindre l'aventure</p>
+    <p class="under-text">Les derniers bêta-lecteurs à rejoindre l'aventure</p>
     <div class="list-user">
       <div class="user"  v-for="beta_reader in beta_readers" :key="beta_reader.id" >
         <img class="img-user" v-if="beta_reader.img" :src="beta_reader.img" alt="" />
@@ -9,7 +9,7 @@
           <p class="bloc ">{{beta_reader.first_name}}</p>
         </div>
         <div class="info-2">
-          <p class="bloc">Beta lecteur depuis {{beta_reader.experience}}</p>
+          <p class="bloc">Bêta-lecteur depuis {{beta_reader.experience}}</p>
           <p class="bloc">Tarifs : <span class="price">{{beta_reader.price}}</span></p>
           <a class="bloc profil-user" :href="'/profil/br/'+beta_reader.user_id">Décrouvrire le profil complet</a>
         </div>
@@ -90,7 +90,8 @@ h3 {
   justify-content: flex-end;
   font-size: 15px;
   height: 300px;
-  color: #ffffff
+  color: #ffffff;
+  width: 250px;
 }
 .img-user {
   height: 100%;
@@ -135,5 +136,10 @@ h3 {
 }
 #bloc-home-4 {
   margin-bottom: 100px ;
+}
+@media screen and (max-width: 900px) {
+ .list-user {
+   padding: 0 10px;
+ } 
 }
 </style>

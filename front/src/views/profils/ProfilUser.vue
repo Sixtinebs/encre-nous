@@ -1,12 +1,12 @@
 <template>
-  <div id="my-profil">
+  <div id="user-profil">
     <h1>Profil de {{ userDatas.first_name }}</h1>
 
-    <section id="display-profil">
+    <section id="display-profil-user">
       <div class="bloc-1">
         <div class="container-image">
-          <img v-if="userDatas.img" :src="userDatas.img" alt="" />
-          <img v-else src="../../assets/images/image-default.jpeg" alt="" />
+          <img v-if="userDatas.img" :src="userDatas.img" alt="" class="user-img"/>
+          <img v-else src="../../assets/images/image-default.jpeg" class="user-img" alt="" />
         </div>
         <div class="container-info">
           <p>{{ userDatas.first_name }} {{ userDatas.last_name }}</p>
@@ -32,7 +32,7 @@
           <h2>Ses livres</h2>
           <list-book-author v-if="userDatas.id" v-bind:author-id="userDatas.id" />
         </div>
-        <a class="btn-form contact" :href="'/messaging/'+userDatas.user_id">Contactez-le</a>
+        <a class="btn-form contact" :href="'/messaging/'+userDatas.user_id">Contactez {{userDatas.first_name }} </a>
       </div>
     </section>
   </div>
@@ -96,38 +96,37 @@ export default {
 </script>
 
 <style >
-#my-profil {
+#user-profil {
   margin: 0 150px 100px 150px;
 }
 
-#my-profil h1 {
+#user-profil h1 {
   font-weight: bold;
 }
 
-#my-profil h2 {
+#user-profil h2 {
   font-weight: bold;
   text-align: left;
 }
 
-#my-profil p {
+#user-profil p {
   text-align: left;
 }
 
-#my-profil .bloc-1 {
+#user-profil .bloc-1 {
   display: flex;
 }
 
-#my-profil img {
+#user-profil img {
   max-width: 400px;
   border-radius: 25px;
-
 }
 
-#my-profil .container-info {
+#display-profil-user .container-info {
   margin-left: 50px;
 }
 
-#my-profil a.btn-submit {
+#user-profil a.btn-submit {
   float: right;
 }
 
@@ -155,5 +154,61 @@ input[type="file"] {
     margin: 10px;
     float: right;
 
+}
+@media screen and (max-width: 990px) {
+  #user-profil {
+    margin: 0 25px 100px 25px;
+  }
+
+  .bloc-1 {
+    display: flex;
+  }
+
+  #user-profil .bloc-1 .container-info {
+    width: 70%;
+  }
+
+  #user-profil .user-img {
+    max-width: 100%;
+    width: 400px
+  }
+
+}
+@media screen and (max-width: 750px) {
+  #user-profil .btn-submit {
+    font-size: 13px;
+    margin: 3px auto;
+  }
+
+  #user-profil .btn-form {
+    padding: 10px;
+  }
+
+
+}
+@media screen and (max-width: 550px) {
+  .bloc-1 {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  #user-profil .bloc-1 .container-info {
+    width: 100%;
+  }
+
+
+  #user-profil .container-info {
+    margin-left: 0px;
+    width: 100%;
+  }
+
+  .bloc-1 .container-image {
+    width: 100%;
+  }
+
+  #user-profil .user-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
 }
 </style>

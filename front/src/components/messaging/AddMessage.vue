@@ -1,10 +1,12 @@
 <template>
     <div id="add-message">
-    <div>
-        <p v-if="isEmpty"> Votre message est vide</p>
-        <textarea v-model="message" type="text" name="" id="my-message" placeholder="Placez votre message ici..." ></textarea>
-        <p @click="sendMsg(dataUser, message)" class="btn-send"> <img class="icone-send" src="../../assets/images/send.svg" /></p>
-    </div>
+        <div>
+            <p v-if="isEmpty"> Votre message est vide</p>
+            <textarea v-model="message" type="text" name="" id="my-message"
+                placeholder="Placez votre message ici..."></textarea>
+            <p @click="sendMsg(dataUser, message)" class="btn-send"> <img class="icone-send"
+                    src="../../assets/images/send.svg" /></p>
+        </div>
     </div>
 </template>
 
@@ -25,7 +27,7 @@ export default {
     methods: {
         sendMsg(data, message) {
             this.isEmpty = false;
-            if(!message){
+            if (!message) {
                 this.isEmpty = true;
                 return;
             }
@@ -54,17 +56,25 @@ export default {
     border-radius: 30px;
     padding-left: 10px;
 }
+
 #add-message {
     padding: 0 80px;
 }
+
 textarea {
-  resize: none;
-      width: 100%;
+    resize: none;
+    width: 100%;
     border: 0.5px solid #ff5e1a;
     height: 100px;
 }
+
 img.icone-send:hover {
     filter: brightness(0) saturate(100%) invert(14%) sepia(44%) saturate(3760%) hue-rotate(231deg) brightness(79%) contrast(117%);
 }
 
+@media screen and (max-width: 750px) {
+    #add-message {
+        padding: 0 20px;
+    }
+}
 </style>

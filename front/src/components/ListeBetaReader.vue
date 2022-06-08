@@ -1,6 +1,6 @@
 <template>
   <div id="bloc-liste-br">
-    <p>Nous avons trouvez {{ br_length }} Béta lecteur</p>
+    <p>Nous avons trouvez {{ br_length }} Bêta-lecteur(s)</p>
     <div class="list-user">
       <div v-for="beta_reader in beta_readers" :key="beta_reader.id" class="user">
         <img class="img-user" v-if="beta_reader.img" :src="beta_reader.img" alt="" />
@@ -52,6 +52,7 @@ export default {
 </script>
 
 <style>
+
 .bloc-instruction {
   background-color: #0e0e66;
   color: #ffffff;
@@ -88,9 +89,10 @@ h3 {
 .list-user {
   display: flex;
   justify-content: start;
-  padding: 0 130px;
+  padding: 0 100px;
   margin-top: 80px;
   flex-flow: wrap;
+  justify-content: center;
 }
 
 .user {
@@ -146,5 +148,10 @@ h3 {
 
 #bloc-liste-br {
   margin-bottom: 100px;
+}
+@media screen and (max-width: 900px) {
+ .list-user {
+   padding: 0 10px;
+ } 
 }
 </style>

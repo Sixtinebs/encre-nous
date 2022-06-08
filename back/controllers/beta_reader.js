@@ -33,6 +33,7 @@ exports.last_beta_reader_list = function (req, res, next) {
 };
 
 exports.create = function (req, res, next) {
+  console.log(req)
   bcrypt
     .hash(req.body.password, 10)
     .then((hash) => {
@@ -44,8 +45,6 @@ exports.create = function (req, res, next) {
       user
         .save()
         .then((user) => {
-          console.log(user)
-          console.log(req.body)
           const br = models.Beta_reader.build({
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -76,7 +75,10 @@ exports.create = function (req, res, next) {
           })
         );
     })
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => {
+      res.status(400).json({ error })
+      console.log(error)
+    });
 };
 
 exports.update = function (req, res) {

@@ -2,14 +2,17 @@
     <div id="bloc-liste-book">
         <div class="book" v-for="book in books" :key="book.id">
             <div class="info-book">
-                <a class="link" :href="'/livre/'+book.id"> <p class="title">{{ book?.title }} <img class="icone-book" src="../../assets/images/book-icone.svg" /></p></a>
+                <a class="link" :href="'/livre/' + book.id">
+                    <p class="title">{{ book?.title }} <img class="icone-book"
+                            src="../../assets/images/book-icone.svg" /></p>
+                </a>
                 <p>Nombre de mot : <span>{{ book?.number_word }}</span></p>
                 <p>Genre : <span>{{ book?.genre }}</span></p>
-                <a v-if="authorId === userInfo?.id" @click="deleteBook(book?.id, authorId)" class="btn-corbeille"> <img class="icone-corbeille"
-                        src="../../assets/images/corbeille.svg" /></a>
-               
+                <a v-if="authorId === userInfo?.id" @click="deleteBook(book?.id, authorId)" class="btn-corbeille"> <img
+                        class="icone-corbeille" src="../../assets/images/corbeille.svg" /></a>
+
             </div>
-             <a v-if="authorId !== userInfo?.id" class="see-more" :href="'/livre/'+book.id">En savoir +</a>
+            <a v-if="authorId !== userInfo?.id" class="see-more" :href="'/livre/' + book.id">En savoir +</a>
         </div>
     </div>
 </template>
@@ -31,7 +34,7 @@ export default {
     computed: {
         ...mapState(['userInfo']),
     },
-    mounted(){
+    mounted() {
         this.getBooksByAuthor(this.authorId);
     },
     methods: {
@@ -69,7 +72,6 @@ export default {
 
 .book {
     border: 1px solid #FF5E1A;
-    border-radius: 15px;
     margin: 15px;
     text-align: left;
     flex-flow: wrap;
@@ -105,14 +107,29 @@ export default {
     height: 15px;
     vertical-align: middle;
 }
+
 .see-more {
     float: right;
 }
+
 a {
     cursor: pointer;
 }
+
 .link {
     display: block;
     margin: 0;
+}
+
+@media screen and (max-width: 990px) {
+    #bloc-liste-book .book {
+        margin: 15px 0;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #bloc-liste-book .book {
+        padding: 15px 20px;
+    }
 }
 </style>

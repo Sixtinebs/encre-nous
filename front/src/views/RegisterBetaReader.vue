@@ -13,21 +13,21 @@
       <div class="not-succes-msg" v-if="message" v-html="message"></div>
     </div>
     <div enctype="multipart/form-data" class="register form">
-      <div class="info-user">
+      <div class="info-user wrap">
         <div class="info">
           <label class="label-register" for="last-name">Votre nom <span class="required">*</span></label>
-          <input v-model="lastName" type="text" id="last-name" name="last-name" required maxlength="50">
+          <input class="input-text-champ" v-model="lastName" type="text" id="last-name" name="last-name" required maxlength="50">
         </div>
         <div class="info">
           <label class="label-register" for="first-name">Votre Prénom <span class="required">*</span></label>
-          <input v-model="firstName" type="text" id="first-name" name="first-name" required maxlength="50">
+          <input class="input-text-champ" v-model="firstName" type="text" id="first-name" name="first-name" required maxlength="50">
         </div>
       </div>
 
       <div class="info-user ">
         <div class="info">
           <label class="label-register" for="birthday">Votre date de naissance <span class="required">*</span></label>
-          <input v-model="birthday" type="date" id="birthday" name="birthday"  max="2004-01-01"
+          <input v-model="birthday" type="date" id="birthday" name="birthday" max="2004-01-01"
             placeholder="Votre date de naissance" />
         </div>
         <!-- <div class="info">
@@ -37,15 +37,15 @@
         </div> -->
       </div>
 
-      <div class="info-user">
+      <div class="info-user wrap">
         <div class="info textarea">
           <label class="label-register" for="description">Décrivez-vous <span class="required">*</span></label>
-          <textarea v-model="description" type="textarea" id="description"  name="description"></textarea>
+          <textarea v-model="description" type="textarea" id="description" name="description"></textarea>
         </div>
         <div class="info textarea">
           <label class="label-register textarea" for="method-working">Décrivez votre méthode de travail <span
               class="required">*</span></label>
-          <textarea v-model="methodWorking" id="method-working"  name="method-working"></textarea>
+          <textarea v-model="methodWorking" id="method-working" name="method-working"></textarea>
         </div>
       </div>
 
@@ -74,28 +74,28 @@
         </div>
       </div>
 
-      <div class="info-user">
+      <div class="info-user wrap">
         <div class="info">
           <label class="label-register" for="prices">Tarifs <span class="required">*</span></label>
-          <input v-model="tarif" type="text" id="prices"  name="prices">
+          <input v-model="tarif" type="text" id="prices" name="prices">
         </div>
         <div class="info">
           <label class="label-register" for="siret">Siret <span class="required">*</span></label>
-          <input v-model="siret" type="number" id="Siret" name="Siret"  minlength="13" maxlength="13">
+          <input class="input-text" v-model="siret" type="number" id="Siret" name="Siret" minlength="13" maxlength="13">
         </div>
       </div>
 
-      <div class="info-user">
+      <div class="info-user wrap">
         <div class="info">
           <label class="label-register" for="email">Votre Email <span class="required">*</span></label>
-          <input v-model="email" type="email" id="email" required name="email">
+          <input class="input-text-champ" v-model="email" type="email" id="email" required name="email">
         </div>
         <div class="info">
           <label class="label-register" for="password">Votre mot de passe <span class="required">*</span></label>
-          <input v-model="password" type="password" id="password"  name="password"  autocomplete="on">
+          <input v-model="password" type="password" id="password" name="password" autocomplete="on">
           <label class="label-register" for="confirm-password">Confirmer votre mot de passe <span
               class="required">*</span></label>
-          <input v-model="confirmPassword" type="password" id="confirm-password"  name="confirm-password">
+          <input v-model="confirmPassword" type="password" id="confirm-password" name="confirm-password">
         </div>
       </div>
       <p class="field-required"><span class="required">*</span> Champ obligatoire</p>
@@ -127,9 +127,6 @@ export default {
   },
   methods: {
     selectFile() {
-      console.log('coucou')
-      //const files = this.$refs.file.files[0];
-      //if (!files.length) return;
       this.file = this.$refs.file.files[0];
       console.log(this.file)
     },
@@ -138,59 +135,41 @@ export default {
       const fielIsEmpty = this.fieldEmptyMessage();
       const isCorrectPassword = this.verifyPassword(this.password, this.confirmPassword);
       if (!isCorrectPassword || fielIsEmpty) {
-        console.log('ici')
         return;
       }
-      // console.log(this.file)
-      // let formData = new FormData();
-      // formData.append("file", this.file);
-      // formData.append("role", "br");
-      // formData.append("last_name", this.lastName);
-      // formData.append("first_name", this.firstName);
-      // formData.append("birthday", this.birthday);
-      // formData.append("description", this.description);
-      // formData.append("price", this.price);
-      // formData.append("siret", this.siret);
-      // formData.append("password", this.password);
-      // formData.append("experience", this.experience);
-      // formData.append("method_working", this.method_working);
-      // formData.append("email", this.email);
-
-
-      //console.log("FORMDATA : "+ formData)
       const self = this;
       try {
-      await this.$store
-        .dispatch("createAccountBetaReader", { 
-          last_name: this.lastName,
-          first_name: this.firstName,
-          birthday: this.birthday,
-          description: this.description,
-          method_working: this.methodWorking,
-          price: this.tarif,
-          experience: this.experience,
-          siret: this.siret,
-          email: this.email,
-          role: "BR",
-          password: this.password 
+        await this.$store
+          .dispatch("createAccountBetaReader", {
+            last_name: this.lastName,
+            first_name: this.firstName,
+            birthday: this.birthday,
+            description: this.description,
+            method_working: this.methodWorking,
+            price: this.tarif,
+            experience: this.experience,
+            siret: this.siret,
+            email: this.email,
+            role: "BR",
+            password: this.password
           })
-         .then((response) => {
-          console.log(response)
-          self.$router.push("/connexion");
+          .then((response) => {
+            console.log(response)
+            self.$router.push("/connexion");
           }
-        )
-        .catch((error) => {
-            if(error.response.data.errorCode == 1062) { 
+          )
+          .catch((error) => {
+            if (error.response.data.errorCode == 1062) {
               this.message += `<p>L'email existe déjà</p>`;
               this.scrollTop();
-            } 
+            }
             console.log(error);
-        })
-      }catch(err) {
+          })
+      } catch (err) {
         console.log(err)
       }
 
-       
+
     },
     verifyPassword(password, password2) {
       if (password == password2) {
@@ -231,8 +210,7 @@ export default {
         isEmpty = true;
       }
 
-      console.log(isEmpty)
-      if(isEmpty){
+      if (isEmpty) {
         this.scrollTop();
         return true;
       } else {
@@ -261,8 +239,9 @@ export default {
 }
 
 .text-register {
-  max-width: 1000px;
+  width: 1000px;
   margin: auto;
+  max-width: fit-content;
 }
 
 .info-user {
@@ -271,13 +250,21 @@ export default {
   margin: 40px 100px;
   border-radius: 25px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .info {
   display: flex;
   flex-direction: column;
-  width: 40%;
+}
+
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.textarea {
+  width: 100%;
 }
 
 .label-register {
@@ -285,6 +272,7 @@ export default {
   font-weight: bold;
   padding: 0 0 20px 40px;
   font-size: 20px;
+  width: fit-content;
 }
 
 .form input {
@@ -333,7 +321,39 @@ input[type="file"] {
   margin-left: 140px;
 }
 
-.textarea textarea{
+.textarea textarea {
   height: 300px;
+}
+
+@media screen and (min-width: 800px) {
+ .input-text-champ {
+    width: 300px
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .info-user {
+    padding: 20px 50px;
+    margin: 40px 25px;
+  }
+
+  .info-user .info {
+    width: 80%;
+  }
+
+  .register.form {
+    max-width: fit-content;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .info-user {
+    padding: 25px 40px;
+    margin: 40px 20px;
+  }
+
+  .info-user .info {
+    width: 100%;
+  }
 }
 </style>

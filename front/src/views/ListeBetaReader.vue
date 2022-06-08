@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Recherche des bêta-lecteurs</h1>
+    <h1>Rechercher des bêta-lecteurs</h1>
     <component-list-beta-reader />
   </div>
 </template>
@@ -22,5 +22,8 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
+h1 {
+  font-weight: bold;
+}
 </style>

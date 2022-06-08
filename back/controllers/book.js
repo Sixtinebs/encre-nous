@@ -20,7 +20,6 @@ exports.book_list = function (req, res, next) {
 exports.book_list_by_author = function (req, res, next) {
   models.Book.findAll({ where: { author_id: req.params.id } })
     .then((books) => {
-      console.log(books);
       res.status(200).json({ books: books });
     })
     .catch((error) => res.status(404).json({ error }));
@@ -43,20 +42,18 @@ exports.book = function (req, res) {
 };
 
 exports.create = function (req, res, next) {
-  const book = models.Book.build({
+  const book = models.Book.create({
     title: req.body.title,
     summarize: req.body.summarize,
     email: req.body.email,
     number_word: req.body.number_word,
     genre: req.body.genre,
     author_id: req.body.author_id,
-  });
-  book
-    .save()
+  })
     .then(() => {
       res.status(201).json({ message: book.title + " successfully created" });
     })
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => res.status(400).json({ error }));
 };
 
 exports.update = function (req, res) {

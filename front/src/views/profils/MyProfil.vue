@@ -55,15 +55,17 @@
         </div>
 
       </div>
+      <div class="all-buttons">
+        <a v-if="user.role == 'A'" @click="addBook()" class="btn-form btn-submit">Ajouter un livre</a>
+        <a @click="modify()" class="btn-form btn-submit">Modifier mon profil</a>
+        <a @click="signOut()" class="btn-form btn-submit">Se déconnecter</a>
+        <a @click="deleteProfil(user.id)" class="btn-delete btn-form btn-submit">Supprimer son compte</a>
+      </div>
 
-      <a v-if="user.role == 'A'" @click="addBook()" class="btn-form btn-submit">Ajouter un livre</a>
-      <a @click="modify()" class="btn-form btn-submit">Modifier mon profil</a>
-      <a @click="signOut()" class="btn-form btn-submit">Se déconnecter</a>
-      <a @click="deleteProfil(user.id)" class="btn-delete btn-form btn-submit">Supprimer son compte</a>
     </section>
 
     <section id="modify-profil" v-if="!display">
-      <modify-profil @change-display="modify"  />
+      <modify-profil @change-display="modify" />
     </section>
 
 
@@ -98,8 +100,6 @@ export default {
       errorMessage: '',
       url: null,
       file: null,
-      message: null,
-      //books: null,
     }
   },
   components: {
@@ -221,6 +221,7 @@ export default {
 
 #my-profil a.btn-submit {
   float: initial;
+  margin-bottom: 15px;
 }
 
 #modify-profil .container-info div {
@@ -242,6 +243,10 @@ input[type="file"] {
 
 #modify-profil .container-image {
   max-width: 400px;
+}
+
+#modify-profil.container-info {
+  margin-left: 0px;
 }
 
 .container-other-info {
@@ -266,5 +271,72 @@ input[type="file"] {
   height: 40px;
   justify-content: center;
   align-items: center;
+}
+
+.all-buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 990px) {
+  #my-profil {
+    margin: 0 25px 100px 25px;
+  }
+
+  .bloc-1 {
+    display: flex;
+
+  }
+
+  .bloc-1 .container-info {
+    width: 70%;
+  }
+
+  /* .bloc-1 .container-image {
+    width: 30%;
+  } */
+
+  #my-profil img {
+    max-width: 100%;
+    width: 400px
+  }
+
+}
+
+@media screen and (max-width: 750px) {
+  .all-buttons .btn-submit {
+    font-size: 13px;
+    margin: 3px auto;
+  }
+
+  .all-buttons .btn-form {
+    padding: 10px;
+  }
+
+  #bloc-liste-book .book {
+    margin: 15px 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .bloc-1 {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+
+  #my-profil .container-info {
+    margin-left: 0px;
+    width: 100%;
+  }
+
+  .bloc-1 .container-image {
+    width: 100%;
+  }
+
+  #my-profil img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
 }
 </style>

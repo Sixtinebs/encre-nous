@@ -93,7 +93,7 @@ form {
 
 #add-new-book form .input {
     display: flex;
-    margin: 20px;
+    margin: 20px 0;
 
 }
 
@@ -123,5 +123,11 @@ textarea {
     margin: auto;
     border-radius: 20px;
     border: 1px solid #a7ab83;
+}
+
+@media screen and (max-width: 850px) {
+    form {
+        margin: auto 10px;
+    }
 }
 </style>

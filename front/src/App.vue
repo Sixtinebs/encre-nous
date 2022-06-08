@@ -1,9 +1,9 @@
 <template>
   <div id="container">
-    <div :class="{ active: isMobile }">
+    <div v-if="windowWidth >= 1150" class="desktop-header" >
       <header-main />
     </div>
-    <div :class="{ active: isDesktop }">
+    <div v-if="windowWidth < 1150" class="mobil-header">
       <burger-header />
     </div>
     <router-view />
@@ -25,17 +25,18 @@ export default {
   },
   data() {
     return {
-      windowWidth: window.innerWidth,
+       windowWidth: window.innerWidth,
       isMobile: false,
       isDesktop: true
     }
   },
-  mounted() {
+
+  created() {
     this.resizeMenu();
 
   },
   methods: {
-    resizeMenu(){
+    resizeMenu() {
       window.onresize = () => {
         this.windowWidth = window.innerWidth
         if (this.windowWidth > 1150) {
@@ -61,7 +62,7 @@ body {
 }
 
 #container {
-  font-family: "Segoe UI", Eras, Arial, sans-serif;
+  font-family: "Segoe UI", "Eras", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -112,7 +113,12 @@ h2 {
   font-weight: 100;
   font-size: 35px;
 }
+@media screen and (max-width: 850px){
+  h2 {
+  font-size: 20px
+  }
 
+}
 .btn-form {
   background-color: #ff5e1a;
   border: 1px solid #70707000;
@@ -124,7 +130,6 @@ h2 {
 
 .btn-form:hover {
   background-color: #0e0e66;
-  color: #ffffff;
 }
 
 
@@ -136,12 +141,12 @@ h2 {
 .btn-form.btn-1:hover {
   background-color: #ff5e1a;
   border: 0.5px solid #0e0e66;
-  color: #ffffff;
+  /* color: #ffffff; */
 }
 
 .btn-form.btn-2:hover {
   border: 0.5px solid #ff5e1a;
-  color: #ffffff;
+  /* color: #ffffff; */
 }
 
 .not-succes-msg {
@@ -158,4 +163,18 @@ h2 {
   display: none;
 }
 
+.mobil-header {
+  height: 100px;
+}
+
+.mobil-header a {
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.bm-menu {
+  background-color: #0e0e66;
+}
 </style>

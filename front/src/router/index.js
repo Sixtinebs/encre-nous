@@ -91,6 +91,7 @@ const routes = [
   {
     path: "/enregistrer",
     name: "StartRegister",
+    beforeEnter: onlyNotLogin,
     component: StartRegister,
     meta: {
       title: "Enregistrer-vous sur Encre-nous !",
@@ -99,6 +100,7 @@ const routes = [
   {
     path: "/enregistrer/beta-lecteur",
     name: "RegisterBetaReader",
+    beforeEnter: onlyNotLogin,
     component: RegisterBetaReader,
     meta: {
       title: "Enregistrer-vous en tant que Bêta-lecteur !",
@@ -107,6 +109,7 @@ const routes = [
   {
     path: "/enregistrer/auteur",
     name: "RegisterAuthor",
+    beforeEnter: onlyNotLogin,
     component: RegisterAuthor,
     meta: {
       title: "Enregistrer-vous en tant qu'auteur !",
