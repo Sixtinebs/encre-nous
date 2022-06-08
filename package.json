@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "simple-ssh-commands": "^0.4.2"
+  }
+}
