@@ -4,5 +4,20 @@
   },
   "dependencies": {
     "simple-ssh-commands": "^0.4.2"
-  }
+  },
+  "name": "encre-nous",
+  "description": "git clone https://github.com/Sixtinebs/encre-nous.git && cd encre-nous",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sixtinebs/encre-nous.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sixtinebs/encre-nous/issues"
+  },
+  "homepage": "https://github.com/Sixtinebs/encre-nous#readme"
 }
