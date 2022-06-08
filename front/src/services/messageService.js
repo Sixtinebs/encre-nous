@@ -4,6 +4,7 @@ import qs from "qs";
 
 export default {
   instance: axios.create({
+    baseURL: "http://liaxum.fr/encrenous/",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       'Authorization': 'Bearer ' + store.state.user.token

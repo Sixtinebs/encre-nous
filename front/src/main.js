@@ -4,8 +4,6 @@ import Router from './router'
 import store from './store';
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://liaxum.fr/encrenous/"
 
 const app = createApp(App)
 app.use(Router)
