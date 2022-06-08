@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "ci": "concurrently npm:deploy:*",
+    "ci": "npm i && npm run build",
     "deploy:inst": "npm i",
     "deploy:build": "npm run build"
   },
