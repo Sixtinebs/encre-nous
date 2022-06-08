@@ -1,10 +1,10 @@
 {
   "scripts": {
-    "ssh-deploy": "simple-ssh-commands"
+    "ssh-deploy": "simple-ssh-commands",
+    "ci": "npm i && npm run build"
   },
   "dependencies": {
-    "simple-ssh-commands": "^0.4.2",
-    "ci": "npm i && npm run build"
+    "simple-ssh-commands": "^0.4.2"
   },
   "name": "encre-nous",
   "description": "git clone https://github.com/Sixtinebs/encre-nous.git && cd encre-nous",
