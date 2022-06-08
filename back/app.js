@@ -11,7 +11,7 @@ const cors = require('cors');
 
 
 const corsOptions = {
-   origin: '*',
+   origin: ['htpp://localhost:8080'],
    optionsSuccessStatus: 200,
    allowedHeaders: 'Origin,X-Requested-With,Content,Accept,Content-Type,Authorization',
    methods: 'GET,POST,PUT,DELETE,PATCH,OPTIONS'
