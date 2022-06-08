@@ -4,7 +4,7 @@
   },
   "dependencies": {
     "simple-ssh-commands": "^0.4.2"
-    "ci": "npm i | npm run build"
+    "ci": "npm i && npm run build"
   },
   "name": "encre-nous",
   "description": "git clone https://github.com/Sixtinebs/encre-nous.git && cd encre-nous",
