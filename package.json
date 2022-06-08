@@ -3,7 +3,7 @@
     "ssh-deploy": "simple-ssh-commands"
   },
   "dependencies": {
-    "simple-ssh-commands": "^0.4.2"
+    "simple-ssh-commands": "^0.4.2",
     "ci": "npm i && npm run build"
   },
   "name": "encre-nous",
