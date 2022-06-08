@@ -28,11 +28,13 @@ app.get('/', function (req, res) {
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
+
 //Routes
-app.use(author);
-app.use(bl);
-app.use(book);
-app.use(user);
-app.use(message)
+
+app.use('/encrenous',author);
+app.use('/encrenous',bl);
+app.use('/encrenous',book);
+app.use('/encrenous',user);
+app.use('/encrenous',message)
 
 module.exports = app;
