@@ -1,5 +1,5 @@
 {
     "username": "liaxum",
     "host": "78.228.62.74",
-    "commands": ["cd dev/encre-nous", "git pull", "pm2 restart encre-nous", "cd front", "npm i", "npm run build", "rm -r ../../php/encre-nous", "cp -r dist/ ../../php/encre-nous"]
+    "commands": ["cd dev/encre-nous", "git pull", "pm2 restart encre-nous", "cd front", "npm i"]
 }
