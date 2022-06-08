@@ -4,8 +4,8 @@
       <p>Êtes-vous auteur ou bêta-lecteur ? </p>
     </div>
     <div class="buttons">
-      <router-link class="btn-form btn-1" href="/enregistrer/auteur">Je suis auteur</router-link>
-      <routerLink class="btn-form btn-2" href="/enregistrer/beta-lecteur">Je suis Bêta-lecteur</routerLink>
+      <router-link class="btn-form btn-1" to="/enregistrer/auteur">Je suis auteur</router-link>
+      <routerLink class="btn-form btn-2" to="/enregistrer/beta-lecteur">Je suis Bêta-lecteur</routerLink>
     </div>
   </div>
 
