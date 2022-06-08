@@ -1,0 +1,20 @@
+name: MDS Project Back CI
+
+on: 
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 17
+        uses: actions/setup-node@v3
+      - name: Deploy
+        run: |
+          npm i
+          echo ${{secrets.PRIVATE_KEY}} | npm run ssh-deploy
