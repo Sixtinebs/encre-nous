@@ -1,6 +1,6 @@
 <template>
   <div id="bloc-home-1">
-    <h1>Bienvenue sur la seule plateforme <br>de mise en relation entre beta lecteur et auteurs !</h1>
+    <h1>Bienvenue sur la seule plateforme <br>de mise en relation entre beta lecteurs et auteurs !</h1>
     <!-- <input class="input-search" type="text" placeholder="Rechercher un projet de lecture ..."> -->
     <img class="img-background" src="../assets/images/books-imagination.jpg" alt="">
   </div>
