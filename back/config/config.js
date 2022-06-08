@@ -7,7 +7,7 @@ const sequelize = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: 'mysql',
-    port: 8889
+    port: process.env.PORT
   },
   test: {
     username: 'database_test',
