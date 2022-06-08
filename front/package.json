@@ -5,7 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "ci": "concurrently npm:deploy:*",
+    "deploy:inst": "npm i",
+    "deploy:build": "npm run build"
   },
   "dependencies": {
     "axios": "^0.26.1",
