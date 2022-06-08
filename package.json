@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "ssh-deploy": "simple-ssh-commands"
+  },
   "dependencies": {
     "simple-ssh-commands": "^0.4.2"
   }
