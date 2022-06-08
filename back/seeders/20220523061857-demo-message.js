@@ -6,29 +6,29 @@ module.exports = {
       "Messages",
       [
         {
-          author_id: 1,
-          beta_reader_id: 1,
+          recipient_id: 2,
+          originator_id: 1,
           message: "Salut ça va ?",
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          author_id: 1,
-          beta_reader_id: 2,
+          recipient_id: 1,
+          originator_id: 2,
           message: "Hello ça va ?",
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          author_id: 2,
-          beta_reader_id: 4,
+          recipient_id: 3,
+          originator_id: 4,
           message: "Hello ça va ?",
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          author_id: 6,
-          beta_reader_id: 7,
+          recipient_id: 4,
+          originator_id: 3,
           message: "Hello ça va ?",
           createdAt: new Date(),
           updatedAt: new Date()
