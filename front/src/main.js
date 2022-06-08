@@ -2,7 +2,7 @@ import { createApp } from 'vue/dist/vue.esm-bundler';
 import App from './App.vue'
 import Router from './router' 
 import store from './store';
-import axios from 'axios';
+
 
 
 const app = createApp(App)
