@@ -4,7 +4,6 @@ import store from '@/store';
 
 export default {
   instance: axios.create({
-    baseURL: "http://localhost:8080",
     timeout: 1000,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
